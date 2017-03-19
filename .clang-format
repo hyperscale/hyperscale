@@ -1,0 +1,42 @@
+---
+Language:        Cpp
+
+
+
+BraceWrapping:
+  AfterClass:      false
+  AfterControlStatement: false
+  AfterEnum:       false
+  AfterFunction:   false
+  AfterNamespace:  false
+  AfterObjCDeclaration: false
+  AfterStruct:     false
+  AfterUnion:      false
+  BeforeCatch:     false
+  BeforeElse:      false
+  IndentBraces:    false
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Attach
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializersBeforeComma: false
+BreakAfterJavaFieldAnnotations: false
+BreakStringLiterals: true
+ColumnLimit:     120
+CommentPragmas:  '^ IWYU pragma:'
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+Cpp11BracedListStyle: true
+DisableFormat:   true
+IndentCaseLabels: false
+IndentWidth:     4
+IndentWrappedFunctionNames: false
+KeepEmptyLinesAtTheStartOfBlocks: true
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: Inner
+PointerAlignment: Right
+ReflowComments:  true
+SortIncludes:    true
+Standard:        Cpp11
+TabWidth:        4
+UseTab:          Never

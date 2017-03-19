@@ -1,0 +1,29 @@
+/**
+ * Hyperscale
+ *
+ * (c) 2015-2016 Axel Etcheverry
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+#pragma once
+
+#define HYPERSCALE_NAME                 "Hyperscale"
+#define HYPERSCALE_VERSION_MAJOR        @Hyperscale_VERSION_MAJOR@
+#define HYPERSCALE_VERSION_MINOR        @Hyperscale_VERSION_MINOR@
+#define HYPERSCALE_VERSION_PATCH        @Hyperscale_VERSION_PATCH@
+#define HYPERSCALE_VERSION              "@Hyperscale_VERSION_MAJOR@.@Hyperscale_VERSION_MINOR@.@Hyperscale_VERSION_PATCH@"
+#define HYPERSCALE_AUTHOR               "Axel Etcheverry"
+#define HYPERSCALE_COPYRIGHT_START_YEAR 2015
+#define HYPERSCALE_COPYRIGHT_END_YEAR   @Hyperscale_CURRENT_YEAR@
+#define HYPERSCALE_INCLUDE_PATH         "@HYPERSCALE_INCLUDE_PATH@"
+#define HYPERSCALE_LIBRARY_PATH         "@HYPERSCALE_LIBRARY_PATH@"
+#define HYPERSCALE_MODULE_PATH          "@HYPERSCALE_MODULE_PATH@"
+#define SYSTEM                          "@SYSTEM@"
+#define SYSTEM_NAME                     "@SYSTEM_NAME@"
+#define SYSTEM_PROCESSOR                "@SYSTEM_PROCESSOR@"
+#define SIZEOF_DATA_PTR                 "@SIZEOF_DATA_PTR@"
+#define LLVM_VERSION                    "@LLVM_VERSION@"
+#define D_LLVM_VERSION_MAJOR            @D_LLVM_VERSION_MAJOR@
+#define D_LLVM_VERSION_MINOR            @D_LLVM_VERSION_MINOR@
+#define LLVM_BIN_DIR                    "@LLVM_BIN_DIR@"
