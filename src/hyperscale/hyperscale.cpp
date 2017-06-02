@@ -11,6 +11,7 @@
 #include <einfo.h>
 #include <hyperscale/command.hpp>
 #include <hyperscale/command/build.hpp>
+#include <hyperscale/command/debug/lexer.hpp>
 #include <hyperscale/command/help.hpp>
 #include <hyperscale/command/version.hpp>
 #include <hyperscale/config.hpp>
@@ -21,6 +22,7 @@
 
 //@TODO use struct with desc for help ?
 static std::map<std::string, hyperscale::command_t> commands = {
+    {"debug:lexer", hyperscale::command::debug::lexer},
     {"build", hyperscale::command::build},
     {"help", hyperscale::command::help},
     {"version", hyperscale::command::version},

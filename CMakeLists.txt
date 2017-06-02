@@ -45,9 +45,9 @@ execute_process (
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-set (Hyperscale_VERSION_MAJOR   0)
-set (Hyperscale_VERSION_MINOR   1)
-set (Hyperscale_VERSION_PATCH   0)
+set (HYPERSCALE_VERSION_MAJOR   0)
+set (HYPERSCALE_VERSION_MINOR   1)
+set (HYPERSCALE_VERSION_PATCH   0)
 set (HYPERSCALE_INCLUDE_PATH    "${CMAKE_INSTALL_PREFIX}/include/hyperscale")
 set (HYPERSCALE_LIBRARY_PATH    "${CMAKE_INSTALL_PREFIX}/lib/hyperscale")
 set (HYPERSCALE_MODULE_PATH     "${CMAKE_INSTALL_PREFIX}/lib/hyperscale")
@@ -60,7 +60,7 @@ set (D_LLVM_VERSION_MAJOR       "${D_LLVM_VERSION_MAJOR}")
 set (D_LLVM_VERSION_MINOR       "${D_LLVM_VERSION_MINOR}")
 set (LLVM_BIN_DIR               "${LLVM_BIN_DIR}")
 
-string (TIMESTAMP Hyperscale_CURRENT_YEAR "%Y")
+string (TIMESTAMP HYPERSCALE_CURRENT_YEAR "%Y")
 
 message (STATUS "LLVM version: ${D_LLVM_VERSION}")
 message (STATUS "LLVM version major: ${D_LLVM_VERSION_MAJOR}")
@@ -167,14 +167,14 @@ else ()
 endif ()
 
 #GENERATOR: "KeywordLookup.h": keyword decision tree used by the lexer
-add_custom_command(
-    OUTPUT ${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/KeywordLookupGenerator.py
-    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/hyperscale/parser/Keywords.table
-    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/KeywordLookupGenerator.py ${CMAKE_CURRENT_SOURCE_DIR}/src/hyperscale/parser/Keywords.table > ${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h
-    VERBATIM
-)
-set_source_files_properties(${CMAKE_SOURCE_DIR}/src/hyperscale/parser/Lexer.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h")
+#add_custom_command(
+#    OUTPUT ${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h
+#    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/KeywordLookupGenerator.py
+#    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/hyperscale/parser/Keywords.table
+#    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/KeywordLookupGenerator.py ${CMAKE_CURRENT_SOURCE_DIR}/src/hyperscale/parser/Keywords.table > ${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h
+#    VERBATIM
+#)
+#set_source_files_properties(${CMAKE_SOURCE_DIR}/src/hyperscale/parser/Lexer.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h")
 
 
 find_package (Boost 1.54.0 COMPONENTS filesystem program_options REQUIRED)
@@ -183,8 +183,8 @@ include_directories (${Boost_INCLUDE_DIRS})
 add_subdirectory (lib/libeinfo libeinfo)
 include_directories (${LIBEINFO_INCLUDE_DIR})
 
-add_subdirectory (lib/WTF wtf)
-include_directories (${LIBWTF_INCLUDE_DIR})
+#add_subdirectory (lib/WTF wtf)
+#include_directories (${LIBWTF_INCLUDE_DIR})
 
 include_directories (${CMAKE_SOURCE_DIR}/include)
 
@@ -201,5 +201,5 @@ add_executable (
 )
 set_target_properties (hyperscale PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I.")
 set_target_properties (hyperscale PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
-target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo wtf ${Boost_LIBRARIES})
+target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo ${Boost_LIBRARIES})
 install (TARGETS hyperscale DESTINATION bin)
