@@ -19,11 +19,11 @@
 #define HYPERSCALE_INCLUDE_PATH         "/usr/local/include/hyperscale"
 #define HYPERSCALE_LIBRARY_PATH         "/usr/local/lib/hyperscale"
 #define HYPERSCALE_MODULE_PATH          "/usr/local/lib/hyperscale"
-#define SYSTEM                          "Darwin-16.6.0"
+#define SYSTEM                          "Darwin-16.4.0"
 #define SYSTEM_NAME                     "Darwin"
 #define SYSTEM_PROCESSOR                "x86_64"
 #define SIZEOF_DATA_PTR                 "8"
 #define LLVM_VERSION                    ""
 #define D_LLVM_VERSION_MAJOR            4
 #define D_LLVM_VERSION_MINOR            0
-#define LLVM_BIN_DIR                    "/usr/local/Cellar/llvm/4.0.0_1/bin"
+#define LLVM_BIN_DIR                    "/usr/local/Cellar/llvm/4.0.0/bin"

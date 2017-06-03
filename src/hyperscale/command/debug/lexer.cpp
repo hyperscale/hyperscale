@@ -49,15 +49,19 @@ namespace debug {
             throw std::runtime_error("Cannot open file");
         }
 
-        hyperscale::parser::Lexer lexer;
+        std::string content(
+            (std::istreambuf_iterator<char>(file)),
+            (std::istreambuf_iterator<char>())
+        );
+        file.close();
 
-        auto tokens = lexer.lex(file);
+        hyperscale::parser::Lexer lexer(content);
 
-        for (const auto& token: tokens) {
+        while (lexer.isCodeCompletion()) {
+            auto token = lexer.lex();
             std::cout << token << std::endl;
         }
 
-        file.close();
 
         return EXIT_SUCCESS;
     }

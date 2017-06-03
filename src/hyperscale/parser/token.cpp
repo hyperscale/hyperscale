@@ -8,17 +8,19 @@
  */
 
 #include <hyperscale/parser/token.hpp>
+#include <hyperscale/syntax/token_kinds.hpp>
 
 namespace hyperscale {
 namespace parser {
 
     std::ostream& operator<<(std::ostream& os, const Token& token) {
         return os << "Token {"
-            << "type: " << token.type << ", "
-            << "value: " << token.value << ", "
-            << "start: " << token.start << ", "
+            << "kind: " << static_cast<std::underlying_type<syntax::TokenKind>::type>(token.getKind()) << ", "
+            << "value: " << token.getText().str()
+            /*<< "start: " << token.start << ", "
             << "end: " << token.end << ", "
-            << "length: " << token.length << "}" << std::endl;
+            << "length: " << token.length */
+            << "}" << std::endl;
     }
 
 } // end of parser namespace

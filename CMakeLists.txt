@@ -13,6 +13,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 
+
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+
 find_program (LLVM_CONFIG llvm-config DOC "path to llvm-config")
 find_program (CLANG clang DOC "path to clang")
 
@@ -186,6 +189,35 @@ include_directories (${LIBEINFO_INCLUDE_DIR})
 #add_subdirectory (lib/WTF wtf)
 #include_directories (${LIBWTF_INCLUDE_DIR})
 
+find_package(LLVM REQUIRED COMPONENTS
+    option
+    analysis
+    bitreader
+    mcparser
+    instrumentation
+)
+
+find_package(Clang REQUIRED COMPONENTS
+    clang
+    clangAnalysis
+    clangAST
+    clangASTMatchers
+    clangBasic
+    clangCodeGen
+    clangDriver
+    clangEdit
+    clangFrontend
+    clangFrontendTool
+    clangLex
+    clangParse
+    clangSema
+    clangSerialization
+    clangTooling
+)
+
+include_directories(${CLANG_INCLUDE})
+include_directories(${CLANG_INCLUDE_DIRS})
+
 include_directories (${CMAKE_SOURCE_DIR}/include)
 
 file (
@@ -201,5 +233,5 @@ add_executable (
 )
 set_target_properties (hyperscale PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I.")
 set_target_properties (hyperscale PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
-target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo ${Boost_LIBRARIES})
+target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo ${CLANG_LIBS} ${Boost_LIBRARIES})
 install (TARGETS hyperscale DESTINATION bin)

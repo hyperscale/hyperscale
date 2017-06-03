@@ -50,6 +50,9 @@
         "ios": "cpp",
         "iterator": "cpp",
         "map": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "codecvt": "cpp",
+        "algorithm": "cpp",
+        "*.def": "cpp"
     }
 }
