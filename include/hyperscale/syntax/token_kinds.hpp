@@ -23,7 +23,7 @@ namespace syntax {
         OperBinarySpaced,     // "x + y"
         OperPostfix,
         OperPrefix,
-        Dollarident,
+        DollarIdent,
         IntegerLiteral,
         FloatingLiteral,
         StringLiteral,

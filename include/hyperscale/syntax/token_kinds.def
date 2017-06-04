@@ -183,18 +183,13 @@ PUNCTUATOR(Backtick,      "`")
 
 PUNCTUATOR(Backslash, "\\")
 
-PUNCTUATOR(exclaim_postfix, "!") // if left-bound
+PUNCTUATOR(ExclaimPostfix, "!") // if left-bound
 
-PUNCTUATOR(question_postfix, "?") // if left-bound
-PUNCTUATOR(question_infix,"?")    // if not left-bound
+PUNCTUATOR(QuestionPostfix, "?") // if left-bound
+PUNCTUATOR(QuestionInfix,"?")    // if not left-bound
 
-PUNCTUATOR(sil_dollar,    "$")    // Only in SIL mode.
-PUNCTUATOR(sil_exclamation, "!")    // Only in SIL mode.
-
-// Legacy punctuators used for migrating old object literal syntax.
-// NOTE: Remove in the future.
-PUNCTUATOR(l_square_lit,  "[#")
-PUNCTUATOR(r_square_lit,  "#]")
+PUNCTUATOR(SilDollar,    "$")    // Only in SIL mode.
+PUNCTUATOR(SilExclamation, "!")    // Only in SIL mode.
 
 // Keywords prefixed with a '#'.  "if" becomes "tok::pound_if".
 POUND_KEYWORD(if)

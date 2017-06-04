@@ -233,5 +233,5 @@ add_executable (
 )
 set_target_properties (hyperscale PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I.")
 set_target_properties (hyperscale PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
-target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo ${CLANG_LIBS} ${Boost_LIBRARIES})
+target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo curses ${CLANG_LIBS} ${Boost_LIBRARIES})
 install (TARGETS hyperscale DESTINATION bin)
