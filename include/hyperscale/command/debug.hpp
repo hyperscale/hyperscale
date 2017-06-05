@@ -8,21 +8,13 @@
  */
 #pragma once
 
-#include <boost/program_options.hpp>
 #include <hyperscale/console/command.hpp>
 #include <memory>
 
 namespace hyperscale {
 namespace command {
-namespace debug {
 
-    namespace po = boost::program_options;
+    std::shared_ptr<console::Command> debugCommand();
 
-    int lexer(po::variables_map &vm, po::parsed_options &options, po::options_description &desc);
-
-
-    std::shared_ptr<console::Command> lexerCommand();
-
-} // end of debug namespace
 } // end of command namespace
 } // end of hyperscale namespace

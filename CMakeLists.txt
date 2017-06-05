@@ -147,7 +147,7 @@ else ()
     set (HYPERSCALE_LINK_FLAGS_ "${HYPERSCALE_LIBDIR_FLAGS_} ${HYPERSCALE_LIB_FLAGS_} -ldl")
 endif ()
 
-set (CXX_FLAGS_EXTRA "-std=c++11")
+set (CXX_FLAGS_EXTRA "-std=c++14")
 
 string (REGEX REPLACE "^ +" "" HYPERSCALE_LINK_FLAGS ${HYPERSCALE_LINK_FLAGS_})
 set (CMAKE_CXX_FLAGS         "$ENV{CPPFLAGS} -Wall")

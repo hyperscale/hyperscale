@@ -11,10 +11,12 @@
 #include <einfo.h>
 #include <hyperscale/command.hpp>
 #include <hyperscale/command/build.hpp>
+#include <hyperscale/command/debug.hpp>
 #include <hyperscale/command/debug/lexer.hpp>
 #include <hyperscale/command/help.hpp>
 #include <hyperscale/command/version.hpp>
 #include <hyperscale/config.hpp>
+#include <hyperscale/console/application.hpp>
 #include <hyperscale/hyperscale.hpp>
 #include <iostream>
 #include <map>
@@ -29,6 +31,15 @@ static std::map<std::string, hyperscale::command_t> commands = {
 };
 
 int main(int argc, char **argv) {
+
+    hyperscale::console::Application app;
+
+    app.name("hyperscale")
+        .description("Hyperscale compiler")
+        .command(hyperscale::command::debugCommand())
+        .command(hyperscale::command::versionCommand())
+        .parse(argc, argv);
+
     try {
         namespace po = boost::program_options;
 

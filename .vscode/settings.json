@@ -53,6 +53,8 @@
         "vector": "cpp",
         "codecvt": "cpp",
         "algorithm": "cpp",
-        "*.def": "cpp"
+        "*.def": "cpp",
+        "bitset": "cpp",
+        "set": "cpp"
     }
 }

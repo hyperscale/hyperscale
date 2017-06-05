@@ -23,5 +23,19 @@ namespace command {
         return EXIT_SUCCESS;
     }
 
+    std::shared_ptr<console::Command> versionCommand() {
+        auto cmd = std::make_shared<console::Command>();
+
+        cmd->name("version");
+        cmd->description("Show the hyperscale version information");
+        cmd->handle([]() {
+            hyperscale::show_version();
+            hyperscale::show_copyright();
+            hyperscale::show_llvm_version();
+        });
+
+        return cmd;
+    }
+
 } // end of command namespace
 } // end of hyperscale namespace

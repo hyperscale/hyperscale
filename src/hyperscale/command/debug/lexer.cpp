@@ -13,6 +13,7 @@
 #include <hyperscale/parser/lexer.hpp>
 #include <hyperscale/parser/token.hpp>
 #include <iostream>
+#include <memory>
 #include <string>
 
 namespace hyperscale {
@@ -65,6 +66,39 @@ namespace debug {
 
         return EXIT_SUCCESS;
     }
+
+    std::shared_ptr<console::Command> lexerCommand() {
+        auto cmd = std::make_shared<console::Command>();
+
+        //std::unique_ptr<console::Command> cmd(new console::Command);
+
+        cmd->name("lexer");
+        cmd->description("Debug hyperscale lexer");
+        cmd->handle([]() {
+            std::string filename = "../dev/test.ts";
+
+            std::ifstream file(filename);
+
+            if (!file.is_open()) {
+                throw std::runtime_error("Cannot open file");
+            }
+
+            std::string content(
+                (std::istreambuf_iterator<char>(file)),
+                (std::istreambuf_iterator<char>())
+            );
+            file.close();
+
+            hyperscale::parser::Lexer lexer(content);
+
+            while (lexer.isCodeCompletion()) {
+                auto token = lexer.lex();
+                std::cout << token << std::endl;
+            }
+        });
+
+        return cmd;
+     }
 
 } // end of debug namespace
 } // end of command namespace

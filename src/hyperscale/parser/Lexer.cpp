@@ -357,7 +357,7 @@ namespace parser {
         auto result = m_next_token;
 
         if (result.isNot(syntax::TokenKind::Eof)) {
-            std::cout << "Debug: result.isNot(syntax::TokenKind::Eof)" << std::endl;
+            // std::cout << "Debug: result.isNot(syntax::TokenKind::Eof)" << std::endl;
 
             lexImpl();
         }
@@ -1218,7 +1218,7 @@ namespace parser {
             case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u':
             case 'v': case 'w': case 'x': case 'y': case 'z':
             case '_':
-                std::cout << "Debug: lexIdentifier" << std::endl;
+                // std::cout << "Debug: lexIdentifier" << std::endl;
                 return lexIdentifier();
 
             case '$': return lexDollarIdent();
