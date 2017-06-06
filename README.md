@@ -3,31 +3,41 @@ The Hyperscale Programming Language
 
 This is the main source code repository for Hyperscale. It contains the compiler, standard library, and documentation.
 
-Install
--------
+This project is EXPERIMENTAL. The behaviour of this project, its name, and surrounding documentation may change without notice in a future release.
+
+Compile and run
+---------------
 
 ~~~
 mkdir build
 cd build/
 cmake ../
 make
-make install
+./bin/hyperscale debug lexer ./test.hs
 ~~~
 
-How-To
-------
+Features and roadmap
+--------------------
 
-Build project
-~~~
-cd my-project/
-hyperscale build
-~~~
-
-Test project
-~~~
-cd my-project/
-hyperscale test
-~~~
+- [ ] Command Line
+    - [ ] Debug : Command for debugging compiler during development 
+        - [x] Lexer
+        - [ ] Parser
+    - [ ] Build : Command for build project written in hyperscale
+    - [ ] Test : Command for test project written in hyperscale
+    - [ ] Lint : Command for linting project written in hyperscale
+    - [ ] Package : Command for manage package in project written in hyperscale
+- [ ] Compiler 
+    - [x] Lexer
+    - [ ] Parser
+    - [ ] AST
+    - [ ] Code Generator (LLVM)
+- [ ] Standard Library
+    - [ ] Spec
+- [ ] Documentation
+    - [ ] Grammar/Lexical Structure
+    - [ ] Command Line
+    - [ ] Standard Library
 
 
 License
