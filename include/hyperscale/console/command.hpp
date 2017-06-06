@@ -11,6 +11,7 @@
 #include <functional>
 #include <hyperscale/console/option.hpp>
 #include <hyperscale/console/option_value.hpp>
+#include <map>
 #include <memory>
 #include <string>
 #include <vector>
@@ -28,13 +29,13 @@ namespace console {
 
         std::vector<std::shared_ptr<Option>> m_options;
 
-        std::vector<std::shared_ptr<Command>> m_commands;
+        std::map<std::string, std::shared_ptr<Command>> m_commands;
 
         std::vector<std::string> m_args;
 
         std::shared_ptr<Command> m_parent;
 
-        std::function<void()> m_handle;
+        std::function<int(Command&)> m_handle;
 
     public:
         Command();
@@ -43,23 +44,33 @@ namespace console {
 
         Command& name(const std::string& name);
 
+        std::string getName() const;
+
         Command& description(const std::string& description);
+
+        std::string getDescription() const;
 
         Command& option(std::shared_ptr<Option> option);
 
         Command& command(std::shared_ptr<Command> command);
 
-        Command& handle(std::function<void()> handle);
+        bool hasCommand() const;
+
+        Command& handle(std::function<int(Command&)> handle);
 
         std::shared_ptr<Option> getLongOpt(const std::string& opt) const;
 
         std::shared_ptr<Option> getShortOpt(char opt) const;
 
-        void parse(int argc, char *argv[]);
+        Command& parse(int argc, char *argv[]);
+
+        int run();
 
         std::string getNameWithParent() const;
 
         std::string help() const;
+
+        std::vector<std::string> descriptionToString(std::size_t width = 40) const;
     };
 
 } // end of console namespace

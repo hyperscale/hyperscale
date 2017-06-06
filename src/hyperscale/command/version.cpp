@@ -28,10 +28,12 @@ namespace command {
 
         cmd->name("version");
         cmd->description("Show the hyperscale version information");
-        cmd->handle([]() {
+        cmd->handle([](console::Command& cmd) {
             hyperscale::show_version();
             hyperscale::show_copyright();
             hyperscale::show_llvm_version();
+
+            return EXIT_SUCCESS;
         });
 
         return cmd;

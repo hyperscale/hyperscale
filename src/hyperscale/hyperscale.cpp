@@ -32,13 +32,14 @@ static std::map<std::string, hyperscale::command_t> commands = {
 
 int main(int argc, char **argv) {
 
-    hyperscale::console::Application app;
+    hyperscale::console::Application* app = new hyperscale::console::Application();
 
-    app.name("hyperscale")
+    return app->name("hyperscale")
         .description("Hyperscale compiler")
         .command(hyperscale::command::debugCommand())
         .command(hyperscale::command::versionCommand())
-        .parse(argc, argv);
+        .parse(argc, argv)
+        .run();
 
     try {
         namespace po = boost::program_options;

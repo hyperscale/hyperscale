@@ -74,7 +74,7 @@ namespace debug {
 
         cmd->name("lexer");
         cmd->description("Debug hyperscale lexer");
-        cmd->handle([]() {
+        cmd->handle([](console::Command& cmd) {
             std::string filename = "../dev/test.ts";
 
             std::ifstream file(filename);
@@ -95,6 +95,8 @@ namespace debug {
                 auto token = lexer.lex();
                 std::cout << token << std::endl;
             }
+
+            return EXIT_SUCCESS;
         });
 
         return cmd;

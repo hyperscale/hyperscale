@@ -9,6 +9,7 @@
 
 #include <hyperscale/console/command.hpp>
 #include <hyperscale/console/option.hpp>
+#include <iomanip>
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -31,10 +32,18 @@ namespace console {
         return *this;
     }
 
+    std::string Command::getName() const {
+        return m_name;
+    }
+
     Command& Command::description(const std::string& description) {
         m_description = description;
 
         return *this;
+    }
+
+    std::string Command::getDescription() const {
+        return m_description;
     }
 
     Command& Command::option(std::shared_ptr<Option> option) {
@@ -56,13 +65,23 @@ namespace console {
     Command& Command::command(std::shared_ptr<Command> cmd) {
         cmd->parent(std::shared_ptr<Command>(this));
 
-        m_commands.push_back(std::move(cmd));
+        m_commands[cmd->getName()] = std::move(cmd);
+
+        // m_commands.push_back(std::move(cmd));
 
         return *this;
     }
 
-    Command& Command::handle(std::function<void()> handle) {
+    bool Command::hasCommand() const {
+        return !m_commands.empty();
+    }
+
+    Command& Command::handle(std::function<int(Command&)> handle) {
+        std::cout << "Handle: " << &handle << std::endl;
+
         m_handle = handle;
+
+        std::cout << "m_handle: " << &m_handle << std::endl;
 
         return *this;
     }
@@ -89,7 +108,7 @@ namespace console {
         return NULL;
     }
 
-    void Command::parse(int argc, char *argv[]) {
+    Command& Command::parse(int argc, char *argv[]) {
         m_args.clear();
 
         for (int n = 1; n < argc; ++n) {
@@ -177,6 +196,51 @@ namespace console {
             }
         }
 
+        return *this;
+    }
+
+    int Command::run() {
+        if (m_args.empty()) {
+            std::cout << help();
+
+            return EXIT_FAILURE;
+        }
+
+
+        for (auto arg : m_args) {
+        //for (std::vector<char>::const_iterator i = path.begin(); i != path.end(); ++i) {
+            std::cout << arg << std::endl;
+        }
+
+        std::string command = m_args.front();
+
+        if (!m_commands.count(command)) {
+             std::cout << help();
+
+            return EXIT_FAILURE;
+        }
+
+        auto cmd = m_commands[command];
+
+        if (cmd->hasCommand()) {
+            // forward argc/argv to subcommand without this command arg.
+
+            // example: ./hyperscale debug lexer --log-level=debug --foo
+            // 1. parse debug lexer --log-level=debug --foo
+            // 2. call debug command
+            // 3. parse lexer --log-level=debug --foo
+            // 4. call lexer
+            // 5. parse --log-level=debug --foo
+            // 6. exec handle
+
+            // cmd->parse();
+            return cmd->run();
+        } else {
+            std::cout << "Run -> m_handle: " << &m_handle << std::endl;
+
+            // exec handle
+            return m_handle(*this);
+        }
     }
 
     std::string Command::getNameWithParent() const {
@@ -248,20 +312,58 @@ namespace console {
 
                 s << std::endl;
             }
-
-            // foreach options
         }
 
-        if (m_commands.size() > 0) {
+        if (!m_commands.empty()) {
+            std::size_t commandRightMargin(14);
+
             s << "Commands:" << std::endl;
 
-            // foreach commands
+            for (auto& item : m_commands) {
+                std::string commandStr = "  " + item.second->getName();
+
+                if (commandStr.size() < commandRightMargin) {
+                    commandStr.resize(commandRightMargin, ' ');
+                } else {
+                    commandStr += "\n" + std::string(commandRightMargin, ' ');
+                }
+
+                s << commandStr;
+
+                std::vector<std::string> lines = item.second->descriptionToString(20);
+                std::string empty(commandRightMargin, ' ');
+
+                for (std::size_t n = 0; n < lines.size(); ++n) {
+                    if (n > 0) {
+                        s << std::endl << empty;
+                    }
+
+                    s << lines[n];
+                }
+
+                s << std::endl;
+            }
+
+            s << std::endl;
 
             s << "Run '" << getNameWithParent() << " COMMAND --help' for more information on a command." << std::endl;
         }
 
         return s.str();
     }
+
+
+    std::vector<std::string> Command::descriptionToString(std::size_t width) const {
+            std::vector<std::string> lines;
+            std::stringstream description(getDescription());
+            std::string line;
+
+            while (std::getline(description, line, '\n')) {
+                lines.push_back(line);
+            }
+
+            return lines;
+        }
 
 } // end of syntax namespace
 } // end of hyperscale namespace
