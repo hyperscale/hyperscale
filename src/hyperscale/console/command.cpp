@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+#include <functional>
 #include <hyperscale/console/command.hpp>
 #include <hyperscale/console/option.hpp>
 #include <iomanip>
@@ -73,15 +74,11 @@ namespace console {
     }
 
     bool Command::hasCommand() const {
-        return !m_commands.empty();
+        return m_commands.size() > 0;
     }
 
-    Command& Command::handle(std::function<int(Command&)> handle) {
-        std::cout << "Handle: " << &handle << std::endl;
-
-        m_handle = handle;
-
-        std::cout << "m_handle: " << &m_handle << std::endl;
+    Command& Command::handle(const std::function<int(const Command& cmd)> handle_) {
+        m_handle = handle_;
 
         return *this;
     }
@@ -97,8 +94,7 @@ namespace console {
     }
 
 
-    std::shared_ptr<Option> Command::getShortOpt(char opt) const
-    {
+    std::shared_ptr<Option> Command::getShortOpt(const char opt) const {
         for (std::size_t n = 0; n < m_options.size(); ++n) {
             if (m_options[n]->getShortOption() == opt) {
                 return std::move(m_options[n]);
@@ -199,21 +195,35 @@ namespace console {
         return *this;
     }
 
+    int Command::exec() {
+        try {
+            // exec handle
+            return m_handle(*this);
+        } catch (std::bad_function_call& ex) {
+            std::cerr << "Bad function call: " << ex.what() << std::endl;
+
+            return EXIT_FAILURE;
+        } catch (std::exception& ex) {
+            std::cerr << ex.what() << std::endl;
+
+            return EXIT_FAILURE;
+        }
+    }
+
     int Command::run() {
-        if (m_args.empty()) {
+        if (m_args.empty() && !m_parent) {
             std::cout << help();
 
             return EXIT_FAILURE;
         }
 
-
         for (auto arg : m_args) {
-        //for (std::vector<char>::const_iterator i = path.begin(); i != path.end(); ++i) {
-            std::cout << arg << std::endl;
+            std::cout << "--- arg: " << arg << std::endl;
         }
 
         std::string command = m_args.front();
 
+        //@TODO: Added external command support with prefix, ex: hyperscale-*
         if (!m_commands.count(command)) {
              std::cout << help();
 
@@ -234,12 +244,12 @@ namespace console {
             // 6. exec handle
 
             // cmd->parse();
+
+            std::cout << "Run: subcommand" << std::endl;
+
             return cmd->run();
         } else {
-            std::cout << "Run -> m_handle: " << &m_handle << std::endl;
-
-            // exec handle
-            return m_handle(*this);
+            return cmd->exec();
         }
     }
 
@@ -256,7 +266,6 @@ namespace console {
     }
 
     std::string Command::help() const {
-
         std::size_t optionRightMargin(20);
         const std::size_t maxDescriptionLeftMargin(40);
     //	const std::size_t descriptionRightMargin(80);

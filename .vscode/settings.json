@@ -55,6 +55,7 @@
         "algorithm": "cpp",
         "*.def": "cpp",
         "bitset": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "*.ipp": "cpp"
     }
 }

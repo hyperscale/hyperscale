@@ -74,7 +74,7 @@ namespace debug {
 
         cmd->name("lexer");
         cmd->description("Debug hyperscale lexer");
-        cmd->handle([](console::Command& cmd) {
+        cmd->handle([](const console::Command& cmd) {
             std::string filename = "../dev/test.ts";
 
             std::ifstream file(filename);

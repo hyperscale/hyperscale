@@ -11,6 +11,7 @@
 #include <functional>
 #include <hyperscale/console/option.hpp>
 #include <hyperscale/console/option_value.hpp>
+#include <iostream>
 #include <map>
 #include <memory>
 #include <string>
@@ -21,7 +22,7 @@ namespace console {
 
     class Command;
 
-    class Command: public std::enable_shared_from_this<Command> {
+    class Command/*: public std::enable_shared_from_this<Command>*/ {
     protected:
         std::string m_name;
 
@@ -35,7 +36,7 @@ namespace console {
 
         std::shared_ptr<Command> m_parent;
 
-        std::function<int(Command&)> m_handle;
+        std::function<int(const Command& cmd)> m_handle;
 
     public:
         Command();
@@ -56,15 +57,17 @@ namespace console {
 
         bool hasCommand() const;
 
-        Command& handle(std::function<int(Command&)> handle);
+        Command& handle(const std::function<int(const Command& cmd_)> handle_);
 
         std::shared_ptr<Option> getLongOpt(const std::string& opt) const;
 
-        std::shared_ptr<Option> getShortOpt(char opt) const;
+        std::shared_ptr<Option> getShortOpt(const char opt) const;
 
         Command& parse(int argc, char *argv[]);
 
         int run();
+
+        int exec();
 
         std::string getNameWithParent() const;
 

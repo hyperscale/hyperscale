@@ -28,7 +28,7 @@ namespace command {
 
         cmd->name("version");
         cmd->description("Show the hyperscale version information");
-        cmd->handle([](console::Command& cmd) {
+        cmd->handle([](const console::Command& cmd_) {
             hyperscale::show_version();
             hyperscale::show_copyright();
             hyperscale::show_llvm_version();

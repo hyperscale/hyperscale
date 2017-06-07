@@ -150,7 +150,7 @@ endif ()
 set (CXX_FLAGS_EXTRA "-std=c++14")
 
 string (REGEX REPLACE "^ +" "" HYPERSCALE_LINK_FLAGS ${HYPERSCALE_LINK_FLAGS_})
-set (CMAKE_CXX_FLAGS         "$ENV{CPPFLAGS} -Wall")
+set (CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wall -pedantic")
 set (CMAKE_CXX_FLAGS_DEBUG   "-g -ggdb -O0 -fno-inline -Wextra -Wno-unused-parameter ${CXX_FLAGS_EXTRA}")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer ${CXX_FLAGS_EXTRA}")
 
