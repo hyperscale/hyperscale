@@ -1,20 +1,29 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.4)
 
-project (Hyperscale)
+project (Hyperscale CXX C)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (CMAKE_CXX_COMPILER "clang++")
 endif ()
 
-set(CMAKE_MACOSX_RPATH 1)
+set (CMAKE_MACOSX_RPATH 1)
+
+# Make a job pool for things that can't yet be distributed
+cmake_host_system_information (RESULT localhost_logical_cores QUERY NUMBER_OF_LOGICAL_CORES)
+set_property (GLOBAL PROPERTY JOB_POOLS local_jobs=${localhost_logical_cores})
+# Put linking in that category
+set_property (GLOBAL PROPERTY JOB_POOL_LINK local_jobs)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Set some nicer output dirs.
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
+set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/lib)
 
-
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+# Add path for custom CMake modules.
+list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
+#set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules" ${CMAKE_MODULE_PATH})
 
 find_program (LLVM_CONFIG llvm-config DOC "path to llvm-config")
 find_program (CLANG clang DOC "path to clang")
@@ -109,8 +118,9 @@ configure_file (
 
 if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Release CACHE STRING
-         "Choose the type of build. Options are 'Debug' and 'Release'."
-         FORCE)
+        "Choose the type of build. Options are 'Debug' and 'Release'."
+        FORCE
+    )
 endif ()
 
 string (TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE)
@@ -133,6 +143,8 @@ endif ()
 set (HYPERSCALE_LIBDIR_FLAGS_ "$ENV{LDFLAGS}")
 set (HYPERSCALE_LIB_FLAGS_    "-lpthread")
 
+set (HYPERSCALE_LIBS "")
+
 if (${D_LLVM_VERSION_MINOR} GREATER 3)
     if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         set (HYPERSCALE_LIB_FLAGS_ "${HYPERSCALE_LIB_FLAGS_} -lz -lncurses")
@@ -151,17 +163,10 @@ set (CXX_FLAGS_EXTRA "-std=c++14")
 
 string (REGEX REPLACE "^ +" "" HYPERSCALE_LINK_FLAGS ${HYPERSCALE_LINK_FLAGS_})
 set (CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wall -pedantic")
-set (CMAKE_CXX_FLAGS_DEBUG   "-g -ggdb -O0 -fno-inline -Wextra -Wno-unused-parameter ${CXX_FLAGS_EXTRA}")
+set (CMAKE_CXX_FLAGS_DEBUG   "-g -ggdb -O0 -fprofile-arcs -ftest-coverage -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer ${CXX_FLAGS_EXTRA}")
 
-#set (HYPERSCALE_FLAGS_DEBUG   "-O0")
-#set (HYPERSCALE_FLAGS_RELEASE "-O3")
-
-#if (IS_DEBUG)
-#    set (HYPERSCALE_FLAGS ${HYPERSCALE_FLAGS_DEBUG})
-#else ()
-#    set (HYPERSCALE_FLAGS ${HYPERSCALE_FLAGS_RELEASE})
-#endif ()
+set (BUILD_SHARED_LIBS ON)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
     include_directories ("${PROJECT_BINARY_DIR}" "/usr/local/include")
@@ -169,69 +174,13 @@ else ()
     include_directories ("${PROJECT_BINARY_DIR}")
 endif ()
 
-#GENERATOR: "KeywordLookup.h": keyword decision tree used by the lexer
-#add_custom_command(
-#    OUTPUT ${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h
-#    MAIN_DEPENDENCY ${CMAKE_CURRENT_SOURCE_DIR}/KeywordLookupGenerator.py
-#    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/hyperscale/parser/Keywords.table
-#    COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/KeywordLookupGenerator.py ${CMAKE_CURRENT_SOURCE_DIR}/src/hyperscale/parser/Keywords.table > ${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h
-#    VERBATIM
-#)
-#set_source_files_properties(${CMAKE_SOURCE_DIR}/src/hyperscale/parser/Lexer.cpp PROPERTIES OBJECT_DEPENDS "${CMAKE_SOURCE_DIR}/src/hyperscale/parser/KeywordLookup.h")
 
-
-find_package (Boost 1.54.0 COMPONENTS filesystem program_options REQUIRED)
-include_directories (${Boost_INCLUDE_DIRS})
-
-add_subdirectory (lib/libeinfo libeinfo)
-include_directories (${LIBEINFO_INCLUDE_DIR})
-
-#add_subdirectory (lib/WTF wtf)
-#include_directories (${LIBWTF_INCLUDE_DIR})
-
-find_package(LLVM REQUIRED COMPONENTS
-    option
-    analysis
-    bitreader
-    mcparser
-    instrumentation
-)
-
-find_package(Clang REQUIRED COMPONENTS
-    clang
-    clangAnalysis
-    clangAST
-    clangASTMatchers
-    clangBasic
-    clangCodeGen
-    clangDriver
-    clangEdit
-    clangFrontend
-    clangFrontendTool
-    clangLex
-    clangParse
-    clangSema
-    clangSerialization
-    clangTooling
-)
-
-include_directories(${CLANG_INCLUDE})
-include_directories(${CLANG_INCLUDE_DIRS})
 
 include_directories (${CMAKE_SOURCE_DIR}/include)
 
-file (
-    GLOB_RECURSE
-    SRC_FILES
-    src/*
-)
+add_subdirectory(bin)
+add_subdirectory(include)
+add_subdirectory(lib)
+add_subdirectory(test)
 
-# Compile the compiler.
-add_executable (
-    hyperscale
-    ${SRC_FILES}
-)
-set_target_properties (hyperscale PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I.")
-set_target_properties (hyperscale PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
-target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo curses ${CLANG_LIBS} ${Boost_LIBRARIES})
-install (TARGETS hyperscale DESTINATION bin)
+

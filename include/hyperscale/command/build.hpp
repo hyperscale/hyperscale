@@ -8,14 +8,13 @@
  */
 #pragma once
 
-#include <boost/program_options.hpp>
+#include <hyperscale/console/command.hpp>
+#include <memory>
 
 namespace hyperscale {
 namespace command {
 
-    namespace po = boost::program_options;
-
-    int build(po::variables_map &vm, po::parsed_options &options, po::options_description &desc);
+    std::shared_ptr<console::Command> buildCommand();
 
 } // end of command namespace
 } // end of hyperscale namespace

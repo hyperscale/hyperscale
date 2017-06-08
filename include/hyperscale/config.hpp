@@ -26,4 +26,4 @@
 #define LLVM_VERSION                    ""
 #define D_LLVM_VERSION_MAJOR            4
 #define D_LLVM_VERSION_MINOR            0
-#define LLVM_BIN_DIR                    "/usr/local/Cellar/llvm/4.0.0_1/bin"
+#define LLVM_BIN_DIR                    "/usr/local/Cellar/llvm/4.0.0/bin"

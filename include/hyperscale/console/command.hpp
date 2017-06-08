@@ -38,6 +38,8 @@ namespace console {
 
         std::function<int(const Command& cmd)> m_handle;
 
+        std::vector<std::string> m_argv;
+
     public:
         Command();
 
@@ -64,6 +66,10 @@ namespace console {
         std::shared_ptr<Option> getShortOpt(const char opt) const;
 
         Command& parse(int argc, char *argv[]);
+
+        Command& parse(std::vector<std::string>& args);
+
+        Command& setOptions(const std::vector<std::shared_ptr<Option>>& options);
 
         int run();
 
