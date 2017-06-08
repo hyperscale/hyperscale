@@ -4,13 +4,13 @@ set (CMAKE_MEMORYCHECK_COMMAND_OPTIONS "--error-exitcode=1 -v --track-origins=ye
 
 find_file (HAVE_VALGRIND "valgrind")
 
-enable_testing ()
-
 file (
     GLOB_RECURSE
     TEST_FILES
     "*.cpp"
 )
+
+include_directories (${LIBEINFO_INCLUDE_DIR})
 
 add_executable (
     hyperscale-test
@@ -19,7 +19,7 @@ add_executable (
 
 set_target_properties (hyperscale-test PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I.")
 set_target_properties (hyperscale-test PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
-target_link_libraries (hyperscale-test ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} libeinfo curses ${CLANG_LIBS} ${Boost_LIBRARIES})
+target_link_libraries (hyperscale-test ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} HyperscaleLib EInfoLib curses ${CLANG_LIBS} ${Boost_LIBRARIES})
 
 if (CMAKE_COMPILER_IS_GNUCXX)
     include (CodeCoverage)

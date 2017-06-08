@@ -1,21 +1,26 @@
 
 file (
     GLOB_RECURSE
-    SRC_FILES
+    HYPERSCALE_BIN_SRC_FILES
     "*.cpp"
 )
 
+include_directories (${LIBEINFO_INCLUDE_DIR})
+
 # Compile the compiler.
 add_executable (
-    hyperscale
-    ${SRC_FILES}
+    HyperscaleBin
+    ${HYPERSCALE_BIN_SRC_FILES}
 )
 
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
-#set_target_properties (hyperscale PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I.")
-#set_target_properties (hyperscale PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
+set_target_properties (HyperscaleBin PROPERTIES
+    COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I."
+    OUTPUT_NAME hyperscale
+    LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic -lcurses"
+)
 #target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} ${HYPERSCALE_LIBS} ${CLANG_LIBS} ${Boost_LIBRARIES} HyperscaleStatic)
-target_link_libraries (hyperscale HyperscaleShared)
+target_link_libraries (HyperscaleBin ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} ${CLANG_LIBS} HyperscaleLib EInfoLib)
 
-install (TARGETS hyperscale DESTINATION bin)
+install (TARGETS HyperscaleBin DESTINATION bin)
