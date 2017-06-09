@@ -21,10 +21,10 @@ BOOST_AUTO_TEST_CASE(test_command) {
 
     std::vector<std::string> args = {"hyperscale", "-l=info", "version"};
 
-    hyperscale::console::Application app;
-    app.name("hyperscale");
-    app.description("Hyperscale compiler");
-    app.command([](){
+    hyperscale::console::Application* app = new hyperscale::console::Application();
+    app->name("hyperscale");
+    app->description("Hyperscale compiler");
+    app->command([](){
         auto cmd = std::make_shared<hyperscale::console::Command>();
         cmd->name("version");
         cmd->description("Show the hyperscale version information");
@@ -34,9 +34,11 @@ BOOST_AUTO_TEST_CASE(test_command) {
         return cmd;
     }());
     //app.parse(argc, argv);
-    app.parse(args);
+    app->parse(args);
 
-    BOOST_CHECK_EQUAL(app.run(), EXIT_SUCCESS);
+    BOOST_CHECK_EQUAL(app->run(), EXIT_SUCCESS);
+
+    delete app;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -1,1 +1,1 @@
-add_subdirectory(hyperscale)
+add_subdirectory(hyperscale-cmd)
