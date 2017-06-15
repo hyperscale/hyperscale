@@ -7,12 +7,12 @@ file (
     "*.cpp"
 )
 
-#externalproject_add(
-#    HyperConsole
-#    GIT_REPOSITORY git@github.com:hyperlib/console.git
-#    PREFIX "${CMAKE_CURRENT_BINARY_DIR}/hyper/console"
-#    CMAKE_ARGS "-G${CMAKE_GENERATOR}" "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
-#)
+externalproject_add(
+    HyperConsole
+    GIT_REPOSITORY git@github.com:hyperlib/console.git
+    PREFIX "${CMAKE_CURRENT_BINARY_DIR}/hyper/console"
+    CMAKE_ARGS "-G${CMAKE_GENERATOR}" "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+)
 
 include_directories (${LIBEINFO_INCLUDE_DIR})
 
@@ -22,7 +22,7 @@ add_executable (
     ${HYPERSCALE_BIN_SRC_FILES}
 )
 
-#add_dependencies(HyperscaleCmd HyperConsole)
+add_dependencies(HyperscaleCmd HyperConsole)
 
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 

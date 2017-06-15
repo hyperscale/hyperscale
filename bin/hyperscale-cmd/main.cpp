@@ -7,19 +7,21 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/command/debug.hpp>
-#include <hyperscale/command/debug/lexer.hpp>
-#include <hyperscale/command/version.hpp>
+#include <hyper/console/application.hpp>
 #include <hyperscale/config.hpp>
-#include <hyperscale/console/application.hpp>
 
 int main(int argc, char **argv) {
-    hyperscale::console::Application* app = new hyperscale::console::Application();
+    hyper::console::Application* app = new hyper::console::Application();
 
-    return app->name("hyperscale")
-        .description("Hyperscale compiler")
-        .command(hyperscale::command::debugCommand())
-        .command(hyperscale::command::versionCommand())
-        .parse(argc, argv)
-        .run();
+    app->setName("hyperscale");
+    app->setDescription("Hyperscale compiler");
+    app->addCommand(new VersionCommand());
+
+    app->parse(argc, argv);
+
+    int code = app->run();
+
+    delete app;
+
+    return code;
 }
