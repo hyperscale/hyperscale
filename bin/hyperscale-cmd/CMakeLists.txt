@@ -15,6 +15,7 @@ externalproject_add(
 )
 
 include_directories (${LIBEINFO_INCLUDE_DIR})
+include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
 # Compile the compiler.
 add_executable (
@@ -26,10 +27,12 @@ add_dependencies(HyperscaleCmd HyperConsole)
 
 include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
+include_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+
 set_target_properties (HyperscaleCmd PROPERTIES
     COMPILE_FLAGS "${LLVM_CXX_FLAGS} -I."
     OUTPUT_NAME hyperscale
-    LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic -lcurses"
+    LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic -lcurses -lhyperconsole"
 )
 #target_link_libraries (hyperscale ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} ${HYPERSCALE_LIBS} ${CLANG_LIBS} ${Boost_LIBRARIES} HyperscaleStatic)
 target_link_libraries (HyperscaleCmd ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} ${CLANG_LIBS} HyperscaleLib EInfoLib)

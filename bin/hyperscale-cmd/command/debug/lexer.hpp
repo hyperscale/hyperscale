@@ -8,14 +8,18 @@
  */
 #pragma once
 
-#include <hyperscale/console/command.hpp>
-#include <memory>
+#include <hyper/console/command.hpp>
 
 namespace hyperscale {
 namespace command {
 namespace debug {
 
-    std::shared_ptr<console::Command> lexerCommand();
+    class LexerCommand: public hyper::console::Command {
+    public:
+        void configuration();
+
+        int execute();
+    };
 
 } // end of debug namespace
 } // end of command namespace

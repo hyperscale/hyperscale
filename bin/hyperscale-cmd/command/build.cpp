@@ -6,15 +6,22 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-#pragma once
 
-#include <hyperscale/console/command.hpp>
-#include <memory>
+#include <command/build.hpp>
+#include <hyperscale/hyperscale.hpp>
 
 namespace hyperscale {
 namespace command {
 
-    std::shared_ptr<console::Command> debugCommand();
+    void BuildCommand::configuration() {
+        setName("build");
+        setDescription("Build project");
+    }
+
+
+    int BuildCommand::execute() {
+        return EXIT_SUCCESS;
+    }
 
 } // end of command namespace
 } // end of hyperscale namespace

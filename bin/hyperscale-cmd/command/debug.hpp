@@ -8,14 +8,16 @@
  */
 #pragma once
 
-namespace hyperscale {
-namespace console {
+#include <hyper/console/command.hpp>
+#include <command/debug/lexer.hpp>
 
-    enum class OptionValue {
-        None = 0,  // option never takes an argument
-        Required,  // option always requires an argument
-        Optional   // option may take an argument
+namespace hyperscale {
+namespace command {
+
+    class DebugCommand: public hyper::console::Command {
+    public:
+        void configuration();
     };
 
-} // end of console namespace
+} // end of command namespace
 } // end of hyperscale namespace

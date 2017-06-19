@@ -113,6 +113,8 @@ set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -ggdb -O0 -fprofile-arcs -ftest-coverage -fno-
 set (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer ${CXX_FLAGS_EXTRA}")
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories (/usr/local/include)
+link_directories (/usr/local/lib)
 
 find_package(LLVM REQUIRED COMPONENTS
     option
