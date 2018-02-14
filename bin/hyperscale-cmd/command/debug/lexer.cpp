@@ -52,7 +52,7 @@ namespace debug {
 
         hyperscale::parser::Lexer lexer(content);
 
-        while (lexer.isCodeCompletion()) {
+        while (!lexer.isEndOfFile()) {
             auto token = lexer.lex();
             std::cout << token << std::endl;
         }

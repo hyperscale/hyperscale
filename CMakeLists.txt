@@ -109,7 +109,8 @@ set (HYPERSCALE_LINK_FLAGS_ "${HYPERSCALE_LIBDIR_FLAGS_} ${HYPERSCALE_LIB_FLAGS_
 
 string (REGEX REPLACE "^ +" "" HYPERSCALE_LINK_FLAGS ${HYPERSCALE_LINK_FLAGS_})
 set (CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wall -pedantic")
-set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -ggdb -O0 -fprofile-arcs -ftest-coverage -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
+#set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -ggdb -O0 -fprofile-arcs -ftest-coverage -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
+set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -O0 -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer ${CXX_FLAGS_EXTRA}")
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)

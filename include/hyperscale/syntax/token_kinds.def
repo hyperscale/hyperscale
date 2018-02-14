@@ -105,14 +105,6 @@ DECL_KEYWORD(Public)
 DECL_KEYWORD(Static)
 
 SIL_KEYWORD(undef)
-SIL_KEYWORD(sil)
-SIL_KEYWORD(sil_stage)
-SIL_KEYWORD(sil_vtable)
-SIL_KEYWORD(sil_global)
-SIL_KEYWORD(sil_witness_table)
-SIL_KEYWORD(sil_default_witness_table)
-SIL_KEYWORD(sil_coverage_map)
-SIL_KEYWORD(sil_scope)
 
 // Statement keywords.
 STMT_KEYWORD(defer)
@@ -175,6 +167,7 @@ PUNCTUATOR(Semi,          ";")
 PUNCTUATOR(Equal,         "=")
 PUNCTUATOR(AtSign,        "@")
 PUNCTUATOR(Pound,         "#")
+PUNCTUATOR(Plus,          "+")
 
 PUNCTUATOR(AmpPrefix,     "&")
 PUNCTUATOR(Arrow,         "->")
@@ -187,9 +180,6 @@ PUNCTUATOR(ExclaimPostfix, "!") // if left-bound
 
 PUNCTUATOR(QuestionPostfix, "?") // if left-bound
 PUNCTUATOR(QuestionInfix,"?")    // if not left-bound
-
-PUNCTUATOR(SilDollar,    "$")    // Only in SIL mode.
-PUNCTUATOR(SilExclamation, "!")    // Only in SIL mode.
 
 // Keywords prefixed with a '#'.  "if" becomes "tok::pound_if".
 POUND_KEYWORD(if)
