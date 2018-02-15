@@ -86,6 +86,9 @@ namespace parser {
 
         Token m_current_token;
 
+        std::size_t m_current_line;
+        std::size_t m_current_col;
+
         LexerState m_state;
 
         std::string m_token_text;

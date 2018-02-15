@@ -26,6 +26,10 @@ namespace parser {
 
         std::size_t m_end_offset;
 
+        std::size_t m_line;
+
+        std::size_t m_column;
+
         /// \brief Whether this token is the first token on the line.
         unsigned m_at_start_of_line : 1;
 
@@ -48,6 +52,8 @@ namespace parser {
             m_kind(syntax::TokenKind::NUM_TOKENS),
             m_start_offset(0),
             m_end_offset(0),
+            m_line(0),
+            m_column(0),
             m_at_start_of_line(false),
             m_comment_length(0),
             m_escaped_identifier(false) {}
@@ -56,6 +62,8 @@ namespace parser {
             m_kind(kind),
             m_start_offset(0),
             m_end_offset(0),
+            m_line(0),
+            m_column(0),
             m_at_start_of_line(false),
             m_comment_length(0),
             m_escaped_identifier(false) {}
@@ -64,6 +72,8 @@ namespace parser {
             m_kind(kind),
             m_start_offset(0),
             m_end_offset(0),
+            m_line(0),
+            m_column(0),
             m_at_start_of_line(false),
             m_comment_length(0),
             m_escaped_identifier(false),
@@ -86,12 +96,28 @@ namespace parser {
             m_end_offset = offset;
         }
 
+        void setLine(std::size_t line) {
+            m_line = line;
+        }
+
+        void setColumn(std::size_t column) {
+            m_column = column;
+        }
+
         std::size_t getStartOffset() const {
             return m_start_offset;
         }
 
         std::size_t getEndOffset() const {
             return m_end_offset;
+        }
+
+        std::size_t getLine() const {
+            return m_line;
+        }
+
+        std::size_t getColumn() const {
+            return m_column;
         }
 
         /// is/isNot - Predicates to check if this token is a specific kind, as in

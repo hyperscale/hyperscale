@@ -31,7 +31,7 @@ using clang::isWhitespace;
 
 #define WHITESPACE \
          ' ': \
-    case '\n'
+    case '\t'
 
 #define DIGIT_NON_ZERO \
          '1': \
@@ -117,7 +117,12 @@ namespace parser {
         }
     }
 
-    Lexer::Lexer(const std::string &buffer): m_buffer(buffer), m_token_text(""), m_state(LexerStateStart) {
+    Lexer::Lexer(const std::string &buffer):
+        m_buffer(buffer),
+        m_current_line(1),
+        m_current_col(0),
+        m_state(LexerStateStart),
+        m_token_text("") {
         // Check for Unicode BOM at start of file (Only UTF-8 BOM supported now).
         std::size_t BOMLength = llvm::StringSwitch<size_t>(buffer)
             .StartsWith("\xEF\xBB\xBF", 3)
@@ -128,6 +133,8 @@ namespace parser {
 
     void Lexer::beginToken(syntax::TokenKind kind) {
         m_current_token.setStartOffset(m_pos);
+        m_current_token.setLine(m_current_line);
+        m_current_token.setColumn(m_current_col);
         m_current_token.setKind(kind);
     }
 
@@ -152,11 +159,17 @@ namespace parser {
         for (; m_pos < m_buffer.size(); m_pos += 1) {
             const char c = m_buffer[m_pos];
 
+            m_current_col++;
+
             switch (m_state) {
                 case LexerStateError:
                     break;
                 case LexerStateStart:
                     switch (c) {
+                        case '\n':
+                            m_current_line++;
+                            m_current_col = 0;
+                            break;
                         case WHITESPACE:
                             break;
                         case ALPHA:
@@ -227,6 +240,7 @@ namespace parser {
                             // m_pos -= 1;
                             endToken();
                             m_state = LexerStateStart;
+                            m_current_col -= 1;
 
                             return m_current_token;
                     }
@@ -240,6 +254,7 @@ namespace parser {
                             // m_pos -= 1;
                             endToken();
                             m_state = LexerStateStart;
+                            m_current_col -= 1;
 
                             return m_current_token;
                     }

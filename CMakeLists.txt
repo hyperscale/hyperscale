@@ -145,10 +145,16 @@ find_package(Clang REQUIRED COMPONENTS
     clangTooling
 )
 
-include_directories (${CLANG_INCLUDE})
-include_directories (${CLANG_INCLUDE_DIRS})
+include_directories(${CLANG_INCLUDE})
+include_directories(${CLANG_INCLUDE_DIRS})
 
-enable_testing ()
+enable_testing()
+
+
+include (CodeCoverage)
+append_coverage_compiler_flags()
+
+set(COVERAGE_EXCLUDES 'boost/*' 'Application/*' 'usr/local/*' 'test/*')
 
 add_subdirectory(include)
 add_subdirectory(lib)

@@ -23,11 +23,11 @@ set_target_properties (hyperscale-test PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAG
 set_target_properties (hyperscale-test PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
 target_link_libraries (hyperscale-test ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} HyperscaleLib EInfoLib curses ${CLANG_LIBS} ${Boost_LIBRARIES})
 
-if (CMAKE_COMPILER_IS_GNUCXX)
-    include (CodeCoverage)
-    setup_target_for_coverage (hyperscale-coverage hyperscale-test coverage)
-    target_link_libraries (hyperscale-test gcov)
-endif ()
+setup_target_for_coverage(
+    NAME hyperscale-coverage
+    EXECUTABLE hyperscale-test
+    DEPENDENCIES hyperscale-test
+)
 
 
 function (add_memcheck_test name binary)

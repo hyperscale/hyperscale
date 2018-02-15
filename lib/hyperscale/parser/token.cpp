@@ -19,7 +19,9 @@ namespace parser {
             << "value: " << token.getText().str() << ", "
             << "start: " << token.getStartOffset() << ", "
             << "end: " << token.getEndOffset() << ", "
-            << "length: " << token.getLength()
+            << "length: " << token.getLength() << ", "
+            << "line: " << token.getLine() << ", "
+            << "column: " << token.getColumn()
             << "}" << std::endl;
     }
 
