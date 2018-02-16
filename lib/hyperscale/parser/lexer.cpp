@@ -109,6 +109,15 @@ using clang::isWhitespace;
 namespace hyperscale {
 namespace parser {
 
+    struct Keyword {
+        std::string name;
+        syntax::TokenKind kind;
+    };
+
+    std::vector<Keyword> keywords = {
+        {"var", syntax::TokenKind::KeywordVar},
+    };
+
     static bool is_exponent_signifier(const char c, int radix) {
         if (radix == 16) {
             return c == 'p' || c == 'P';
@@ -145,6 +154,14 @@ namespace parser {
     void Lexer::endToken() {
         m_current_token.setEndOffset(m_pos);
         m_current_token.setText(llvm::StringRef(m_token_text));
+
+        if (m_current_token.is(syntax::TokenKind::Identifier)) {
+            for (auto const& keyword: keywords) {
+                if (m_current_token.getText().str().compare(keyword.name) == 0) {
+                    m_current_token.setKind(keyword.kind);
+                }
+            }
+        }
     }
 
     void Lexer::resetToken() {
@@ -187,7 +204,7 @@ namespace parser {
 
                             break;
                         case '+':
-                            beginToken(syntax::TokenKind::Plus);
+                            beginToken(syntax::TokenKind::KeywordOperator);
                             appendCharToken(c);
                             m_pos += 1;
                             endToken();

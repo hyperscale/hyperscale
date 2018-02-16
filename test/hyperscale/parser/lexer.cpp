@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(test_lexer_lex) {
 
     auto tok = lexer.lex();
 
-    BOOST_CHECK_EQUAL(tok.getKind(), hyperscale::syntax::TokenKind::Identifier);
+    BOOST_CHECK_EQUAL(tok.getKind(), hyperscale::syntax::TokenKind::KeywordVar);
     BOOST_CHECK_EQUAL(tok.getText().str(), "var");
     BOOST_CHECK_EQUAL(tok.getColumn(), 1);
     BOOST_CHECK_EQUAL(tok.getLine(), 1);
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(test_lexer_lex) {
 
     tok = lexer.lex();
 
-    BOOST_CHECK_EQUAL(tok.getKind(), hyperscale::syntax::TokenKind::Plus);
+    BOOST_CHECK_EQUAL(tok.getKind(), hyperscale::syntax::TokenKind::KeywordOperator);
     BOOST_CHECK_EQUAL(tok.getText().str(), "+");
     BOOST_CHECK_EQUAL(tok.getColumn(), 12);
     BOOST_CHECK_EQUAL(tok.getLine(), 1);
