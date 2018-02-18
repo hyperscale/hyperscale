@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project (Hyperscale CXX C)
 
-set (CXX_FLAGS_EXTRA "-std=c++14")
+set (CXX_FLAGS_EXTRA "-std=c++17")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (CMAKE_CXX_COMPILER "clang++")

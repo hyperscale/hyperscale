@@ -10,6 +10,7 @@
 
 #include <hyper/console/command.hpp>
 #include <command/debug/lexer.hpp>
+#include <command/debug/parser.hpp>
 
 namespace hyperscale {
 namespace command {

@@ -1,7 +1,7 @@
 /**
  * Hyperscale
  *
- * (c) 2015-2017 Axel Etcheverry
+ * (c) 2015-2018 Axel Etcheverry
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -65,24 +65,10 @@ namespace parser {
 
 
     class Lexer {
-        private:
+    private:
         const std::string& m_buffer;
 
-        /// Pointer to the first character of the buffer, even in a lexer that
-        /// scans a subrange of the buffer.
-        // const char *m_buffer_start;
-
-        /// Pointer to one past the end character of the buffer, even in a lexer
-        /// that scans a subrange of the buffer.  Because the buffer is always
-        /// NUL-terminated, this points to the NUL terminator.
-        // const char *m_buffer_end;
-
-        /// Pointer to the next not consumed character.
-        // const char *m_cur_ptr;
-
         std::size_t m_pos;
-
-        // Token m_next_token;
 
         Token m_current_token;
 
@@ -95,10 +81,6 @@ namespace parser {
 
         int m_radix;
 
-        /// If non-null, points to the '\0' character in the buffer where we should
-        /// produce a code completion token.
-        // const char *m_code_completion_ptr = nullptr;
-
         void beginToken(syntax::TokenKind kind);
 
         void appendCharToken(const char c);
@@ -107,16 +89,12 @@ namespace parser {
 
         void resetToken();
 
-        public:
+    public:
         Lexer(const std::string &buffer);
-
 
         /// \brief Returns true if this lexer will produce a code completion token.
         bool isEndOfFile() const {
             return m_pos == m_buffer.size();
-
-            //return m_cur_ptr < m_buffer_end;
-            // return m_code_completion_ptr != nullptr;
         }
 
         Token lex();
