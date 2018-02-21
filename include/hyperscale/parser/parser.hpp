@@ -12,23 +12,29 @@
 #include <memory>
 #include <hyperscale/ast/node.hpp>
 #include <hyperscale/parser/token.hpp>
+#include <hyperscale/parser/lexer.hpp>
 
 namespace hyperscale {
 namespace parser {
 
     class Parser {
-        std::vector<Token> m_tokens;
-        std::size_t m_index;
+        std::unique_ptr<Lexer> m_lexer;
 
-        std::shared_ptr<ast::Node> parseVariableDeclarationExpr();
+        Token m_current_token;
+
+        std::shared_ptr<ast::Node> parseVariableDeclarationExpr(bool mandatory);
         std::shared_ptr<ast::Node> parseExpression();
-        std::shared_ptr<ast::Node> parseAssignmentExpression();
+        std::shared_ptr<ast::Node> parseBinaryOperatorExpression();
 
-        Token nextToken();
+        void nextToken();
 
-        void expectToken(Token token, ast::TokenKind kind);
+        void eat(syntax::TokenKind kind);
+
+        void error();
+
+        void expectToken(syntax::TokenKind kind);
     public:
-        Parser(std::vector<Token> tokens);
+        Parser(std::unique_ptr<Lexer>& lexer);
 
         std::shared_ptr<ast::Node> parse();
     };

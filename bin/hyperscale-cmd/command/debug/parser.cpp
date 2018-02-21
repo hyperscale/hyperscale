@@ -51,20 +51,11 @@ namespace debug {
         );
         file.close();
 
-        hyperscale::parser::Lexer lexer(content);
+        auto lexer = std::make_unique<hyperscale::parser::Lexer>(content);
 
-        std::vector<hyperscale::parser::Token> tokens;
+        auto parser = std::make_shared<hyperscale::parser::Parser>(lexer);
 
-        while (!lexer.isEndOfFile()) {
-            auto token = lexer.lex();
-
-            tokens.push_back(token);
-        }
-
-        hyperscale::parser::Parser parser;
-
-        std::shared_ptr<hyperscale::ast::Node> ast = parser.parse(tokens);
-
+        std::shared_ptr<hyperscale::ast::Node> ast = parser->parse();
 
         std::cout << "Type: " << ast->getType() << std::endl;
         std::cout << "Line: " << ast->getLine() << std::endl;

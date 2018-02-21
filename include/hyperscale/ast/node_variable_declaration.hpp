@@ -8,6 +8,7 @@
  */
 #pragma once
 
+#include <string>
 #include <vector>
 #include <memory>
 
@@ -27,7 +28,7 @@ namespace ast {
         std::shared_ptr<Node> m_expression;
 
     public:
-        NodeVariableDeclaration() {}
+        NodeVariableDeclaration(): m_is_const(false), m_symbol(""), m_type("") {}
         ~NodeVariableDeclaration() {}
 
         void setConst(bool is_const) {

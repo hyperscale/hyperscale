@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+#include <type_traits>
 #include <hyperscale/syntax/token_kinds.hpp>
 
 namespace hyperscale {

@@ -117,7 +117,7 @@ namespace parser {
     std::vector<Keyword> keywords = {
         {"var", syntax::TokenKind::KeywordVar},
     };
-
+/*
     static bool is_exponent_signifier(const char c, int radix) {
         if (radix == 16) {
             return c == 'p' || c == 'P';
@@ -125,7 +125,7 @@ namespace parser {
             return c == 'e' || c == 'E';
         }
     }
-
+*/
     Lexer::Lexer(const std::string &buffer):
         m_buffer(buffer),
         m_current_line(1),
@@ -275,6 +275,9 @@ namespace parser {
 
                             return m_current_token;
                     }
+                    break;
+
+                default:
                     break;
 
             }
