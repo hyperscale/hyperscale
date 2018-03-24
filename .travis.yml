@@ -15,7 +15,11 @@ before_install:
     - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install llvm4 && brew install openssl && brew link --force --overwrite llvm4; fi
     - pip install --user cpp-coveralls
     - $CXX --version
-script: make cover
+before_script:
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=Debug
+script: make -j2 && make hyperscale-coverage
 after_success: coveralls --exclude test --gcov-options '\-lp'
 after_failure: cat Testing/Temporary/LastTest.log
 branches:
