@@ -45,3 +45,6 @@ install_manifest.txt
 *.app
 
 __*__
+
+*._hpp
+*._cpp

@@ -115,13 +115,15 @@ mark_as_advanced(
     CMAKE_EXE_LINKER_FLAGS_COVERAGE
     CMAKE_SHARED_LINKER_FLAGS_COVERAGE )
 
-if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+string(TOLOWER ${CMAKE_BUILD_TYPE} LOWERCASE_CMAKE_BUILD_TYPE)
+
+if(NOT LOWERCASE_CMAKE_BUILD_TYPE STREQUAL "debug")
     message(WARNING "Code coverage results with an optimised (non-Debug) build may be misleading")
-endif() # NOT CMAKE_BUILD_TYPE STREQUAL "Debug"
+endif() # NOT CMAKE_BUILD_TYPE STREQUAL "debug"
 
 if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     link_libraries(gcov)
-else()
+elseif(NOT CMAKE_C_COMPILER_ID STREQUAL "AppleClang")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 endif()
 

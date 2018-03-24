@@ -9,9 +9,9 @@
 
 #include <exception>
 #include <fstream>
-#include <hyperscale/parser/parser.hpp>
+//#include <hyperscale/parser/parser.hpp>
 #include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/ast/node.hpp>
+//#include <hyperscale/ast/node.hpp>
 #include <iostream>
 #include <string>
 #include <memory>
@@ -52,7 +52,7 @@ namespace debug {
         file.close();
 
         auto lexer = std::make_unique<hyperscale::parser::Lexer>(content);
-
+/*
         auto parser = std::make_shared<hyperscale::parser::Parser>(lexer);
 
         std::shared_ptr<hyperscale::ast::Node> ast = parser->parse();
@@ -60,7 +60,7 @@ namespace debug {
         std::cout << "Type: " << ast->getType() << std::endl;
         std::cout << "Line: " << ast->getLine() << std::endl;
         std::cout << "Column: " << ast->getColumn() << std::endl;
-
+*/
         return EXIT_SUCCESS;
     }
 
