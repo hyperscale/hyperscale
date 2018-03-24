@@ -12,7 +12,7 @@ before_install:
     - echo $LC_ALL
     - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get -qq update && sudo apt-get -qq install software-properties-common && sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
     - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get -qq update && sudo apt-get -qq install software-properties-common build-essential clang-3.8 llvm-3.9-dev valgrind curl libboost-all-dev lcov; fi
-    - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install llvm4 && brew install openssl && brew link --force --overwrite llvm4; fi
+    - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install llvm && brew install openssl; fi
     - pip install --user cpp-coveralls
     - $CXX --version
 before_script:

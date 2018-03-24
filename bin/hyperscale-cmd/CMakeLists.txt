@@ -9,7 +9,7 @@ file (
 
 externalproject_add(
     HyperConsole
-    GIT_REPOSITORY git@github.com:hyperlib/console.git
+    GIT_REPOSITORY https://github.com/hyperlib/console.git
     PREFIX "${CMAKE_CURRENT_BINARY_DIR}/hyper/console"
     CMAKE_ARGS "-G${CMAKE_GENERATOR}" "-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 )
