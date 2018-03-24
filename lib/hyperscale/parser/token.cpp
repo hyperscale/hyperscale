@@ -16,10 +16,12 @@ namespace parser {
     std::ostream& operator<<(std::ostream& os, const Token& token) {
         return os << "Token {"
             << "kind: " << static_cast<std::underlying_type<syntax::TokenKind>::type>(token.getKind()) << ", "
-            << "value: " << token.getText().str()
-            /*<< "start: " << token.start << ", "
-            << "end: " << token.end << ", "
-            << "length: " << token.length */
+            << "value: " << token.getText().str() << ", "
+            << "start: " << token.getStartOffset() << ", "
+            << "end: " << token.getEndOffset() << ", "
+            << "length: " << token.getLength() << ", "
+            << "line: " << token.getLine() << ", "
+            << "column: " << token.getColumn()
             << "}" << std::endl;
     }
 

@@ -9,25 +9,26 @@
 
 #include <exception>
 #include <fstream>
+//#include <hyperscale/parser/parser.hpp>
 #include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/parser/token.hpp>
+//#include <hyperscale/ast/node.hpp>
 #include <iostream>
 #include <string>
-#include <command/debug/lexer.hpp>
-
-//#include "lexer.hpp"
+#include <memory>
+#include <vector>
+#include <command/debug/parser.hpp>
 
 namespace hyperscale {
 namespace command {
 namespace debug {
 
-    void LexerCommand::configuration() {
-        setName("lexer");
-        setDescription("Debug hyperscale lexer");
+    void ParserCommand::configuration() {
+        setName("parser");
+        setDescription("Debug hyperscale parser");
     }
 
 
-    int LexerCommand::execute() {
+    int ParserCommand::execute() {
         auto args = getArguments();
 
         if (args.empty()) {
@@ -50,13 +51,16 @@ namespace debug {
         );
         file.close();
 
-        hyperscale::parser::Lexer lexer(content);
+        auto lexer = std::make_unique<hyperscale::parser::Lexer>(content);
+/*
+        auto parser = std::make_shared<hyperscale::parser::Parser>(lexer);
 
-        while (!lexer.isEndOfFile()) {
-            auto token = lexer.lex();
-            std::cout << token << std::endl;
-        }
+        std::shared_ptr<hyperscale::ast::Node> ast = parser->parse();
 
+        std::cout << "Type: " << ast->getType() << std::endl;
+        std::cout << "Line: " << ast->getLine() << std::endl;
+        std::cout << "Column: " << ast->getColumn() << std::endl;
+*/
         return EXIT_SUCCESS;
     }
 

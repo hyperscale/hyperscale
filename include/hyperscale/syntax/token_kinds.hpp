@@ -16,7 +16,6 @@ namespace syntax {
     enum class TokenKind {
         Unknown = 0,
         Eof,
-        CodeComplete,
         Identifier,
 
         OperBinaryUnspaced,   // "x+y"
@@ -27,7 +26,6 @@ namespace syntax {
         IntegerLiteral,
         FloatingLiteral,
         StringLiteral,
-        SilLocalName,      // %42 in SIL mode.
         Comment,
 
         #define KEYWORD(X) Keyword ## X,

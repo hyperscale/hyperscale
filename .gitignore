@@ -43,3 +43,8 @@ install_manifest.txt
 *.exe
 *.out
 *.app
+
+__*__
+
+*._hpp
+*._cpp

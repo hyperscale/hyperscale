@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.8)
 
 project (Hyperscale CXX C)
 
-set (CXX_FLAGS_EXTRA "-std=c++14")
+set (CXX_FLAGS_EXTRA "-std=c++17")
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set (CMAKE_CXX_COMPILER "clang++")
@@ -109,7 +109,8 @@ set (HYPERSCALE_LINK_FLAGS_ "${HYPERSCALE_LIBDIR_FLAGS_} ${HYPERSCALE_LIB_FLAGS_
 
 string (REGEX REPLACE "^ +" "" HYPERSCALE_LINK_FLAGS ${HYPERSCALE_LINK_FLAGS_})
 set (CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS} -Wall -pedantic")
-set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -ggdb -O0 -fprofile-arcs -ftest-coverage -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
+#set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -ggdb -O0 -fprofile-arcs -ftest-coverage -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
+set (CMAKE_CXX_FLAGS_DEBUG   "-g3 -O0 -fno-inline -Wextra -Wno-unused-parameter -DDEBUG ${CXX_FLAGS_EXTRA}")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3 -fomit-frame-pointer ${CXX_FLAGS_EXTRA}")
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -144,10 +145,16 @@ find_package(Clang REQUIRED COMPONENTS
     clangTooling
 )
 
-include_directories (${CLANG_INCLUDE})
-include_directories (${CLANG_INCLUDE_DIRS})
+include_directories(${CLANG_INCLUDE})
+include_directories(${CLANG_INCLUDE_DIRS})
 
-enable_testing ()
+enable_testing()
+
+
+include (CodeCoverage)
+append_coverage_compiler_flags()
+
+set(COVERAGE_EXCLUDES 'boost/*' 'Application/*' 'usr/local/*' 'test/*')
 
 add_subdirectory(include)
 add_subdirectory(lib)

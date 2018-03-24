@@ -8,5 +8,6 @@
  */
 
 #define BOOST_TEST_MODULE "Hyperscale Test Suite"
+#define BOOST_NO_AUTO_PTR
 
 #include <boost/test/included/unit_test.hpp>

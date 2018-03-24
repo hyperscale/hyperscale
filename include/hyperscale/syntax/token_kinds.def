@@ -1,41 +1,41 @@
 /// KEYWORD(kw)
 ///   Expands by default for every Swift keyword and every SIL keyword, such as
 ///   'if', 'else', 'sil_global', etc. If you only want to use Swift keywords
-///   see SWIFT_KEYWORD.
+///   see HYPERSCALE_KEYWORD.
 #ifndef KEYWORD
 #define KEYWORD(kw)
 #endif
 
-/// SWIFT_KEYWORD(kw)
+/// HYPERSCALE_KEYWORD(kw)
 ///   Expands for every Swift keyword.
-#ifndef SWIFT_KEYWORD
-#define SWIFT_KEYWORD(kw) KEYWORD(kw)
+#ifndef HYPERSCALE_KEYWORD
+#define HYPERSCALE_KEYWORD(kw) KEYWORD(kw)
 #endif
 
 /// DECL_KEYWORD(kw)
 ///   Expands for every Swift keyword that can be used in a declaration.
 #ifndef DECL_KEYWORD
-#define DECL_KEYWORD(kw) SWIFT_KEYWORD(kw)
+#define DECL_KEYWORD(kw) HYPERSCALE_KEYWORD(kw)
 #endif
 
 /// STMT_KEYWORD(kw)
 ///   Expands for every Swift keyword used in statement grammar.
 #ifndef STMT_KEYWORD
-#define STMT_KEYWORD(kw) SWIFT_KEYWORD(kw)
+#define STMT_KEYWORD(kw) HYPERSCALE_KEYWORD(kw)
 #endif
 
 /// EXPR_KEYWORD(kw)
 ///   Expands for every Swift keyword used in an expression, such as 'true',
 ///   'false', and 'as'
 #ifndef EXPR_KEYWORD
-#define EXPR_KEYWORD(kw) SWIFT_KEYWORD(kw)
+#define EXPR_KEYWORD(kw) HYPERSCALE_KEYWORD(kw)
 #endif
 
 /// PAT_KEYWORD(kw)
 ///   Expands for every Swift keyword used in a pattern, which is currently
 ///   limited to '_'
 #ifndef PAT_KEYWORD
-#define PAT_KEYWORD(kw) SWIFT_KEYWORD(kw)
+#define PAT_KEYWORD(kw) HYPERSCALE_KEYWORD(kw)
 #endif
 
 /// SIL_KEYWORD(kw)
@@ -105,14 +105,6 @@ DECL_KEYWORD(Public)
 DECL_KEYWORD(Static)
 
 SIL_KEYWORD(undef)
-SIL_KEYWORD(sil)
-SIL_KEYWORD(sil_stage)
-SIL_KEYWORD(sil_vtable)
-SIL_KEYWORD(sil_global)
-SIL_KEYWORD(sil_witness_table)
-SIL_KEYWORD(sil_default_witness_table)
-SIL_KEYWORD(sil_coverage_map)
-SIL_KEYWORD(sil_scope)
 
 // Statement keywords.
 STMT_KEYWORD(defer)
@@ -186,10 +178,7 @@ PUNCTUATOR(Backslash, "\\")
 PUNCTUATOR(ExclaimPostfix, "!") // if left-bound
 
 PUNCTUATOR(QuestionPostfix, "?") // if left-bound
-PUNCTUATOR(QuestionInfix,"?")    // if not left-bound
-
-PUNCTUATOR(SilDollar,    "$")    // Only in SIL mode.
-PUNCTUATOR(SilExclamation, "!")    // Only in SIL mode.
+PUNCTUATOR(QuestionInfix, "?")    // if not left-bound
 
 // Keywords prefixed with a '#'.  "if" becomes "tok::pound_if".
 POUND_KEYWORD(if)
@@ -221,7 +210,7 @@ POUND_KEYWORD(dsohandle)
 
 
 #undef KEYWORD
-#undef SWIFT_KEYWORD
+#undef HYPERSCALE_KEYWORD
 #undef DECL_KEYWORD
 #undef STMT_KEYWORD
 #undef EXPR_KEYWORD
