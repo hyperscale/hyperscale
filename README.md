@@ -1,4 +1,4 @@
-The Hyperscale Programming Language
+The Hyperscale Programming Language [![Build Status](https://img.shields.io/travis/hyperscale/hyperscale/master.svg)](https://travis-ci.org/hyperscale/hyperscale)
 ===================================
 
 This is the main source code repository for Hyperscale. It contains the compiler, standard library, and documentation.

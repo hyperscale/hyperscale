@@ -6,22 +6,19 @@ compiler:
     - gcc
 os:
     - linux
+    - osx
 before_install:
     - echo $LANG
     - echo $LC_ALL
     - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get -qq update && sudo apt-get -qq install software-properties-common && sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y; fi
-    - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get -qq update && sudo apt-get -qq install software-properties-common build-essential clang-3.8 llvm-3.8-dev valgrind curl libboost-all-dev lcov; fi
-    - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install llvm38 && brew install openssl && brew link --force --overwrite llvm38; fi
+    - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get -qq update && sudo apt-get -qq install software-properties-common build-essential clang-3.8 llvm-3.9-dev valgrind curl libboost-all-dev lcov; fi
+    - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install llvm4 && brew install openssl && brew link --force --overwrite llvm4; fi
     - pip install --user cpp-coveralls
     - $CXX --version
-before_script:
-    - mkdir build
-    - cd build
-    - cmake .. -DCMAKE_BUILD_TYPE=Debug
-script: make -j2 && make test
+script: make cover
 after_success: coveralls --exclude test --gcov-options '\-lp'
 after_failure: cat Testing/Temporary/LastTest.log
 branches:
-    only:
-        - master
-        - develop
+  only:
+    - master
+    - "/^v\\d+\\./"
