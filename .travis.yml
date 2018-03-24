@@ -19,7 +19,9 @@ before_script:
     - mkdir build
     - cd build
     - cmake .. -DCMAKE_BUILD_TYPE=Debug
-script: make -j2 && make hyperscale-coverage
+script:
+    - sudo make -j2
+    - make hyperscale-coverage
 after_success: coveralls --exclude test --gcov-options '\-lp'
 after_failure: cat Testing/Temporary/LastTest.log
 branches:
