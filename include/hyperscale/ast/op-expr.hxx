@@ -13,7 +13,7 @@
 namespace hyperscale {
 namespace ast {
 
-    std::shared_ptr<Expr> OpExpr::getLeft() {
+    Expr* OpExpr::getLeft() {
         return m_left;
     }
 
@@ -21,7 +21,7 @@ namespace ast {
         return m_oper;
     }
 
-    std::shared_ptr<Expr> OpExpr::getRight() {
+    Expr* OpExpr::getRight() {
         return m_right;
     }
 

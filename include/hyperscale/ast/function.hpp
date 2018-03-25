@@ -18,12 +18,12 @@ namespace ast {
 
     /// Function - This class represents a function definition itself.
     class Function {
-        std::unique_ptr<Prototype> m_prototype;
-        std::unique_ptr<Expression> m_body;
+        Prototype* m_prototype;
+        Expression* m_body;
 
     public:
-        Function(std::unique_ptr<Prototype> prototype, std::unique_ptr<Expression> body)
-            : m_prototype(std::move(prototype)), m_body(std::move(body)) {}
+        Function(Prototype* prototype, Expression* body)
+            : m_prototype(prototype), m_body(body) {}
     };
 
 } // end of ast namespace

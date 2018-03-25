@@ -18,11 +18,11 @@ namespace ast {
     /// CallExpression - Expression class for function calls.
     class CallExpression : public Expression {
         std::string m_callee;
-        std::vector<std::unique_ptr<Expression>> m_args;
+        std::vector<Expression*> m_args;
 
     public:
-        CallExpression(const std::string &callee, std::vector<std::unique_ptr<Expression>> args)
-            : m_callee(callee), m_args(std::move(args)) {}
+        CallExpression(const std::string &callee, std::vector<Expression*> args)
+            : m_callee(callee), m_args(args) {}
 
         virtual llvm::Value *codegen() = 0;
     };

@@ -19,7 +19,7 @@ namespace ast {
         Expr():
             Node() {}
 
-        Expr(std::shared_ptr<parser::Token>& token):
+        Expr(parser::Token& token):
             Node(token) {}
 
         Expr(const Expr&) = delete;

@@ -12,17 +12,13 @@
 namespace hyperscale {
 namespace ast {
 
-    IntExpr::IntExpr(std::shared_ptr<parser::Token> token):
+    IntExpr::IntExpr(parser::Token& token):
         Expr(token),
-        m_value(std::stoi(token->getText().str()))
+        m_value(std::stoi(token.getText().str()))
     {
     }
 
     IntExpr::~IntExpr() {}
-
-    void IntExpr::accept(Visitor& v) {
-        v(*this);
-    }
 
 } // end of ast namespace
 } // end of hyperscale namespace

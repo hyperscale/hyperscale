@@ -10,11 +10,12 @@
 
 #include <hyperscale/ast/expr.hpp>
 #include <hyperscale/ast/visitor.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class OpExpr: public Expr {
+    class OpExpr: public Expr, public Visitable<OpExpr>  {
     public:
         /// Operator qualifier.
         enum class Oper {
@@ -34,15 +35,15 @@ namespace ast {
         };
 
     protected:
-        std::shared_ptr<Expr> m_left;
+        Expr* m_left;
 
         Oper m_oper;
 
-        std::shared_ptr<Expr> m_right;
+        Expr* m_right;
 
     public:
         /// Construct an OpExpr node.
-        OpExpr(std::shared_ptr<Expr> left, OpExpr::Oper oper, std::shared_ptr<Expr> right);
+        OpExpr(Expr* left, OpExpr::Oper oper, Expr* right);
 
         OpExpr(const OpExpr&) = delete;
 
@@ -50,13 +51,11 @@ namespace ast {
 
         virtual ~OpExpr();
 
-        void accept(Visitor& v);
-
-        inline std::shared_ptr<Expr> getLeft();
+        inline Expr* getLeft();
 
         inline OpExpr::Oper getOperator();
 
-        inline std::shared_ptr<Expr> getRight();
+        inline Expr* getRight();
     };
 
 } // end of ast namespace

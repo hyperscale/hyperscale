@@ -18,17 +18,17 @@ namespace ast {
 
     class NodeRoot {
     private:
-        std::vector<std::shared_ptr<Node>> m_top_level_decls;
+        std::vector<Node*> m_top_level_decls;
 
     public:
         NodeRoot() {}
         ~NodeRoot() {}
 
-        void addNode(std::shared_ptr<Node> node) {
+        void addNode(Node* node) {
             m_top_level_decls.push_back(node);
         }
 
-        std::vector<std::shared_ptr<Node>> getNodes() const {
+        std::vector<Node*> getNodes() const {
             return m_top_level_decls;
         }
     };

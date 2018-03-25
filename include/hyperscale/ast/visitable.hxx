@@ -15,12 +15,7 @@ namespace hyperscale {
 namespace ast {
 
     template<class Derived>
-    void Visitable<Derived>::visit(ConstVisitor& visitor) const {
-        visitor(static_cast<Derived&>(*this));
-    }
-
-    template<class Derived>
-    void Visitable<Derived>::visit(Visitor& visitor) {
+    void Visitable<Derived>::accept(Visitor& visitor) {
         visitor(static_cast<Derived&>(*this));
     }
 

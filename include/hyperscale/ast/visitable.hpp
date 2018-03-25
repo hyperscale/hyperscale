@@ -18,9 +18,7 @@ namespace ast {
     template<class Derived>
     class Visitable {
     public:
-        void visit(ConstVisitor& visitor) const;
-
-        void visit(Visitor& visitor);
+        void accept(Visitor& visitor);
     };
 
 } // end of ast namespace

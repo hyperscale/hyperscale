@@ -17,11 +17,11 @@ namespace ast {
     /// BinaryExpression - Expression class for a binary operator.
     class BinaryExpression : public Expression {
         char m_operator;
-        std::unique_ptr<Expression> LHS, RHS;
+        Expression* LHS, RHS;
 
     public:
-        BinaryExpression(char op, std::unique_ptr<Expression> LHS, std::unique_ptr<Expression> RHS)
-            : m_operator(op), LHS(std::move(LHS)), RHS(std::move(RHS)) {}
+        BinaryExpression(char op, Expression* LHS, Expression* RHS)
+            : m_operator(op), LHS(LHS), RHS(RHS) {}
 
         virtual llvm::Value *codegen() = 0;
     };

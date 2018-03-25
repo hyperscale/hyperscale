@@ -25,7 +25,7 @@ namespace ast {
 
         std::string m_type;
 
-        std::shared_ptr<Node> m_expression;
+        Node* m_expression;
 
     public:
         NodeVariableDeclaration(): m_is_const(false), m_symbol(""), m_type("") {}
@@ -55,11 +55,11 @@ namespace ast {
             return m_type;
         }
 
-        void setExpression(std::shared_ptr<Node> expression) {
+        void setExpression(Node* expression) {
             m_expression = expression;
         }
 
-        std::shared_ptr<Node> getExpression() const {
+        Node* getExpression() const {
             return m_expression;
         }
     };

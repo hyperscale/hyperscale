@@ -17,9 +17,9 @@ namespace ast {
         m_line(0),
         m_column(0) {}
 
-    Node::Node(std::shared_ptr<parser::Token>& token):
-        m_line(token->getLine()),
-        m_column(token->getColumn()) {}
+    Node::Node(parser::Token& token):
+        m_line(token.getLine()),
+        m_column(token.getColumn()) {}
 
 } // end of ast namespace
 } // end of hyperscale namespace

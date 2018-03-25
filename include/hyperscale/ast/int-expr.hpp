@@ -11,25 +11,24 @@
 #include <string>
 #include <hyperscale/ast/expr.hpp>
 #include <hyperscale/ast/visitor.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class IntExpr: public Expr {
+    class IntExpr: public Expr, public Visitable<IntExpr> {
     protected:
         int m_value;
 
     public:
         /// Construct an IntExpr node.
-        IntExpr(std::shared_ptr<parser::Token> token);
+        IntExpr(parser::Token& token);
 
         IntExpr(const IntExpr&) = delete;
 
         IntExpr& operator=(const IntExpr&) = delete;
 
         virtual ~IntExpr();
-
-        void accept(Visitor& v);
 
         inline int getValue();
     };

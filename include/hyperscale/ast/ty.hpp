@@ -15,7 +15,7 @@ namespace ast {
 
     class Ty: public Node {
     public:
-        Ty(std::shared_ptr<parser::Token>& token): Node(token) {}
+        Ty(parser::Token& token): Node(token) {}
 
         Ty(const Ty&) = delete;
 

@@ -12,16 +12,17 @@
 #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/ty.hpp>
 #include <hyperscale/ast/visitor.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class NameTy: public Ty {
+    class NameTy: public Ty, public Visitable<NameTy>  {
     private:
         std::string m_name;
 
     public:
-        NameTy(std::shared_ptr<parser::Token>& token, const std::string& name):
+        NameTy(parser::Token& token, const std::string& name):
             Ty(token),
             m_name(name) {}
 
@@ -33,10 +34,6 @@ namespace ast {
 
         std::string getName() const {
             return m_name;
-        }
-
-        void accept(Visitor& v) {
-            v(*this);
         }
     };
 

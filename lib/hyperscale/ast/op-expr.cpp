@@ -13,17 +13,13 @@
 namespace hyperscale {
 namespace ast {
 
-    OpExpr::OpExpr(std::shared_ptr<Expr> left, OpExpr::Oper oper, std::shared_ptr<Expr> right):
+    OpExpr::OpExpr(Expr* left, OpExpr::Oper oper, Expr* right):
         Expr(),
         m_left(left),
         m_oper(oper),
         m_right(right) {}
 
     OpExpr::~OpExpr() {}
-
-    void OpExpr::accept(Visitor& v) {
-        v(*this);
-    }
 
 } // end of ast namespace
 } // end of hyperscale namespace

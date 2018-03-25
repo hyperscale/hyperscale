@@ -63,21 +63,21 @@ namespace ast {
 
     class NodeBinaryOperatorExpression {
     private:
-        std::shared_ptr<Node> m_left;
+        Node* m_left;
 
         std::string m_operator;
 
-        std::shared_ptr<Node> m_right;
+        Node* m_right;
 
     public:
         NodeBinaryOperatorExpression() {}
         ~NodeBinaryOperatorExpression() {}
 
-        void setLeft(std::shared_ptr<Node>& left) {
+        void setLeft(Node* left) {
             m_left = left;
         }
 
-        std::shared_ptr<Node> getLeft() const {
+        Node* getLeft() const {
             return m_left;
         }
 
@@ -90,11 +90,11 @@ namespace ast {
         }
 
 
-        void setRight(std::shared_ptr<Node>& left) {
+        void setRight(Node* left) {
             m_right = right;
         }
 
-        std::shared_ptr<Node> getRight() const {
+        Node* getRight() const {
             return m_right;
         }
     };

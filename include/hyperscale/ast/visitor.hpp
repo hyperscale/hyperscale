@@ -18,8 +18,9 @@ namespace ast {
     public:
         virtual ~Visitor();
 
-        virtual void operator()(OpExpr&) = 0;
-        virtual void operator()(IntExpr&) = 0;
+        virtual void operator()(OpExpr*) = 0;
+        virtual void operator()(IntExpr*) = 0;
+        virtual void operator()(VarDecl*) = 0;
 
         /// Helper to visit nodes manipulated via a pointer.
         template <class E>

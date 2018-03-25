@@ -19,7 +19,7 @@ namespace ast {
         std::string m_name;
 
     public:
-        Decl(std::shared_ptr<parser::Token>& token, std::string name):
+        Decl(parser::Token& token, std::string name):
             Node(token),
             m_name(name) {}
 

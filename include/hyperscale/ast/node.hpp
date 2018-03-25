@@ -15,8 +15,6 @@
 namespace hyperscale {
 namespace ast {
 
-    class Visitor;
-
     class Node {
     private:
         std::size_t m_line;
@@ -24,7 +22,7 @@ namespace ast {
 
     public:
         Node();
-        Node(std::shared_ptr<parser::Token>& token);
+        Node(parser::Token& token);
 
         Node(const Node&) = delete;
         Node& operator=(const Node&) = delete;
@@ -34,8 +32,6 @@ namespace ast {
         inline std::size_t getLine() const;
 
         inline std::size_t getColumn() const;
-
-        virtual void accept(Visitor& v) = 0;
     };
 
 } // end of ast namespace

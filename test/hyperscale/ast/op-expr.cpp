@@ -20,22 +20,22 @@ BOOST_AUTO_TEST_SUITE(hyperscale_ast_op_expr)
 BOOST_AUTO_TEST_CASE(test_op_expr) {
 
     // 12 + 45
-    auto left = std::make_shared<hyperscale::parser::Token>(hyperscale::syntax::TokenKind::IntegerLiteral);
-    left->setStartOffset(0);
-    left->setLine(1);
-    left->setColumn(1);
-    left->setText(llvm::StringRef("12"));
+    auto left = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
+    left.setStartOffset(0);
+    left.setLine(1);
+    left.setColumn(1);
+    left.setText(llvm::StringRef("12"));
 
-    auto right = std::make_shared<hyperscale::parser::Token>(hyperscale::syntax::TokenKind::IntegerLiteral);
-    right->setStartOffset(5);
-    right->setLine(1);
-    right->setColumn(6);
-    right->setText(llvm::StringRef("45"));
+    auto right = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
+    right.setStartOffset(5);
+    right.setLine(1);
+    right.setColumn(6);
+    right.setText(llvm::StringRef("45"));
 
-    auto expr = std::make_shared<hyperscale::ast::OpExpr>(
-        static_cast<std::shared_ptr<hyperscale::ast::Expr>>(std::make_shared<hyperscale::ast::IntExpr>(left)),
+    auto expr = new hyperscale::ast::OpExpr(
+        new hyperscale::ast::IntExpr(left),
         hyperscale::ast::OpExpr::Oper::add,
-        static_cast<std::shared_ptr<hyperscale::ast::Expr>>(std::make_shared<hyperscale::ast::IntExpr>(right))
+        new hyperscale::ast::IntExpr(right)
     );
 
     BOOST_CHECK(expr->getOperator() == hyperscale::ast::OpExpr::Oper::add);
@@ -44,6 +44,8 @@ BOOST_AUTO_TEST_CASE(test_op_expr) {
     BOOST_CHECK_EQUAL(expr->getLeft()->getColumn(), 1);
     BOOST_CHECK_EQUAL(expr->getRight()->getLine(), 1);
     BOOST_CHECK_EQUAL(expr->getRight()->getColumn(), 6);
+
+    delete expr;
 }
 
 BOOST_AUTO_TEST_SUITE_END()
