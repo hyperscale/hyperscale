@@ -11,6 +11,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5.0
           packages:
             - g++-7
             - llvm-5.0-dev
@@ -39,13 +40,17 @@ matrix:
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="brew install gcc && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="brew install gcc && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash && CC=gcc-7 && CXX=g++-7"
+
+    - os: osx
+      osx_image: xcode8
+      env:
+        - MATRIX_EVAL="brew install llvm && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash && CC=clang && CXX=clang++"
 
 before_install:
   - eval "${MATRIX_EVAL}"
   - echo $LANG
   - echo $LC_ALL
-  - if [ $TRAVIS_OS_NAME == osx ]; then brew update --quiet && brew install llvm && eval "$(pyenv init -)" && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash; fi
   - pip install --user cpp-coveralls
   - $CXX --version
 
