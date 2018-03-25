@@ -4,14 +4,6 @@ sudo: required
 
 dist: trusty
 
-compiler:
-  - clang
-  - gcc
-
-os:
-  - linux
-  - osx
-
 matrix:
   include:
     - os: linux
