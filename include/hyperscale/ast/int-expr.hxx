@@ -13,7 +13,7 @@
 namespace hyperscale {
 namespace ast {
 
-    int IntExpr::getValue() {
+    inline int IntExpr::getValue() const {
         return m_value;
     }
 

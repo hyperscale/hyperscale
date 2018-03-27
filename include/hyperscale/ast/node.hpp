@@ -10,12 +10,14 @@
 
 #include <memory>
 #include <hyperscale/ast/fwd.hpp>
+#include <hyperscale/ast/visitor.hpp>
+#include <hyperscale/ast/visitable.hpp>
 #include <hyperscale/parser/token.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class Node {
+    class Node: public Visitable<Node> {
     private:
         std::size_t m_line;
         std::size_t m_column;

@@ -12,6 +12,9 @@
 //#include <hyperscale/parser/parser.hpp>
 #include <hyperscale/parser/lexer.hpp>
 //#include <hyperscale/ast/node.hpp>
+#include <hyperscale/ast/pretty-printer-visitor.hpp>
+#include <hyperscale/ast/int-expr.hpp>
+#include <hyperscale/ast/op-expr.hpp>
 #include <iostream>
 #include <string>
 #include <memory>
@@ -61,6 +64,30 @@ namespace debug {
         std::cout << "Line: " << ast->getLine() << std::endl;
         std::cout << "Column: " << ast->getColumn() << std::endl;
 */
+
+       // 12 + 45
+        auto left = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
+        left.setStartOffset(0);
+        left.setLine(1);
+        left.setColumn(1);
+        left.setText(llvm::StringRef("12"));
+
+        auto right = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
+        right.setStartOffset(5);
+        right.setLine(1);
+        right.setColumn(6);
+        right.setText(llvm::StringRef("45"));
+
+        auto expr = new hyperscale::ast::OpExpr(
+            new hyperscale::ast::IntExpr(left),
+            hyperscale::ast::OpExpr::Oper::add,
+            new hyperscale::ast::IntExpr(right)
+        );
+
+        std::cout << *expr << std::endl;
+
+        delete expr;
+
         return EXIT_SUCCESS;
     }
 

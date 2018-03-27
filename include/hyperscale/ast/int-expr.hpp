@@ -10,7 +10,6 @@
 
 #include <string>
 #include <hyperscale/ast/expr.hpp>
-#include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
@@ -28,9 +27,9 @@ namespace ast {
 
         IntExpr& operator=(const IntExpr&) = delete;
 
-        virtual ~IntExpr();
+        virtual ~IntExpr() = default;
 
-        inline int getValue();
+        inline int getValue() const;
     };
 
 } // end of ast namespace

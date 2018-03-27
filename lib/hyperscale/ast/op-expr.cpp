@@ -19,7 +19,10 @@ namespace ast {
         m_oper(oper),
         m_right(right) {}
 
-    OpExpr::~OpExpr() {}
+    OpExpr::~OpExpr() {
+        delete m_left;
+        delete m_right;
+    }
 
 } // end of ast namespace
 } // end of hyperscale namespace

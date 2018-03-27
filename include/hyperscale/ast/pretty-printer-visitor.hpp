@@ -8,12 +8,13 @@
  */
 #pragma once
 
+#include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/default-visitor.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class PrettyPrinterVisitor : virtual public DefaultVisitor {
+    class PrettyPrinterVisitor: virtual public DefaultVisitor {
     protected:
         /// The stream to print on.
         std::ostream& m_ostr;
@@ -24,21 +25,16 @@ namespace ast {
         using super_type::operator();
 
         /// Build to print on \a ostr.
-        PrettyPrinterVisitor(std::ostream& ostr): m_ostr(ostr) {
-        }
+        PrettyPrinterVisitor(std::ostream& ostr);
 
-        void operator()(VarDecl* e) {
-            m_ostr << "var(" << e->getName() << ")" << std::endl;
-        }
+        void operator()(VarDecl& e);
 
-        void operator()(OpExpr* e) {
+        void operator()(OpExpr& e);
 
-        }
-
-        void operator()(IntExpr* e) {
-            m_ostr << "int(" << e->getValue() << ")" << std::endl;
-        }
+        void operator()(IntExpr& e);
     };
+
+    std::ostream& operator<<(std::ostream& os, Node& tree);
 
 } // end of ast namespace
 } // end of hyperscale namespace

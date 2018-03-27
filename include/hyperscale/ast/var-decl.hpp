@@ -14,7 +14,6 @@
 #include <hyperscale/ast/expr.hpp>
 #include <hyperscale/ast/decl.hpp>
 #include <hyperscale/ast/name-ty.hpp>
-#include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {

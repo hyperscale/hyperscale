@@ -11,6 +11,7 @@
 namespace hyperscale {
 namespace ast {
 
+    class Node;
     class Visitor;
     class NameTy;
     class VarDecl;

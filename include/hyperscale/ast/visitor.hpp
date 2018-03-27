@@ -8,8 +8,8 @@
  */
 #pragma once
 
-#include <string>
 #include <hyperscale/ast/fwd.hpp>
+#include <hyperscale/ast/node.hpp>
 
 namespace hyperscale {
 namespace ast {
@@ -18,9 +18,10 @@ namespace ast {
     public:
         virtual ~Visitor();
 
-        virtual void operator()(OpExpr*) = 0;
-        virtual void operator()(IntExpr*) = 0;
-        virtual void operator()(VarDecl*) = 0;
+        virtual void operator()(Node&);
+        virtual void operator()(OpExpr&) = 0;
+        virtual void operator()(IntExpr&) = 0;
+        virtual void operator()(VarDecl&) = 0;
 
         /// Helper to visit nodes manipulated via a pointer.
         template <class E>
@@ -34,4 +35,4 @@ namespace ast {
 } // end of ast namespace
 } // end of hyperscale namespace
 
-
+#include <hyperscale/ast/visitor.hxx>

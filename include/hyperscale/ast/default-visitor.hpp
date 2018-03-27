@@ -11,11 +11,12 @@
 #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/ast/var-decl.hpp>
+#include <hyperscale/ast/int-expr.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class DefaultVisitor : public virtual Visitor {
+    class DefaultVisitor: public virtual Visitor {
     public:
         /// Super class type.
         using super_type = Visitor;
@@ -29,21 +30,11 @@ namespace ast {
         /// Destroy a default visitor.
         virtual ~DefaultVisitor();
 
-        void operator()(OpExpr* e) {
-
-        }
-
-        void operator()(IntExpr* e) {
-
-        }
-
-        void operator()(VarDecl* e) {
-
-        }
+        void operator()(OpExpr& e) override;
+        void operator()(IntExpr& e) override;
+        void operator()(VarDecl& e) override;
 
     };
 
 } // end of ast namespace
 } // end of hyperscale namespace
-
-
