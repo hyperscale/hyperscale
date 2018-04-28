@@ -8,7 +8,6 @@
  */
 #pragma once
 
-#include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/default-visitor.hpp>
 
 namespace hyperscale {

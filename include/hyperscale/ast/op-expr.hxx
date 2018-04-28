@@ -13,15 +13,15 @@
 namespace hyperscale {
 namespace ast {
 
-    Expr* OpExpr::getLeft() {
+    inline Expr* OpExpr::getLeft() {
         return m_left;
     }
 
-    OpExpr::Oper OpExpr::getOperator() {
+    inline OpExpr::Oper OpExpr::getOperator() {
         return m_oper;
     }
 
-    Expr* OpExpr::getRight() {
+    inline Expr* OpExpr::getRight() {
         return m_right;
     }
 

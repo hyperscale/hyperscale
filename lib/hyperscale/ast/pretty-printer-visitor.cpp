@@ -21,7 +21,7 @@ namespace ast {
     }
 
     void PrettyPrinterVisitor::operator()(OpExpr& e) {
-
+        m_ostr << "operator(" << e.getOperator() << ")" << std::endl;
     }
 
     void PrettyPrinterVisitor::operator()(IntExpr& e) {
