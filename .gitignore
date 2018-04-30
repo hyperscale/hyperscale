@@ -51,3 +51,5 @@ __*__
 
 *.ai
 *.sketch
+*.dot
+astgraph.png

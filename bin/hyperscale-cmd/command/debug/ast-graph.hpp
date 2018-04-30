@@ -9,18 +9,18 @@
 #pragma once
 
 #include <hyper/console/command.hpp>
-#include <command/debug/lexer.hpp>
-#include <command/debug/parser.hpp>
-#include <command/debug/pretty-print.hpp>
-#include <command/debug/ast-graph.hpp>
 
 namespace hyperscale {
 namespace command {
+namespace debug {
 
-    class DebugCommand: public hyper::console::Command {
+    class AstGraphCommand: public hyper::console::Command {
     public:
         void configuration();
+
+        int execute();
     };
 
+} // end of debug namespace
 } // end of command namespace
 } // end of hyperscale namespace

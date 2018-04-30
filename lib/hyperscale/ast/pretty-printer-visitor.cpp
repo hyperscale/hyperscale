@@ -35,14 +35,14 @@ namespace ast {
 */
 
     void PrettyPrinterVisitor::operator()(ParenExpr& e) {
-        m_ostr << indent() << "-ParenExpr <line:" << e.getLine() << ", col" << e.getColumn() << ">" << std::endl;
+        m_ostr << indent() << "-ParenExpr <line:" << e.getLine() << ", col:" << e.getColumn() << ">" << std::endl;
 
         m_ostr << indent(2) << "`";
         e.getExpr()->accept(*this);
     }
 
     void PrettyPrinterVisitor::operator()(OpExpr& e) {
-        m_ostr << indent() << "-BinaryOperator <line:" << e.getLine() << ", col" << e.getColumn() << ">";
+        m_ostr << indent() << "-BinaryOperator <line:" << e.getLine() << ", col:" << e.getColumn() << ">";
         m_ostr << " '" << e.getOperator() << "'" << std::endl;
 
         m_ostr << indent(2) << "|";
@@ -65,13 +65,13 @@ namespace ast {
     }
 
     void PrettyPrinterVisitor::operator()(Node& e) {
+        m_ostr << "`";
+
         e.accept(*this);
     }
 
     std::ostream& operator<<(std::ostream& os, Node& tree) {
         PrettyPrinterVisitor print(os);
-
-        os << "`";
 
         print(tree);
 
