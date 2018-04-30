@@ -34,11 +34,11 @@ BOOST_AUTO_TEST_CASE(test_op_expr) {
 
     auto expr = new hyperscale::ast::OpExpr(
         new hyperscale::ast::IntExpr(left),
-        hyperscale::ast::OpExpr::Oper::add,
+        hyperscale::ast::Operator::add,
         new hyperscale::ast::IntExpr(right)
     );
 
-    BOOST_CHECK(expr->getOperator() == hyperscale::ast::OpExpr::Oper::add);
+    BOOST_CHECK(expr->getOperator() == hyperscale::ast::Operator::add);
 
     BOOST_CHECK_EQUAL(expr->getLeft()->getLine(), 1);
     BOOST_CHECK_EQUAL(expr->getLeft()->getColumn(), 1);

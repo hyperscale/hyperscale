@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/fwd.hpp>
+// #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/default-visitor.hpp>
 
 namespace hyperscale {
@@ -16,11 +16,15 @@ namespace ast {
 
     DefaultVisitor::~DefaultVisitor() {}
 
-    void DefaultVisitor::operator()(VarDecl& e) {}
+    // void DefaultVisitor::operator()(VarDecl& e) {}
 
     void DefaultVisitor::operator()(OpExpr& e) {}
 
     void DefaultVisitor::operator()(IntExpr& e) {}
+
+    void DefaultVisitor::operator()(Node&) {}
+
+    void DefaultVisitor::operator()(ParenExpr&) {}
 
 } // end of ast namespace
 } // end of hyperscale namespace

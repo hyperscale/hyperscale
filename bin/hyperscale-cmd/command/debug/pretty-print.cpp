@@ -15,6 +15,7 @@
 #include <hyperscale/ast/pretty-printer-visitor.hpp>
 #include <hyperscale/ast/int-expr.hpp>
 #include <hyperscale/ast/op-expr.hpp>
+#include <hyperscale/ast/paren-expr.hpp>
 #include <iostream>
 #include <string>
 #include <memory>
@@ -78,10 +79,12 @@ namespace debug {
         right.setColumn(6);
         right.setText(llvm::StringRef("45"));
 
-        auto expr = new hyperscale::ast::OpExpr(
-            new hyperscale::ast::IntExpr(left),
-            hyperscale::ast::OpExpr::Oper::add,
-            new hyperscale::ast::IntExpr(right)
+        auto expr = new hyperscale::ast::ParenExpr(
+            new hyperscale::ast::OpExpr(
+                new hyperscale::ast::IntExpr(left),
+                hyperscale::ast::Operator::add,
+                new hyperscale::ast::IntExpr(right)
+            )
         );
 
         std::cout << *expr << std::endl;

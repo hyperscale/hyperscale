@@ -9,7 +9,6 @@
 
 #include <hyperscale/ast/node.hpp>
 
-
 namespace hyperscale {
 namespace ast {
 
@@ -20,6 +19,14 @@ namespace ast {
     Node::Node(parser::Token& token):
         m_line(token.getLine()),
         m_column(token.getColumn()) {}
+
+    std::size_t Node::getLine() const {
+        return m_line;
+    }
+
+    std::size_t Node::getColumn() const {
+        return m_column;
+    }
 
 } // end of ast namespace
 } // end of hyperscale namespace

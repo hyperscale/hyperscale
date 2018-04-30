@@ -17,6 +17,11 @@ namespace ast {
     protected:
         /// The stream to print on.
         std::ostream& m_ostr;
+        std::size_t m_indent;
+
+        std::string indent();
+
+        std::string indent(std::size_t indent);
 
     public:
         using super_type = DefaultVisitor;
@@ -25,12 +30,17 @@ namespace ast {
 
         /// Build to print on \a ostr.
         PrettyPrinterVisitor(std::ostream& ostr);
+        PrettyPrinterVisitor(std::ostream& ostr, std::size_t indent);
 
-        void operator()(VarDecl& e);
+        // void operator()(VarDecl& e);
+
+        void operator()(Node&);
 
         void operator()(OpExpr& e);
 
         void operator()(IntExpr& e);
+
+        void operator()(ParenExpr& e);
     };
 
     std::ostream& operator<<(std::ostream& os, Node& tree);

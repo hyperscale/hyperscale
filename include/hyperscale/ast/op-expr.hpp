@@ -10,55 +10,38 @@
 
 #include <hyperscale/ast/expr.hpp>
 #include <hyperscale/ast/visitor.hpp>
-#include <hyperscale/ast/visitable.hpp>
+#include <hyperscale/ast/operator.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class OpExpr: public Expr, public Visitable<OpExpr>  {
-    public:
-        /// Operator qualifier.
-        enum class Oper {
-            // Arithmetics.
-            /** \brief "+" */ add,
-            /** \brief "-" */ sub,
-            /** \brief "*" */ mul,
-            /** \brief "/" */ div,
-
-            // Comparison.
-            /** \brief "=" */  eq,
-            /** \brief "<>" */ ne,
-            /** \brief "<" */  lt,
-            /** \brief "<=" */ le,
-            /** \brief ">" */  gt,
-            /** \brief ">=" */ ge
-        };
-
+    class OpExpr: public Expr {
     protected:
         Expr* m_left;
 
-        Oper m_oper;
+        Operator m_oper;
 
         Expr* m_right;
 
     public:
         /// Construct an OpExpr node.
-        OpExpr(Expr* left, OpExpr::Oper oper, Expr* right);
+        OpExpr(Expr* left, Operator oper, Expr* right);
 
         OpExpr(const OpExpr&) = delete;
 
         OpExpr& operator=(const OpExpr&) = delete;
 
-        virtual ~OpExpr();
+        ~OpExpr();
 
-        inline Expr* getLeft();
+        Expr* getLeft();
 
-        inline OpExpr::Oper getOperator();
+        Operator getOperator();
 
-        inline Expr* getRight();
+        Expr* getRight();
+
+        void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace
 } // end of hyperscale namespace
 
-#include <hyperscale/ast/op-expr.hxx>

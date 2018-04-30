@@ -8,10 +8,12 @@
  */
 #pragma once
 
-#include <hyperscale/ast/fwd.hpp>
+// #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/visitor.hpp>
-#include <hyperscale/ast/var-decl.hpp>
+// #include <hyperscale/ast/var-decl.hpp>
 #include <hyperscale/ast/int-expr.hpp>
+#include <hyperscale/ast/op-expr.hpp>
+#include <hyperscale/ast/paren-expr.hpp>
 
 namespace hyperscale {
 namespace ast {
@@ -30,10 +32,11 @@ namespace ast {
         /// Destroy a default visitor.
         virtual ~DefaultVisitor();
 
+        void operator()(Node&) override;
         void operator()(OpExpr& e) override;
         void operator()(IntExpr& e) override;
-        void operator()(VarDecl& e) override;
-
+        void operator()(ParenExpr& e) override;
+        // void operator()(VarDecl& e) override;
     };
 
 } // end of ast namespace

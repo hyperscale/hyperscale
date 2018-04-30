@@ -8,30 +8,31 @@
  */
 #pragma once
 
-#include <string>
 #include <hyperscale/ast/expr.hpp>
+#include <hyperscale/ast/visitor.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class IntExpr: public Expr {
+    class ParenExpr: public Expr {
     protected:
-        int m_value;
+        Expr* m_expr;
 
     public:
-        /// Construct an IntExpr node.
-        IntExpr(parser::Token& token);
+        /// Construct an ParenExpr node.
+        ParenExpr(Expr* expr);
 
-        IntExpr(const IntExpr&) = delete;
+        ParenExpr(const ParenExpr&) = delete;
 
-        IntExpr& operator=(const IntExpr&) = delete;
+        ParenExpr& operator=(const ParenExpr&) = delete;
 
-        virtual ~IntExpr() = default;
+        ~ParenExpr();
 
-        int getValue() const;
+        Expr* getExpr();
 
         void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace
 } // end of hyperscale namespace
+
