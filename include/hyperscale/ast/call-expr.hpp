@@ -29,7 +29,7 @@ namespace ast {
 
         CallExpr& operator=(const CallExpr&) = delete;
 
-        virtual ~CallExpr() = default;
+        ~CallExpr();
 
         void addArgument(Node* node);
 

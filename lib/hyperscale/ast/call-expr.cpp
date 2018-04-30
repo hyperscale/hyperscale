@@ -16,7 +16,13 @@ namespace ast {
         Expr(token),
         m_ref(token.getText().str()) {}
 
-    // CallExpr::~CallExpr() {}
+    CallExpr::~CallExpr() {
+        for (auto arg = m_args.begin(); arg != m_args.end(); ++arg) {
+            delete (*arg);
+        }
+
+        m_args.clear();
+    }
 
     std::string CallExpr::getRef() {
         return m_ref;
