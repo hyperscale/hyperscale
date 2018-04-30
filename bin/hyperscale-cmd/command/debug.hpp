@@ -12,7 +12,6 @@
 #include <command/debug/lexer.hpp>
 #include <command/debug/parser.hpp>
 #include <command/debug/pretty-print.hpp>
-#include <command/debug/ast-graph.hpp>
 
 namespace hyperscale {
 namespace command {

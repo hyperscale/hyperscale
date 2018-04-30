@@ -19,7 +19,6 @@ namespace command {
         addCommand(new debug::LexerCommand());
         addCommand(new debug::ParserCommand());
         addCommand(new debug::PrettyPrintCommand());
-        addCommand(new debug::AstGraphCommand());
     }
 
 } // end of command namespace

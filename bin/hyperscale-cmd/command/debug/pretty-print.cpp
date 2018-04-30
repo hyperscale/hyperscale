@@ -9,10 +9,12 @@
 
 #include <exception>
 #include <fstream>
+#include <hyper/console/value.hpp>
 //#include <hyperscale/parser/parser.hpp>
 #include <hyperscale/parser/lexer.hpp>
 //#include <hyperscale/ast/node.hpp>
 #include <hyperscale/ast/pretty-printer-visitor.hpp>
+#include <hyperscale/ast/graph-visitor.hpp>
 #include <hyperscale/ast/int-expr.hpp>
 #include <hyperscale/ast/op-expr.hpp>
 #include <hyperscale/ast/paren-expr.hpp>
@@ -29,11 +31,12 @@ namespace debug {
     void PrettyPrintCommand::configuration() {
         setName("pretty-print");
         setDescription("Debug hyperscale pretty print ast");
+        addOption(new hyper::console::Value<std::string>("", "format", "The output format", "text"));
     }
-
 
     int PrettyPrintCommand::execute() {
         auto args = getArguments();
+        auto format = getLongOpt<std::string>("format")->getValue();
 
         if (args.empty()) {
             std::cout << "No file" << std::endl;
@@ -66,7 +69,6 @@ namespace debug {
         std::cout << "Column: " << ast->getColumn() << std::endl;
 */
 
-       // 12 + 45
         auto left = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
         left.setStartOffset(0);
         left.setLine(1);
@@ -79,15 +81,39 @@ namespace debug {
         right.setColumn(6);
         right.setText(llvm::StringRef("45"));
 
+        auto left1 = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
+        left1.setStartOffset(0);
+        left1.setLine(1);
+        left1.setColumn(1);
+        left1.setText(llvm::StringRef("8"));
+
+        auto right2 = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
+        right2.setStartOffset(5);
+        right2.setLine(1);
+        right2.setColumn(6);
+        right2.setText(llvm::StringRef("5"));
+
         auto expr = new hyperscale::ast::ParenExpr(
             new hyperscale::ast::OpExpr(
                 new hyperscale::ast::IntExpr(left),
                 hyperscale::ast::Operator::add,
-                new hyperscale::ast::IntExpr(right)
+                new hyperscale::ast::OpExpr(
+                    new hyperscale::ast::IntExpr(left1),
+                    hyperscale::ast::Operator::mul,
+                    new hyperscale::ast::IntExpr(right2)
+                )
             )
         );
 
-        std::cout << *expr << std::endl;
+        if (format == "dot") {
+            hyperscale::ast::GraphVisitor print(std::cout);
+
+            print(*expr);
+        } else {
+            hyperscale::ast::PrettyPrinterVisitor print(std::cout);
+
+            print(*expr);
+        }
 
         delete expr;
 

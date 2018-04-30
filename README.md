@@ -41,6 +41,28 @@ Building from Source
     $ make
     ```
 
+Example
+-------
+
+simple.hyper
+```
+var i = (12 + 45);
+
+print(i);
+
+```
+
+```sh
+$ ./build/bin/hyperscale debug pretty-print ./dev/simple.hyper
+```
+
+```
+>  ParenExpr <line:0, col:9>
+>  >  BinaryOperator <line:0, col:13> '+'
+>  >  >  IntegerLiteral <line:1, col:10> 'int' 12
+>  >  >  IntegerLiteral <line:1, col:15> 'int' 45
+```
+
 Features and roadmap
 --------------------
 
