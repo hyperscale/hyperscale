@@ -27,8 +27,8 @@ namespace command {
 namespace debug {
 
     void AstGraphCommand::configuration() {
-        setName("pretty-print");
-        setDescription("Debug hyperscale pretty print ast");
+        setName("ast-graph");
+        setDescription("Debug hyperscale print ast graph");
     }
 
 
