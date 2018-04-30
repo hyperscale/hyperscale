@@ -36,11 +36,15 @@ namespace ast {
 
         return ret;
     }
-/*
+
     void PrettyPrinterVisitor::operator()(VarDecl& e) {
-        m_ostr << "var(" << e.getName() << ")" << std::endl;
+        m_ostr << indent() << "VarDecl <line:" << e.getLine() << ", col:" << e.getColumn() << "> used " << e.getType() << std::endl;
+
+        PrettyPrinterVisitor print(m_ostr, m_indent+1);
+
+        print(*e.getValue());
     }
-*/
+
 
     void PrettyPrinterVisitor::operator()(ParenExpr& e) {
         m_ostr << indent() << "ParenExpr <line:" << e.getLine() << ", col:" << e.getColumn() << ">" << std::endl;
@@ -61,8 +65,32 @@ namespace ast {
     }
 
     void PrettyPrinterVisitor::operator()(IntExpr& e) {
-        m_ostr << indent() <<  "IntegerLiteral <line:"<< e.getLine() << ", col:" << e.getColumn() << ">";
+        m_ostr << indent() <<  "IntegerLiteral <line:" << e.getLine() << ", col:" << e.getColumn() << ">";
         m_ostr << " 'int' " << e.getValue() << std::endl;
+    }
+
+    void PrettyPrinterVisitor::operator()(FileSource& e) {
+        m_ostr << indent() <<  "FileSource" << std::endl;
+
+        PrettyPrinterVisitor print(m_ostr, m_indent+1);
+
+        for (auto decl = e.getDecls().begin(); decl != e.getDecls().end(); ++decl) {
+            print(**decl);
+        }
+    }
+
+    void PrettyPrinterVisitor::operator()(CallExpr& e) {
+        m_ostr << indent() <<  "CallExpr <line:" << e.getLine() << ", col:" << e.getColumn() << "> '" << e.getRef() << "'" << std::endl;
+
+        PrettyPrinterVisitor print(m_ostr, m_indent+1);
+
+        for (auto node = e.getArguments().begin(); node != e.getArguments().end(); ++node) {
+            print(**node);
+        }
+    }
+
+    void PrettyPrinterVisitor::operator()(DeclRefExpr& e) {
+        m_ostr << indent() <<  "DeclRefExpr <line:" << e.getLine() << ", col:" << e.getColumn() << "> '" << e.getRef() << "'" << std::endl;
     }
 
     void PrettyPrinterVisitor::operator()(Node& e) {

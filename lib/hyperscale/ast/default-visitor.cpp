@@ -16,7 +16,9 @@ namespace ast {
 
     DefaultVisitor::~DefaultVisitor() {}
 
-    // void DefaultVisitor::operator()(VarDecl& e) {}
+    void DefaultVisitor::operator()(FileSource& e) {}
+
+    void DefaultVisitor::operator()(VarDecl& e) {}
 
     void DefaultVisitor::operator()(OpExpr& e) {}
 
@@ -25,6 +27,10 @@ namespace ast {
     void DefaultVisitor::operator()(Node&) {}
 
     void DefaultVisitor::operator()(ParenExpr&) {}
+
+    void DefaultVisitor::operator()(CallExpr&) {}
+
+    void DefaultVisitor::operator()(DeclRefExpr&) {}
 
 } // end of ast namespace
 } // end of hyperscale namespace

@@ -14,6 +14,10 @@
 #include <hyperscale/ast/int-expr.hpp>
 #include <hyperscale/ast/op-expr.hpp>
 #include <hyperscale/ast/paren-expr.hpp>
+#include <hyperscale/ast/var-decl.hpp>
+#include <hyperscale/ast/file-source.hpp>
+#include <hyperscale/ast/call-expr.hpp>
+#include <hyperscale/ast/decl-ref-expr.hpp>
 
 namespace hyperscale {
 namespace ast {
@@ -33,10 +37,13 @@ namespace ast {
         virtual ~DefaultVisitor();
 
         void operator()(Node&) override;
+        void operator()(FileSource&) override;
         void operator()(OpExpr& e) override;
         void operator()(IntExpr& e) override;
         void operator()(ParenExpr& e) override;
-        // void operator()(VarDecl& e) override;
+        void operator()(VarDecl& e) override;
+        void operator()(CallExpr& e) override;
+        void operator()(DeclRefExpr& e) override;
     };
 
 } // end of ast namespace

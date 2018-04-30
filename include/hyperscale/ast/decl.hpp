@@ -6,15 +6,26 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+#pragma once
 
-#include <hyperscale/ast/expr.hpp>
+#include <hyperscale/ast/node.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    Expr::Expr(): Node() {}
+    class Decl: public Node
+    {
+    public:
+        Decl();
 
-    Expr::Expr(parser::Token& token): Node(token) {}
+        Decl(parser::Token& token);
+
+        Decl(const Decl&) = delete;
+
+        Decl& operator=(const Decl&) = delete;
+
+        virtual ~Decl() = default;
+    };
 
 } // end of ast namespace
 } // end of hyperscale namespace

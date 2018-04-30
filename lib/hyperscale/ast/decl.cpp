@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/expr.hpp>
+#include <hyperscale/ast/decl.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    Expr::Expr(): Node() {}
+    Decl::Decl(): Node() {}
 
-    Expr::Expr(parser::Token& token): Node(token) {}
+    Decl::Decl(parser::Token& token): Node(token) {}
 
 } // end of ast namespace
 } // end of hyperscale namespace

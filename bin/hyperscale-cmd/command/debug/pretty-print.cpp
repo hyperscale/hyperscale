@@ -16,8 +16,12 @@
 #include <hyperscale/ast/pretty-printer-visitor.hpp>
 #include <hyperscale/ast/graph-visitor.hpp>
 #include <hyperscale/ast/int-expr.hpp>
+#include <hyperscale/ast/file-source.hpp>
+#include <hyperscale/ast/var-decl.hpp>
 #include <hyperscale/ast/op-expr.hpp>
 #include <hyperscale/ast/paren-expr.hpp>
+#include <hyperscale/ast/call-expr.hpp>
+#include <hyperscale/ast/decl-ref-expr.hpp>
 #include <iostream>
 #include <string>
 #include <memory>
@@ -93,29 +97,60 @@ namespace debug {
         right2.setColumn(6);
         right2.setText(llvm::StringRef("5"));
 
-        auto expr = new hyperscale::ast::ParenExpr(
-            new hyperscale::ast::OpExpr(
-                new hyperscale::ast::IntExpr(left),
-                hyperscale::ast::Operator::add,
-                new hyperscale::ast::OpExpr(
-                    new hyperscale::ast::IntExpr(left1),
-                    hyperscale::ast::Operator::mul,
-                    new hyperscale::ast::IntExpr(right2)
+        auto var = hyperscale::parser::Token(hyperscale::syntax::TokenKind::KeywordVar);
+        var.setStartOffset(0);
+        var.setLine(1);
+        var.setColumn(1);
+        var.setText(llvm::StringRef("i"));
+
+        auto fileSource = new hyperscale::ast::FileSource();
+
+        fileSource->addNode(
+            new hyperscale::ast::VarDecl(
+                var,
+                "i",
+                new hyperscale::ast::ParenExpr(
+                    new hyperscale::ast::OpExpr(
+                        new hyperscale::ast::IntExpr(left),
+                        hyperscale::ast::Operator::add,
+                        new hyperscale::ast::OpExpr(
+                            new hyperscale::ast::IntExpr(left1),
+                            hyperscale::ast::Operator::mul,
+                            new hyperscale::ast::IntExpr(right2)
+                        )
+                    )
                 )
             )
         );
 
+        auto call = hyperscale::parser::Token(hyperscale::syntax::TokenKind::Identifier);
+        call.setStartOffset(10);
+        call.setLine(3);
+        call.setColumn(1);
+        call.setText(llvm::StringRef("print"));
+
+        auto argRef = hyperscale::parser::Token(hyperscale::syntax::TokenKind::Identifier);
+        argRef.setAtStartOfLine(17);
+        argRef.setLine(3);
+        argRef.setColumn(9);
+        argRef.setText(llvm::StringRef("i"));
+
+        auto callExpr = new hyperscale::ast::CallExpr(call);
+        callExpr->addArgument(new hyperscale::ast::DeclRefExpr(argRef));
+
+        fileSource->addNode(callExpr);
+
         if (format == "dot") {
             hyperscale::ast::GraphVisitor print(std::cout);
 
-            print(*expr);
+            print(*fileSource);
         } else {
             hyperscale::ast::PrettyPrinterVisitor print(std::cout);
 
-            print(*expr);
+            print(*fileSource);
         }
 
-        delete expr;
+        delete fileSource;
 
         return EXIT_SUCCESS;
     }

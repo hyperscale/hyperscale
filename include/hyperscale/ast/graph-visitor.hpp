@@ -28,7 +28,9 @@ namespace ast {
 
         ~GraphVisitor();
 
-        // void operator()(VarDecl& e);
+        void operator()(FileSource& e);
+
+        void operator()(VarDecl& e);
 
         void operator()(Node&);
 
@@ -37,6 +39,10 @@ namespace ast {
         void operator()(IntExpr& e);
 
         void operator()(ParenExpr& e);
+
+        void operator()(CallExpr& e);
+
+        void operator()(DeclRefExpr& e);
     };
 
 } // end of ast namespace

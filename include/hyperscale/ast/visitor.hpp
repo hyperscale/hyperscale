@@ -17,14 +17,21 @@ namespace ast {
     class IntExpr;
     class Node;
     class ParenExpr;
+    class VarDecl;
+    class FileSource;
+    class CallExpr;
+    class DeclRefExpr;
 
     class Visitor {
     public:
         virtual void operator()(Node&) = 0;
+        virtual void operator()(FileSource&) = 0;
         virtual void operator()(OpExpr&) = 0;
         virtual void operator()(IntExpr&) = 0;
         virtual void operator()(ParenExpr&) = 0;
-        // virtual void operator()(VarDecl&) = 0;
+        virtual void operator()(VarDecl&) = 0;
+        virtual void operator()(CallExpr&) = 0;
+        virtual void operator()(DeclRefExpr&) = 0;
     };
 
 } // end of ast namespace
