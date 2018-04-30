@@ -44,9 +44,11 @@ Building from Source
 Example
 -------
 
+### Debug Pretty Print (format text)
+
 simple.hyper
 ```
-var i = (12 + 45);
+var i = (12 + 8 * 5);
 
 print(i);
 
@@ -57,11 +59,64 @@ $ ./build/bin/hyperscale debug pretty-print ./dev/simple.hyper
 ```
 
 ```
->  ParenExpr <line:0, col:9>
->  >  BinaryOperator <line:0, col:13> '+'
->  >  >  IntegerLiteral <line:1, col:10> 'int' 12
->  >  >  IntegerLiteral <line:1, col:15> 'int' 45
+>  FileSource
+>  >  VarDecl <line:1, col:1> used i
+>  >  >  ParenExpr <line:1, col:9>
+>  >  >  >  BinaryOperator <line:1, col:13> '+'
+>  >  >  >  >  IntegerLiteral <line:1, col:10> 'int' 12
+>  >  >  >  >  BinaryOperator <line:1, col:17> '*'
+>  >  >  >  >  >  IntegerLiteral <line:1, col:15> 'int' 8
+>  >  >  >  >  >  IntegerLiteral <line:1, col:19> 'int' 5
+>  >  CallExpr <line:3, col:1> 'print'
+>  >  >  DeclRefExpr <line:3, col:7> 'i'
 ```
+
+### Debug pretty Print (format dot)
+
+simple.hyper
+```
+var i = (12 + 8 * 5);
+
+print(i);
+
+```
+
+```sh
+$ ./build/bin/hyperscale debug pretty-print --format dot ./dev/simple.hyper
+```
+
+```dot
+digraph astgraph {
+  node [shape=plaintext, fontsize=12, fontname="Courier", height=.1];
+  ranksep=.3;
+  edge [arrowsize=.5]
+  node0x7f8d89f05580 [label="file"];
+  node0x7f8d89f055b0 [label="i"];
+  node0x7f8d89f055f0 [label="factor"];
+  node0x7f8d89f055f0_open [label="("];
+  node0x7f8d89f05610 [label="+"];
+  node0x7f8d89f05640 [label="12"];
+  node0x7f8d89f05660 [label="*"];
+  node0x7f8d89f05690 [label="8"];
+  node0x7f8d89f056b0 [label="5"];
+  node0x7f8d89f05660 -> node0x7f8d89f05690;
+  node0x7f8d89f05660 -> node0x7f8d89f056b0;
+  node0x7f8d89f05610 -> node0x7f8d89f05640;
+  node0x7f8d89f05610 -> node0x7f8d89f05660;
+  node0x7f8d89f055f0_close [label=")"];
+  node0x7f8d89f055f0 -> node0x7f8d89f055f0_open;
+  node0x7f8d89f055f0 -> node0x7f8d89f05610;
+  node0x7f8d89f055f0 -> node0x7f8d89f055f0_close;
+  node0x7f8d89f055b0 -> node0x7f8d89f055f0;
+  node0x7f8d89f05580 -> node0x7f8d89f055b0;
+  node0x7f8d89f056d0 [label="print"];
+  node0x7f8d89f05720 [label="i"];
+  node0x7f8d89f056d0 -> node0x7f8d89f05720;
+  node0x7f8d89f05580 -> node0x7f8d89f056d0;
+}
+```
+
+![AST Graph](https://cdn.rawgit.com/hyperscale/hyperscale/master/_resources/ast-graph.png "AST Graph")
 
 Features and roadmap
 --------------------
