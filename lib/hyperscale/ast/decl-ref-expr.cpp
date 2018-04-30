@@ -7,23 +7,22 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/int-expr.hpp>
-
+#include <hyperscale/ast/decl-ref-expr.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    IntExpr::IntExpr(parser::Token& token):
+    DeclRefExpr::DeclRefExpr(parser::Token& token):
         Expr(token),
-        m_value(std::stoi(token.getText().str())) {}
+        m_ref(token.getText().str()) {}
 
-    // IntExpr::~IntExpr() {}
+    // DeclRefExpr::~DeclRefExpr() {}
 
-    int IntExpr::getValue() const {
-        return m_value;
+    std::string DeclRefExpr::getRef() {
+        return m_ref;
     }
 
-    void IntExpr::accept(Visitor& visitor) {
+    void DeclRefExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
 

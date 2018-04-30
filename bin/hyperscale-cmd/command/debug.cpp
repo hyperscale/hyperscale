@@ -18,6 +18,7 @@ namespace command {
         setDescription("Debug project");
         addCommand(new debug::LexerCommand());
         addCommand(new debug::ParserCommand());
+        addCommand(new debug::PrettyPrintCommand());
     }
 
 } // end of command namespace

@@ -9,20 +9,34 @@
 
 #include <hyperscale/ast/op-expr.hpp>
 
-
 namespace hyperscale {
 namespace ast {
 
-    OpExpr::OpExpr(std::shared_ptr<Expr> left, OpExpr::Oper oper, std::shared_ptr<Expr> right):
+    OpExpr::OpExpr(Expr* left, Operator oper, Expr* right):
         Expr(),
         m_left(left),
         m_oper(oper),
         m_right(right) {}
 
-    OpExpr::~OpExpr() {}
+    OpExpr::~OpExpr() {
+        delete m_left;
+        delete m_right;
+    }
 
-    void OpExpr::accept(Visitor& v) {
-        v(*this);
+    Expr* OpExpr::getLeft() {
+        return m_left;
+    }
+
+    Operator OpExpr::getOperator() {
+        return m_oper;
+    }
+
+    Expr* OpExpr::getRight() {
+        return m_right;
+    }
+
+    void OpExpr::accept(Visitor& visitor) {
+        visitor(*this);
     }
 
 } // end of ast namespace

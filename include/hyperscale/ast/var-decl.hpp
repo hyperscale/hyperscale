@@ -1,5 +1,3 @@
-
-
 /**
  * Hyperscale
  *
@@ -10,45 +8,34 @@
  */
 #pragma once
 
-#include <hyperscale/ast/fwd.hpp>
-#include <hyperscale/ast/expr.hpp>
+#include <string>
 #include <hyperscale/ast/decl.hpp>
-#include <hyperscale/ast/name-ty.hpp>
-#include <hyperscale/ast/visitor.hpp>
+#include <hyperscale/ast/expr.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class VarDecl : public Decl {
+    class VarDecl: public Decl {
     protected:
-        std::shared_ptr<NameTy> m_type;
-
-        std::shared_ptr<Expr> m_value;
+        std::string m_type;
+        bool m_const;
+        Expr* m_value;
 
     public:
-        /// Construct an OpExpr node.
-        VarDecl(std::shared_ptr<parser::Token>& token, std::string name, std::shared_ptr<NameTy>& type, std::shared_ptr<Expr>& value):
-            Decl(token, name),
-            m_type(type),
-            m_value(value) {}
+        /// Construct an VarDecl node.
+        VarDecl(parser::Token& token, std::string type, Expr* value);
 
         VarDecl(const VarDecl&) = delete;
 
         VarDecl& operator=(const VarDecl&) = delete;
 
-        virtual ~VarDecl();
+        ~VarDecl();
 
-        std::shared_ptr<NameTy> getType() {
-            return m_type;
-        }
+        std::string getType() const;
 
-        std::shared_ptr<Expr> getValue() {
-            return m_value;
-        }
+        Expr* getValue() const;
 
-        void accept(Visitor& v) {
-            v(*this);
-        }
+        void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace

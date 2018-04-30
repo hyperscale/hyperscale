@@ -8,36 +8,43 @@
  */
 #pragma once
 
+// #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/visitor.hpp>
+// #include <hyperscale/ast/var-decl.hpp>
+#include <hyperscale/ast/int-expr.hpp>
+#include <hyperscale/ast/op-expr.hpp>
+#include <hyperscale/ast/paren-expr.hpp>
+#include <hyperscale/ast/var-decl.hpp>
+#include <hyperscale/ast/file-source.hpp>
+#include <hyperscale/ast/call-expr.hpp>
+#include <hyperscale/ast/decl-ref-expr.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    template <template <typename> class Const>
-    class GenericDefaultVisitor : public virtual GenericVisitor<Const> {
+    class DefaultVisitor: public virtual Visitor {
     public:
         /// Super class type.
-        using super_type = GenericVisitor<Const>;
+        using super_type = Visitor;
 
         // Import overloaded \c operator() methods.
         using super_type::operator();
 
-        /// Convenient abbreviation.
-        template <typename Type>
-        using const_t = typename Const<Type>::type;
-
         /// Construct a default visitor.
-        GenericDefaultVisitor();
+        DefaultVisitor();
 
         /// Destroy a default visitor.
-        virtual ~GenericDefaultVisitor();
+        virtual ~DefaultVisitor();
 
-        void operator()(const_t<VarDec>& e) override {
-
-        }
+        void operator()(Node&) override;
+        void operator()(FileSource&) override;
+        void operator()(OpExpr& e) override;
+        void operator()(IntExpr& e) override;
+        void operator()(ParenExpr& e) override;
+        void operator()(VarDecl& e) override;
+        void operator()(CallExpr& e) override;
+        void operator()(DeclRefExpr& e) override;
     };
 
 } // end of ast namespace
 } // end of hyperscale namespace
-
-

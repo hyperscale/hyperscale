@@ -7,25 +7,29 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/int-expr.hpp>
-
+#include <hyperscale/ast/paren-expr.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    IntExpr::IntExpr(parser::Token& token):
-        Expr(token),
-        m_value(std::stoi(token.getText().str())) {}
+    ParenExpr::ParenExpr(Expr* expr):
+        Expr(),
+        m_expr(expr) {}
 
-    // IntExpr::~IntExpr() {}
-
-    int IntExpr::getValue() const {
-        return m_value;
+    ParenExpr::~ParenExpr() {
+        delete m_expr;
     }
 
-    void IntExpr::accept(Visitor& visitor) {
+    Expr* ParenExpr::getExpr() {
+        return m_expr;
+    }
+
+    void ParenExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
 
 } // end of ast namespace
 } // end of hyperscale namespace
+
+
+

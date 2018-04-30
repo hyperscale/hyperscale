@@ -14,21 +14,21 @@
 namespace hyperscale {
 namespace ast {
 
-    class IntExpr: public Expr {
+    class DeclRefExpr: public Expr {
     protected:
-        int m_value;
+        std::string m_ref;
 
     public:
-        /// Construct an IntExpr node.
-        IntExpr(parser::Token& token);
+        /// Construct an DeclRefExpr node.
+        DeclRefExpr(parser::Token& token);
 
-        IntExpr(const IntExpr&) = delete;
+        DeclRefExpr(const DeclRefExpr&) = delete;
 
-        IntExpr& operator=(const IntExpr&) = delete;
+        DeclRefExpr& operator=(const DeclRefExpr&) = delete;
 
-        virtual ~IntExpr() = default;
+        virtual ~DeclRefExpr() = default;
 
-        int getValue() const;
+        std::string getRef();
 
         void accept(Visitor& visitor) override;
     };

@@ -10,56 +10,38 @@
 
 #include <hyperscale/ast/expr.hpp>
 #include <hyperscale/ast/visitor.hpp>
+#include <hyperscale/ast/operator.hpp>
 
 namespace hyperscale {
 namespace ast {
 
     class OpExpr: public Expr {
-    public:
-        /// Operator qualifier.
-        enum class Oper {
-            // Arithmetics.
-            /** \brief "+" */ add,
-            /** \brief "-" */ sub,
-            /** \brief "*" */ mul,
-            /** \brief "/" */ div,
-
-            // Comparison.
-            /** \brief "=" */  eq,
-            /** \brief "<>" */ ne,
-            /** \brief "<" */  lt,
-            /** \brief "<=" */ le,
-            /** \brief ">" */  gt,
-            /** \brief ">=" */ ge
-        };
-
     protected:
-        std::shared_ptr<Expr> m_left;
+        Expr* m_left;
 
-        Oper m_oper;
+        Operator m_oper;
 
-        std::shared_ptr<Expr> m_right;
+        Expr* m_right;
 
     public:
         /// Construct an OpExpr node.
-        OpExpr(std::shared_ptr<Expr> left, OpExpr::Oper oper, std::shared_ptr<Expr> right);
+        OpExpr(Expr* left, Operator oper, Expr* right);
 
         OpExpr(const OpExpr&) = delete;
 
         OpExpr& operator=(const OpExpr&) = delete;
 
-        virtual ~OpExpr();
+        ~OpExpr();
 
-        void accept(Visitor& v);
+        Expr* getLeft();
 
-        inline std::shared_ptr<Expr> getLeft();
+        Operator getOperator();
 
-        inline OpExpr::Oper getOperator();
+        Expr* getRight();
 
-        inline std::shared_ptr<Expr> getRight();
+        void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace
 } // end of hyperscale namespace
 
-#include <hyperscale/ast/op-expr.hxx>

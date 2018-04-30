@@ -9,7 +9,7 @@
 #pragma once
 
 #include <memory>
-#include <hyperscale/ast/fwd.hpp>
+#include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/parser/token.hpp>
 
 namespace hyperscale {
@@ -20,25 +20,27 @@ namespace ast {
     class Node {
     private:
         std::size_t m_line;
+
         std::size_t m_column;
 
     public:
         Node();
-        Node(std::shared_ptr<parser::Token>& token);
+
+        Node(parser::Token& token);
 
         Node(const Node&) = delete;
+
         Node& operator=(const Node&) = delete;
 
         virtual ~Node() = default;
 
-        inline std::size_t getLine() const;
+        std::size_t getLine() const;
 
-        inline std::size_t getColumn() const;
+        std::size_t getColumn() const;
 
-        virtual void accept(Visitor& v) = 0;
+        virtual void accept(Visitor& visitor) = 0;
     };
 
 } // end of ast namespace
 } // end of hyperscale namespace
 
-#include <hyperscale/ast/node.hxx>

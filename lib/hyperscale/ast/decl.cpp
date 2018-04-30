@@ -6,20 +6,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-#pragma once
 
-#include <hyperscale/ast/node.hpp>
+#include <hyperscale/ast/decl.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    inline std::size_t Node::getLine() const {
-        return m_line;
-    }
+    Decl::Decl(): Node() {}
 
-    inline std::size_t Node::getColumn() const {
-        return m_column;
-    }
+    Decl::Decl(parser::Token& token): Node(token) {}
 
 } // end of ast namespace
 } // end of hyperscale namespace

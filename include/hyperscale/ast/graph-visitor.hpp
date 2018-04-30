@@ -13,19 +13,36 @@
 namespace hyperscale {
 namespace ast {
 
-    class PrettyPrinterVisitor : virtual public DefaultConstVisitor {
+    class GraphVisitor: virtual public DefaultVisitor {
     protected:
         /// The stream to print on.
         std::ostream& m_ostr;
 
     public:
-        using super_type = DefaultConstVisitor;
+        using super_type = DefaultVisitor;
         // Import overloaded virtual functions.
         using super_type::operator();
 
         /// Build to print on \a ostr.
-        PrettyPrinterVisitor(std::ostream& ostr): m_ostr(ostr) {
-        }
+        GraphVisitor(std::ostream& ostr);
+
+        ~GraphVisitor();
+
+        void operator()(FileSource& e);
+
+        void operator()(VarDecl& e);
+
+        void operator()(Node&);
+
+        void operator()(OpExpr& e);
+
+        void operator()(IntExpr& e);
+
+        void operator()(ParenExpr& e);
+
+        void operator()(CallExpr& e);
+
+        void operator()(DeclRefExpr& e);
     };
 
 } // end of ast namespace

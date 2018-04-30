@@ -9,26 +9,33 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <hyperscale/ast/expr.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class IntExpr: public Expr {
+    class CallExpr: public Expr {
     protected:
-        int m_value;
+        std::string m_ref;
+
+        std::vector<Node*> m_args;
 
     public:
-        /// Construct an IntExpr node.
-        IntExpr(parser::Token& token);
+        /// Construct an CallExpr node.
+        CallExpr(parser::Token& token);
 
-        IntExpr(const IntExpr&) = delete;
+        CallExpr(const CallExpr&) = delete;
 
-        IntExpr& operator=(const IntExpr&) = delete;
+        CallExpr& operator=(const CallExpr&) = delete;
 
-        virtual ~IntExpr() = default;
+        ~CallExpr();
 
-        int getValue() const;
+        void addArgument(Node* node);
+
+        std::vector<Node*> getArguments();
+
+        std::string getRef();
 
         void accept(Visitor& visitor) override;
     };

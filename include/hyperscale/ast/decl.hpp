@@ -15,23 +15,16 @@ namespace ast {
 
     class Decl: public Node
     {
-    protected:
-        std::string m_name;
-
     public:
-        Decl(std::shared_ptr<parser::Token>& token, std::string name):
-            Node(token),
-            m_name(name) {}
+        Decl();
+
+        Decl(parser::Token& token);
 
         Decl(const Decl&) = delete;
 
         Decl& operator=(const Decl&) = delete;
 
         virtual ~Decl() = default;
-
-        std::string getName() const {
-            return m_name;
-        }
     };
 
 } // end of ast namespace
