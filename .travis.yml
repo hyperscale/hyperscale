@@ -40,12 +40,12 @@ matrix:
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="brew update && brew install -f gcc && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash && CC=gcc-7 && CXX=g++-7"
+        - MATRIX_EVAL="brew update && brew install pyenv && brew install -f gcc && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash && CC=gcc-7 && CXX=g++-7"
 
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="brew update && brew install -f llvm && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash && CC=clang && CXX=clang++"
+        - MATRIX_EVAL="brew update && brew install pyenv && brew install -f llvm && pyenv install 2.7.6 && pyenv global 2.7.6 && pyenv rehash && CC=clang && CXX=clang++"
 
 before_install:
   - eval "${MATRIX_EVAL}"
