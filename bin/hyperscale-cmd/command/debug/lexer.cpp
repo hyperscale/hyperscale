@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include <command/debug/lexer.hpp>
+#include <console/table.hpp>
 
 //#include "lexer.hpp"
 
@@ -52,10 +53,31 @@ namespace debug {
 
         hyperscale::parser::Lexer lexer(content);
 
+        console::Table t;
+        t.setStyle(console::Table::Style::LIGHT);
+        t.setAlignment(3, console::Table::Alignment::RIGHT);
+
+        t.add("#");
+        t.add("token name");
+        t.add("token value");
+        t.add("offset");
+        t.endOfRow();
+
+        std::size_t i = 0;
+
         while (!lexer.isEndOfFile()) {
             auto token = lexer.lex();
-            std::cout << token << std::endl;
+
+            t.add(std::to_string(i));
+            t.add(hyperscale::syntax::TokenNames.at(token.getKind()));
+            t.add(token.getText().str());
+            t.add(std::to_string(token.getStartOffset()));
+            t.endOfRow();
+
+            i++;
         }
+
+        std::cout << t;
 
         return EXIT_SUCCESS;
     }
