@@ -11,11 +11,12 @@
 #include <hyperscale/ast/expr.hpp>
 #include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/ast/operator.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class OpExpr: public Expr {
+    class OpExpr: public Expr, public Visitable<OpExpr> {
     protected:
         Expr* m_left;
 
@@ -39,7 +40,7 @@ namespace ast {
 
         Expr* getRight();
 
-        void accept(Visitor& visitor) override;
+        //void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace

@@ -33,11 +33,11 @@ namespace ast {
     std::vector<Node*> FileSource::getDecls() {
         return m_decls;
     }
-
+/*
     void FileSource::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace
 

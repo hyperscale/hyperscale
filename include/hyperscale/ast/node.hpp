@@ -11,13 +11,14 @@
 #include <memory>
 #include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/parser/token.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
     class Visitor;
 
-    class Node {
+    class Node: public Visitable<Node> {
     private:
         std::size_t m_line;
 
@@ -38,7 +39,7 @@ namespace ast {
 
         std::size_t getColumn() const;
 
-        virtual void accept(Visitor& visitor) = 0;
+        // virtual void accept(Visitor& visitor) = 0;
     };
 
 } // end of ast namespace

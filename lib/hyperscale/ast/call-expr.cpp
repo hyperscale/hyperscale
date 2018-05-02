@@ -35,10 +35,10 @@ namespace ast {
     void CallExpr::addArgument(Node* node) {
         m_args.push_back(node);
     }
-
+/*
     void CallExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace

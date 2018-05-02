@@ -10,11 +10,12 @@
 
 #include <vector>
 #include <hyperscale/ast/node.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class FileSource: public Node
+    class FileSource: public Node, public Visitable<FileSource>
     {
     protected:
         std::vector<Node*> m_decls;
@@ -34,7 +35,7 @@ namespace ast {
 
         std::vector<Node*> getDecls();
 
-        void accept(Visitor& visitor) override;
+        // void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace

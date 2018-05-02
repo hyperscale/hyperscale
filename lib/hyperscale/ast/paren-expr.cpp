@@ -23,11 +23,11 @@ namespace ast {
     Expr* ParenExpr::getExpr() {
         return m_expr;
     }
-
+/*
     void ParenExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace
 

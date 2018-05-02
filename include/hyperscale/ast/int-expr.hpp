@@ -10,11 +10,12 @@
 
 #include <string>
 #include <hyperscale/ast/expr.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class IntExpr: public Expr {
+    class IntExpr: public Expr, public Visitable<IntExpr> {
     protected:
         int m_value;
 
@@ -30,7 +31,7 @@ namespace ast {
 
         int getValue() const;
 
-        void accept(Visitor& visitor) override;
+        // void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace

@@ -34,11 +34,11 @@ namespace ast {
     Expr* OpExpr::getRight() {
         return m_right;
     }
-
+/*
     void OpExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace
 

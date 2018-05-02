@@ -21,10 +21,10 @@ namespace ast {
     std::string DeclRefExpr::getRef() {
         return m_ref;
     }
-
+/*
     void DeclRefExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace

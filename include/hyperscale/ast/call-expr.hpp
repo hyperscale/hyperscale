@@ -11,11 +11,12 @@
 #include <string>
 #include <vector>
 #include <hyperscale/ast/expr.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class CallExpr: public Expr {
+    class CallExpr: public Expr, public Visitable<CallExpr> {
     protected:
         std::string m_ref;
 
@@ -37,7 +38,7 @@ namespace ast {
 
         std::string getRef();
 
-        void accept(Visitor& visitor) override;
+        // void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace

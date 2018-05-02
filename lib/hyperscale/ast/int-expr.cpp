@@ -22,10 +22,10 @@ namespace ast {
     int IntExpr::getValue() const {
         return m_value;
     }
-
+/*
     void IntExpr::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace

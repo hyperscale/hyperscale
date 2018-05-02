@@ -11,11 +11,12 @@
 #include <string>
 #include <hyperscale/ast/decl.hpp>
 #include <hyperscale/ast/expr.hpp>
+#include <hyperscale/ast/visitable.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    class VarDecl: public Decl {
+    class VarDecl: public Decl, public Visitable<VarDecl> {
     protected:
         std::string m_type;
         bool m_const;
@@ -35,7 +36,7 @@ namespace ast {
 
         Expr* getValue() const;
 
-        void accept(Visitor& visitor) override;
+        // void accept(Visitor& visitor) override;
     };
 
 } // end of ast namespace

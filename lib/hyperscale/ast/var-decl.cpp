@@ -29,10 +29,11 @@ namespace ast {
         return m_value;
     }
 
+/*
     void VarDecl::accept(Visitor& visitor) {
         visitor(*this);
     }
-
+*/
 } // end of ast namespace
 } // end of hyperscale namespace
 
