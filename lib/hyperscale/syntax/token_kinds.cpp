@@ -14,7 +14,7 @@ namespace hyperscale {
 namespace syntax {
 
     std::ostream& operator<<(std::ostream& os, const TokenKind kind) {
-        return os << static_cast<std::underlying_type<syntax::TokenKind>::type>(kind);
+        return os << TokenNames.at(kind);
     }
 
 } // end of syntax namespace
