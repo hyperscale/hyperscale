@@ -28,7 +28,7 @@ namespace ast {
 
         ~GraphVisitor();
 
-        void operator()(FileSource& e);
+        void operator()(SourceFile& e);
 
         void operator()(VarDecl& e);
 

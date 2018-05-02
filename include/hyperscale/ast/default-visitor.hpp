@@ -15,7 +15,7 @@
 #include <hyperscale/ast/op-expr.hpp>
 #include <hyperscale/ast/paren-expr.hpp>
 #include <hyperscale/ast/var-decl.hpp>
-#include <hyperscale/ast/file-source.hpp>
+#include <hyperscale/ast/source-file.hpp>
 #include <hyperscale/ast/call-expr.hpp>
 #include <hyperscale/ast/decl-ref-expr.hpp>
 
@@ -37,7 +37,7 @@ namespace ast {
         virtual ~DefaultVisitor();
 
         void operator()(Node&) override;
-        void operator()(FileSource&) override;
+        void operator()(SourceFile&) override;
         void operator()(OpExpr& e) override;
         void operator()(IntExpr& e) override;
         void operator()(ParenExpr& e) override;

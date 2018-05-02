@@ -59,7 +59,7 @@ $ ./build/bin/hyperscale debug pretty-print ./dev/simple.hyper
 ```
 
 ```
->  FileSource
+>  SourceFile
 >  >  VarDecl <line:1, col:1> used i
 >  >  >  ParenExpr <line:1, col:9>
 >  >  >  >  BinaryOperator <line:1, col:13> '+'

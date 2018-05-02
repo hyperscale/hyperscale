@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-// #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/graph-visitor.hpp>
 
 namespace hyperscale {
@@ -60,7 +59,7 @@ namespace ast {
         m_ostr <<  "  node" << static_cast<void*>(&e) << " [label=\"" << e.getValue() << "\"];" << std::endl;
     }
 
-    void GraphVisitor::operator()(FileSource& e) {
+    void GraphVisitor::operator()(SourceFile& e) {
         m_ostr << "  node" << static_cast<void*>(&e) << " [label=\"file\"];" << std::endl;
 
         for (auto decl = e.getDecls().begin(); decl != e.getDecls().end(); ++decl) {

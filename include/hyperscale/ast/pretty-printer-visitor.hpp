@@ -32,7 +32,7 @@ namespace ast {
         PrettyPrinterVisitor(std::ostream& ostr);
         PrettyPrinterVisitor(std::ostream& ostr, std::size_t indent);
 
-        void operator()(FileSource& e);
+        void operator()(SourceFile& e);
 
         void operator()(VarDecl& e);
 

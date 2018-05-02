@@ -14,21 +14,21 @@
 namespace hyperscale {
 namespace ast {
 
-    class FileSource: public Node
+    class SourceFile: public Node
     {
     protected:
         std::vector<Node*> m_decls;
 
     public:
-        FileSource();
+        SourceFile();
 
-        FileSource(std::vector<Node*> decls);
+        SourceFile(std::vector<Node*> decls);
 
-        FileSource(const FileSource&) = delete;
+        SourceFile(const SourceFile&) = delete;
 
-        FileSource& operator=(const FileSource&) = delete;
+        SourceFile& operator=(const SourceFile&) = delete;
 
-        ~FileSource();
+        ~SourceFile();
 
         void addNode(Node* node);
 

@@ -16,7 +16,7 @@
 #include <hyperscale/ast/pretty-printer-visitor.hpp>
 #include <hyperscale/ast/graph-visitor.hpp>
 #include <hyperscale/ast/int-expr.hpp>
-#include <hyperscale/ast/file-source.hpp>
+#include <hyperscale/ast/source-file.hpp>
 #include <hyperscale/ast/var-decl.hpp>
 #include <hyperscale/ast/op-expr.hpp>
 #include <hyperscale/ast/paren-expr.hpp>
@@ -103,9 +103,9 @@ namespace debug {
         var.setColumn(1);
         var.setText(llvm::StringRef("i"));
 
-        auto fileSource = new hyperscale::ast::FileSource();
+        auto sourceFile = new hyperscale::ast::SourceFile();
 
-        fileSource->addNode(
+        sourceFile->addNode(
             new hyperscale::ast::VarDecl(
                 var,
                 "i",
@@ -138,19 +138,19 @@ namespace debug {
         auto callExpr = new hyperscale::ast::CallExpr(call);
         callExpr->addArgument(new hyperscale::ast::DeclRefExpr(argRef));
 
-        fileSource->addNode(callExpr);
+        sourceFile->addNode(callExpr);
 
         if (format == "dot") {
             hyperscale::ast::GraphVisitor print(std::cout);
 
-            print(*fileSource);
+            print(*sourceFile);
         } else {
             hyperscale::ast::PrettyPrinterVisitor print(std::cout);
 
-            print(*fileSource);
+            print(*sourceFile);
         }
 
-        delete fileSource;
+        delete sourceFile;
 
         return EXIT_SUCCESS;
     }

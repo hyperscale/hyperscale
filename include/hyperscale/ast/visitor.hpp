@@ -18,14 +18,14 @@ namespace ast {
     class Node;
     class ParenExpr;
     class VarDecl;
-    class FileSource;
+    class SourceFile;
     class CallExpr;
     class DeclRefExpr;
 
     class Visitor {
     public:
         virtual void operator()(Node&) = 0;
-        virtual void operator()(FileSource&) = 0;
+        virtual void operator()(SourceFile&) = 0;
         virtual void operator()(OpExpr&) = 0;
         virtual void operator()(IntExpr&) = 0;
         virtual void operator()(ParenExpr&) = 0;

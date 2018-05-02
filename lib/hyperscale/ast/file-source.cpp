@@ -7,18 +7,18 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/file-source.hpp>
+#include <hyperscale/ast/source-file.hpp>
 
 namespace hyperscale {
 namespace ast {
 
-    FileSource::FileSource(): Node() {}
+    SourceFile::SourceFile(): Node() {}
 
-    FileSource::FileSource(std::vector<Node*> decls):
+    SourceFile::SourceFile(std::vector<Node*> decls):
         Node(),
         m_decls(decls) {}
 
-    FileSource::~FileSource() {
+    SourceFile::~SourceFile() {
         for (auto decl = m_decls.begin(); decl != m_decls.end(); ++decl) {
             delete (*decl);
         }
@@ -26,15 +26,15 @@ namespace ast {
         m_decls.clear();
     }
 
-    void FileSource::addNode(Node* node) {
+    void SourceFile::addNode(Node* node) {
         m_decls.push_back(node);
     }
 
-    std::vector<Node*> FileSource::getDecls() {
+    std::vector<Node*> SourceFile::getDecls() {
         return m_decls;
     }
 
-    void FileSource::accept(Visitor& visitor) {
+    void SourceFile::accept(Visitor& visitor) {
         visitor(*this);
     }
 

@@ -7,7 +7,6 @@
  * file that was distributed with this source code.
  */
 
-// #include <hyperscale/ast/fwd.hpp>
 #include <hyperscale/ast/pretty-printer-visitor.hpp>
 
 namespace hyperscale {
@@ -69,8 +68,8 @@ namespace ast {
         m_ostr << " 'int' " << e.getValue() << std::endl;
     }
 
-    void PrettyPrinterVisitor::operator()(FileSource& e) {
-        m_ostr << indent() <<  "FileSource" << std::endl;
+    void PrettyPrinterVisitor::operator()(SourceFile& e) {
+        m_ostr << indent() <<  "SourceFile" << std::endl;
 
         PrettyPrinterVisitor print(m_ostr, m_indent+1);
 
