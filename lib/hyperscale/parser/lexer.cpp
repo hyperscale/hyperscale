@@ -157,7 +157,7 @@ namespace parser {
 
         if (m_current_token.is(syntax::TokenKind::Identifier)) {
             for (auto const& keyword: keywords) {
-                if (m_current_token.getText().str().compare(keyword.name) == 0) {
+                if (m_current_token.getText().compare(keyword.name) == 0) {
                     m_current_token.setKind(keyword.kind);
                 }
             }

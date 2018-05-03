@@ -12,6 +12,9 @@
 namespace hyperscale {
 namespace ast {
 
+    VarDecl::VarDecl(parser::Token& token):
+        Decl(token) {}
+
     VarDecl::VarDecl(parser::Token& token, std::string type, Expr* value):
         Decl(token),
         m_type(type),
@@ -21,8 +24,16 @@ namespace ast {
         delete m_value;
     }
 
+    void VarDecl::setType(std::string type) {
+        m_type = type;
+    }
+
     std::string VarDecl::getType() const {
         return m_type;
+    }
+
+    void VarDecl::setValue(Expr* value) {
+        m_value = value;
     }
 
     Expr* VarDecl::getValue() const {

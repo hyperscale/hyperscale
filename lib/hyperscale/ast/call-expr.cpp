@@ -14,7 +14,7 @@ namespace ast {
 
     CallExpr::CallExpr(parser::Token& token):
         Expr(token),
-        m_ref(token.getText().str()) {}
+        m_ref(token.getText()) {}
 
     CallExpr::~CallExpr() {
         for (auto arg = m_args.begin(); arg != m_args.end(); ++arg) {

@@ -45,7 +45,7 @@ namespace parser {
         unsigned m_multiline_string : 1;
 
         /// Text - The actual string covered by the token in the source buffer.
-        llvm::StringRef m_text;
+        std::string m_text;
 
     public:
         Token():
@@ -310,11 +310,12 @@ namespace parser {
             return m_text;
         }
 
-        llvm::StringRef getText() const {
+        std::string getText() const {
             if (m_escaped_identifier) {
                 // Strip off the backticks on either side.
                 assert(m_text.front() == '`' && m_text.back() == '`');
-                return m_text.slice(1, m_text.size() - 1);
+
+                return m_text.substr(1, m_text.size() - 1);
             }
 
             return m_text;
