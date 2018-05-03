@@ -9,7 +9,6 @@
 #pragma once
 
 #include <hyperscale/syntax/token_kinds.hpp>
-#include <llvm/ADT/StringRef.h>
 #include <map>
 #include <ostream>
 #include <string>
@@ -68,7 +67,7 @@ namespace parser {
             m_comment_length(0),
             m_escaped_identifier(false) {}
 
-        Token(syntax::TokenKind kind, llvm::StringRef text):
+        Token(syntax::TokenKind kind, std::string text):
             m_kind(kind),
             m_start_offset(0),
             m_end_offset(0),
@@ -191,7 +190,7 @@ namespace parser {
             m_escaped_identifier = value;
         }
 
-        bool isContextualKeyword(llvm::StringRef context_keyword) const {
+        bool isContextualKeyword(std::string context_keyword) const {
             return is(syntax::TokenKind::Identifier) && !isEscapedIdentifier() && m_text == context_keyword;
         }
 
@@ -231,7 +230,7 @@ namespace parser {
             }
         }
 
-        bool isContextualPunctuator(llvm::StringRef context_punc) const {
+        bool isContextualPunctuator(std::string context_punc) const {
             return isAnyOperator() && m_text == context_punc;
         }
 
@@ -306,7 +305,7 @@ namespace parser {
             return m_comment_length != 0;
         }
 
-        llvm::StringRef getRawText() const {
+        std::string getRawText() const {
             return m_text;
         }
 
@@ -321,12 +320,12 @@ namespace parser {
             return m_text;
         }
 
-        void setText(llvm::StringRef T) {
-            m_text = T;
+        void setText(std::string text) {
+            m_text = text;
         }
 
         /// \brief Set the token to the specified kind and source range.
-        void setToken(syntax::TokenKind K, llvm::StringRef T, unsigned comment_length = 0, bool multiline_string = false) {
+        void setToken(syntax::TokenKind K, std::string T, unsigned comment_length = 0, bool multiline_string = false) {
             m_kind = K;
             m_text = T;
             m_comment_length = comment_length;
