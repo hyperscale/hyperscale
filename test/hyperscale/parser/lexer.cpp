@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 #include <boost/test/unit_test.hpp>
 #include <hyperscale/parser/lexer.hpp>
 #include <hyperscale/syntax/token_kinds.hpp>
-
 
 BOOST_AUTO_TEST_SUITE(hyperscale_parser_lexer)
 

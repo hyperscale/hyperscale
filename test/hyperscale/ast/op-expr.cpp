@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-#include <memory>
-#include <boost/test/unit_test.hpp>
-#include <hyperscale/ast/op-expr.hpp>
-#include <hyperscale/ast/int-expr.hpp>
-#include <llvm/ADT/StringRef.h>
 
+#include <boost/test/unit_test.hpp>
+#include <hyperscale/ast/int-expr.hpp>
+#include <hyperscale/ast/op-expr.hpp>
+#include <llvm/ADT/StringRef.h>
+#include <memory>
 
 BOOST_AUTO_TEST_SUITE(hyperscale_ast_op_expr)
 
@@ -40,10 +40,10 @@ BOOST_AUTO_TEST_CASE(test_op_expr) {
 
     BOOST_CHECK(expr->getOperator() == hyperscale::ast::Operator::add);
 
-    BOOST_CHECK_EQUAL(expr->getLeft()->getLine(), 1);
-    BOOST_CHECK_EQUAL(expr->getLeft()->getColumn(), 1);
-    BOOST_CHECK_EQUAL(expr->getRight()->getLine(), 1);
-    BOOST_CHECK_EQUAL(expr->getRight()->getColumn(), 6);
+    BOOST_CHECK_EQUAL(expr->getLeft()->getLine(), std::size_t(1));
+    BOOST_CHECK_EQUAL(expr->getLeft()->getColumn(), std::size_t(1));
+    BOOST_CHECK_EQUAL(expr->getRight()->getLine(), std::size_t(1));
+    BOOST_CHECK_EQUAL(expr->getRight()->getColumn(), std::size_t(6));
 
     delete expr;
 }
