@@ -47,87 +47,37 @@ namespace parser {
         std::string m_text;
 
     public:
-        Token():
-            m_kind(syntax::TokenKind::NUM_TOKENS),
-            m_start_offset(0),
-            m_end_offset(0),
-            m_line(0),
-            m_column(0),
-            m_at_start_of_line(false),
-            m_comment_length(0),
-            m_escaped_identifier(false) {}
+        Token();
 
-        Token(syntax::TokenKind kind):
-            m_kind(kind),
-            m_start_offset(0),
-            m_end_offset(0),
-            m_line(0),
-            m_column(0),
-            m_at_start_of_line(false),
-            m_comment_length(0),
-            m_escaped_identifier(false) {}
+        Token(syntax::TokenKind kind);
 
-        Token(syntax::TokenKind kind, std::string text):
-            m_kind(kind),
-            m_start_offset(0),
-            m_end_offset(0),
-            m_line(0),
-            m_column(0),
-            m_at_start_of_line(false),
-            m_comment_length(0),
-            m_escaped_identifier(false),
-            m_multiline_string(false),
-            m_text(text) {}
+        Token(syntax::TokenKind kind, std::string text);
 
-        syntax::TokenKind getKind() const {
-            return m_kind;
-        }
+        syntax::TokenKind getKind() const;
 
-        void setKind(syntax::TokenKind kind) {
-            m_kind = kind;
-        }
+        void setKind(syntax::TokenKind kind);
 
-        void setStartOffset(std::size_t offset) {
-            m_start_offset = offset;
-        }
+        void setStartOffset(std::size_t offset);
 
-        void setEndOffset(std::size_t offset) {
-            m_end_offset = offset;
-        }
+        void setEndOffset(std::size_t offset);
 
-        void setLine(std::size_t line) {
-            m_line = line;
-        }
+        void setLine(std::size_t line);
 
-        void setColumn(std::size_t column) {
-            m_column = column;
-        }
+        void setColumn(std::size_t column);
 
-        std::size_t getStartOffset() const {
-            return m_start_offset;
-        }
+        std::size_t getStartOffset() const;
 
-        std::size_t getEndOffset() const {
-            return m_end_offset;
-        }
+        std::size_t getEndOffset() const;
 
-        std::size_t getLine() const {
-            return m_line;
-        }
+        std::size_t getLine() const;
 
-        std::size_t getColumn() const {
-            return m_column;
-        }
+        std::size_t getColumn() const;
 
         /// is/isNot - Predicates to check if this token is a specific kind, as in
         /// "if (Tok.is(tok::l_brace)) {...}".
-        bool is(syntax::TokenKind kind) const {
-            return m_kind == kind;
-        }
+        bool is(syntax::TokenKind kind) const;
 
-        bool isNot(syntax::TokenKind kind) const {
-            return m_kind != kind;
-        }
+        bool isNot(syntax::TokenKind kind) const;
 
         // Predicates to check to see if the token is any of a list of tokens.
         bool isAny(syntax::TokenKind kind) const {
@@ -149,180 +99,67 @@ namespace parser {
             return !isAny(K1, K...);
         }
 
-        bool isBinaryOperator() const {
-            return m_kind == syntax::TokenKind::OperBinarySpaced || m_kind == syntax::TokenKind::OperBinaryUnspaced;
-        }
+        bool isBinaryOperator() const;
 
-        bool isAnyOperator() const {
-            return isBinaryOperator() || m_kind == syntax::TokenKind::OperPostfix || m_kind == syntax::TokenKind::OperPrefix;
-        }
-        bool isNotAnyOperator() const {
-            return !isAnyOperator();
-        }
+        bool isAnyOperator() const;
 
-        bool isEllipsis() const {
-            return isAnyOperator() && m_text == "...";
-        }
+        bool isNotAnyOperator() const;
 
-        bool isNotEllipsis() const {
-            return !isEllipsis();
-        }
+        bool isEllipsis() const;
+
+        bool isNotEllipsis() const;
 
         /// \brief Determine whether this token occurred at the start of a line.
-        bool isAtStartOfLine() const {
-            return m_at_start_of_line;
-        }
+        bool isAtStartOfLine() const;
 
         /// \brief Set whether this token occurred at the start of a line.
-        void setAtStartOfLine(bool value) {
-            m_at_start_of_line = value;
-        }
+        void setAtStartOfLine(bool value);
 
         /// \brief True if this token is an escaped identifier token.
-        bool isEscapedIdentifier() const {
-            return m_escaped_identifier;
-        }
+        bool isEscapedIdentifier() const;
 
         /// \brief Set whether this token is an escaped identifier token.
-        void setEscapedIdentifier(bool value) {
-            assert((!value || m_kind == syntax::TokenKind::Identifier) && "only identifiers can be escaped identifiers");
+        void setEscapedIdentifier(bool value);
 
-            m_escaped_identifier = value;
-        }
-
-        bool isContextualKeyword(std::string context_keyword) const {
-            return is(syntax::TokenKind::Identifier) && !isEscapedIdentifier() && m_text == context_keyword;
-        }
+        bool isContextualKeyword(std::string context_keyword) const;
 
         /// Return true if this is a contextual keyword that could be the start of a decl.
-        bool isContextualDeclKeyword() const {
-            if (isNot(syntax::TokenKind::Identifier) || isEscapedIdentifier() || m_text.empty()) {
-                return false;
-            }
+        bool isContextualDeclKeyword() const;
 
-            switch (m_text[0]) {
-            case 'c':
-                return m_text == "convenience";
-            case 'd':
-                return m_text == "dynamic";
-            case 'f':
-                return m_text == "final";
-            case 'i':
-                return m_text == "indirect" || m_text == "infix";
-            case 'l':
-                return m_text == "lazy";
-            case 'm':
-                return m_text == "mutating";
-            case 'n':
-                return m_text == "nonmutating";
-            case 'o':
-                return m_text == "open" || m_text == "override" || m_text == "optional";
-            case 'p':
-                return m_text == "prefix" || m_text == "postfix";
-            case 'r':
-                return m_text == "required";
-            case 'u':
-                return m_text == "unowned";
-            case 'w':
-                return m_text == "weak";
-            default:
-                return false;
-            }
-        }
-
-        bool isContextualPunctuator(std::string context_punc) const {
-            return isAnyOperator() && m_text == context_punc;
-        }
+        bool isContextualPunctuator(std::string context_punc) const;
 
         /// Determine whether the token can be an argument label.
         ///
         /// This covers all identifiers and keywords except those keywords
         /// used
-        bool canBeArgumentLabel() const {
-            // Identifiers, escaped identifiers, and '_' can be argument labels.
-            if (is(syntax::TokenKind::Identifier) || isEscapedIdentifier() || is(syntax::TokenKind::Keyword_)) {
-                return true;
-            }
-
-            // 'let', 'var', and 'inout' cannot be argument labels.
-            if (isAny(syntax::TokenKind::KeywordLet, syntax::TokenKind::KeywordVar, syntax::TokenKind::KeywordInout)) {
-                return false;
-            }
-
-            // All other keywords can be argument labels.
-            return isKeyword();
-        }
+        bool canBeArgumentLabel() const;
 
         /// True if the token is an identifier or '_'.
-        bool isIdentifierOrUnderscore() const {
-            return isAny(syntax::TokenKind::Identifier, syntax::TokenKind::Keyword_);
-        }
+        bool isIdentifierOrUnderscore() const;
 
         /// True if the token is an OpenParen token that does not start a new line.
-        bool isFollowingLParen() const {
-            return !isAtStartOfLine() && m_kind == syntax::TokenKind::OpenParen;
-        }
+        bool isFollowingLParen() const;
 
         /// True if the token is an l_square token that does not start a new line.
-        bool isFollowingLSquare() const {
-            return !isAtStartOfLine() && m_kind == syntax::TokenKind::OpenBracket;
-        }
+        bool isFollowingLSquare() const;
 
         /// True if the token is any keyword.
-        bool isKeyword() const {
-            switch (m_kind) {
-        #define KEYWORD(X) case syntax::TokenKind::Keyword##X: return true;
-        #include "hyperscale/syntax/token_kinds.def"
-            default: return false;
-            }
-        }
+        bool isKeyword() const;
 
         /// True if the token is any literal.
-        bool isLiteral() const {
-            switch(m_kind) {
-            case syntax::TokenKind::IntegerLiteral:
-            case syntax::TokenKind::FloatingLiteral:
-            case syntax::TokenKind::StringLiteral:
-                return true;
-            default:
-                return false;
-            }
-        }
+        bool isLiteral() const;
 
-        bool isPunctuation() const {
-            switch (m_kind) {
-        #define PUNCTUATOR(Name, Str) case syntax::TokenKind::Name: return true;
-        #include "hyperscale/syntax/token_kinds.def"
-            default: return false;
-            }
-        }
+        bool isPunctuation() const;
 
-        unsigned getLength() const {
-            return m_text.size();
-        }
+        std::size_t getLength() const;
 
-        bool hasComment() const {
-            return m_comment_length != 0;
-        }
+        bool hasComment() const;
 
-        std::string getRawText() const {
-            return m_text;
-        }
+        std::string getRawText() const;
 
-        std::string getText() const {
-            if (m_escaped_identifier) {
-                // Strip off the backticks on either side.
-                assert(m_text.front() == '`' && m_text.back() == '`');
+        std::string getText() const;
 
-                return m_text.substr(1, m_text.size() - 1);
-            }
-
-            return m_text;
-        }
-
-        void setText(std::string text) {
-            m_text = text;
-        }
+        void setText(std::string text);
 
         /// \brief Set the token to the specified kind and source range.
         void setToken(syntax::TokenKind K, std::string T, unsigned comment_length = 0, bool multiline_string = false) {
@@ -333,12 +170,12 @@ namespace parser {
             m_multiline_string = multiline_string;
         }
 
-        bool IsMultilineString() const {
-            return m_multiline_string;
-        }
+        bool IsMultilineString() const;
     };
 
     std::ostream& operator<<(std::ostream& os, const Token& token);
 
 } // end of parser namespace
 } // end of hyperscale namespace
+
+// #include <hyperscale/parser/token.hxx>
