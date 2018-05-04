@@ -23,6 +23,8 @@ set_target_properties (hyperscale-test PROPERTIES COMPILE_FLAGS "${LLVM_CXX_FLAG
 set_target_properties (hyperscale-test PROPERTIES LINK_FLAGS "${HYPERSCALE_LINK_FLAGS} ${LLVM_LINK_FLAGS} -rdynamic")
 target_link_libraries (hyperscale-test ${LLVM_LIBS} ${HYPERSCALE_LINK_FLAGS} HyperscaleLib EInfoLib curses ${CLANG_LIBS} ${Boost_LIBRARIES})
 
+set(COVERAGE_EXCLUDES '/usr/local/include/*' '/usr/local/Cellar/*' '/Applications/*')
+
 setup_target_for_coverage(
     NAME hyperscale-coverage
     EXECUTABLE hyperscale-test
