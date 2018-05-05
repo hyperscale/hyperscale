@@ -8,6 +8,7 @@
  */
 #pragma once
 
+#include <sstream>
 #include <exception>
 #include <hyperscale/parser/token.hpp>
 
@@ -17,11 +18,14 @@ namespace syntax {
     class InvalidTokenException: public std::exception {
     private:
         parser::Token m_token;
+        std::string m_msg;
 
     public:
-        InvalidTokenException(parser::Token token);
+        explicit InvalidTokenException(const parser::Token& token);
 
-        const char* what() const throw();
+        virtual ~InvalidTokenException() noexcept;
+
+        virtual const char* what() const noexcept;
     };
 
 } // end of syntax namespace

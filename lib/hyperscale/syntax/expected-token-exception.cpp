@@ -7,22 +7,26 @@
  * file that was distributed with this source code.
  */
 
-#include <sstream>
 #include <hyperscale/syntax/expected-token-exception.hpp>
 
 namespace hyperscale {
 namespace syntax {
 
-    ExpectedTokenException::ExpectedTokenException(parser::Token token, TokenKind expected)
+    ExpectedTokenException::ExpectedTokenException(const parser::Token& token, const TokenKind expected)
         : m_token(token),
-          m_expected(expected) {}
+          m_expected(expected) {
+        std::stringstream msg;
 
-    const char* ExpectedTokenException::what() const throw() {
-        std::stringstream ss("expected token ");
+        msg << "expected token '" << expected << "'";
 
-        ss << "'" << m_expected << "'";
+        m_msg = msg.str();
+    }
 
-        return ss.str().c_str();
+    ExpectedTokenException::~ExpectedTokenException() noexcept {
+    }
+
+    const char* ExpectedTokenException::what() const noexcept {
+        return m_msg.c_str();
     }
 
 } // end of syntax namespace

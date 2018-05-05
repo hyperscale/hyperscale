@@ -7,21 +7,24 @@
  * file that was distributed with this source code.
  */
 
-#include <sstream>
 #include <hyperscale/syntax/invalid-token-exception.hpp>
 
 namespace hyperscale {
 namespace syntax {
 
-    InvalidTokenException::InvalidTokenException(parser::Token token)
-        : m_token(token) {}
+    InvalidTokenException::InvalidTokenException(const parser::Token& token)
+        : m_token(token) {
+        std::stringstream msg;
 
-    const char* InvalidTokenException::what() const throw() {
-        std::stringstream ss("invalid token ");
+        msg << "invalid token '" << token.getKind() << "'";
 
-        ss << "'" << m_token << "'";
+        m_msg = msg.str();
+    }
 
-        return ss.str().c_str();
+    InvalidTokenException::~InvalidTokenException() noexcept {}
+
+    const char* InvalidTokenException::what() const noexcept {
+        return m_msg.c_str();
     }
 
 } // end of syntax namespace
