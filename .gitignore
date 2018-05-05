@@ -53,3 +53,5 @@ __*__
 *.sketch
 *.dot
 astgraph.png
+
+include/hyperscale/config.hpp
