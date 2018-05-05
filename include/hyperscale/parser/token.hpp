@@ -8,7 +8,7 @@
  */
 #pragma once
 
-#include <hyperscale/syntax/token_kinds.hpp>
+#include <hyperscale/syntax/token-kinds.hpp>
 #include <map>
 #include <ostream>
 #include <string>

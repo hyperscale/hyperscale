@@ -10,7 +10,7 @@
  */
 #include <boost/test/unit_test.hpp>
 #include <hyperscale/parser/token.hpp>
-#include <hyperscale/syntax/token_kinds.hpp>
+#include <hyperscale/syntax/token-kinds.hpp>
 
 BOOST_AUTO_TEST_SUITE(hyperscale_parser_token)
 

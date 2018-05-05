@@ -8,7 +8,7 @@
  */
 
 #include <type_traits>
-#include <hyperscale/syntax/token_kinds.hpp>
+#include <hyperscale/syntax/token-kinds.hpp>
 
 namespace hyperscale {
 namespace syntax {
