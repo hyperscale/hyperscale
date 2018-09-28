@@ -7,6 +7,7 @@
  * file that was distributed with this source code.
  */
 
+#include <cassert>
 #include <hyperscale/parser/token.hpp>
 #include <hyperscale/syntax/token-kinds.hpp>
 
