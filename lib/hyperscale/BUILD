@@ -1,7 +1,10 @@
 
 cc_library(
     name = "hyperscale",
-    srcs = glob(["*.cpp"]),
-    hdrs = glob(["../../include/*.h"]),
-    copts = ["-I../../include/"]
+    srcs = glob([
+        "ast/*.cpp",
+        "parser/*.cpp",
+        "syntax/*.cpp"
+    ]),
+    copts = ["-Iinclude/"],
 )

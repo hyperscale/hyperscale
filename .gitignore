@@ -53,3 +53,5 @@ __*__
 *.sketch
 *.dot
 astgraph.png
+
+/bazel-*
