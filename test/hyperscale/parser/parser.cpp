@@ -18,7 +18,8 @@
 BOOST_AUTO_TEST_SUITE(hyperscale_parser_parser)
 
 BOOST_AUTO_TEST_CASE(test_parser_parse) {
-    std::string content = "var i = (1 + 22);";
+    //std::string content = "var i = (1 + 22);";
+    std::string content = "var i = 1 + 22;";
 
     auto lexer = std::make_shared<hyperscale::parser::Lexer>(content);
 
