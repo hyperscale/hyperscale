@@ -14,3 +14,8 @@ test: build
 
 cover: build
 	@cd build; make hyperscale-coverage
+
+build/bin/hyperscale-test: build
+
+debug: build/bin/hyperscale-test
+	@lldb ./$<

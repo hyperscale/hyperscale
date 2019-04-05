@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.mod": "go",
         "iosfwd": "cpp",
         "__config": "cpp",
         "cstddef": "cpp",
@@ -56,6 +57,7 @@
         "*.def": "cpp",
         "bitset": "cpp",
         "set": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "__nullptr": "cpp"
     }
 }
