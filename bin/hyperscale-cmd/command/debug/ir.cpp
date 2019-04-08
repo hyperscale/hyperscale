@@ -16,7 +16,6 @@
 #include <command/debug/ir.hpp>
 #include <hyper/console/value.hpp>
 #include <hyperscale/ast/ir-generator-visitor.hpp>
-#include <hyperscale/ast/graph-visitor.hpp>
 #include <hyperscale/ast/node.hpp>
 #include <hyperscale/ir/ir-generator-module.hpp>
 #include <hyperscale/parser/parser.hpp>
@@ -64,7 +63,7 @@ namespace debug {
 
         hyperscale::ast::IRGeneratorVisitor visit(module);
 
-        visit(ast);
+        visit(*ast);
 
         module.print();
 

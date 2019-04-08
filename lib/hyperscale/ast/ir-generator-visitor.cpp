@@ -20,10 +20,12 @@ namespace ast {
     }
 
     void IRGeneratorVisitor::operator()(VarDecl& e) {
-        auto alloca = m_module.getBuilder().CreateAlloca(
-            llvm::Type::getDoubleTy(m_module.getContext()),
+        auto val = e.getType().c_str();
+
+        auto alloca = m_module.builder->CreateAlloca(
+            m_module.builder->getDoubleTy(),
             0,
-            e.getType().c_str()
+            val
         );
 
         m_module.setVariable(e.getType(), alloca);
@@ -32,9 +34,7 @@ namespace ast {
 
         visit(*e.getValue());
 
-        auto expr = visit.getValue();
-
-        m_module.getBuilder().CreateStore(visit.getValue(), alloca);
+        m_module.builder->CreateStore(visit.getValue(), alloca);
     }
 
 
@@ -59,15 +59,15 @@ namespace ast {
 
         switch (e.getOperator()) {
         case Operator::add:
-            m_value = m_module.getBuilder().CreateFAdd(L, R, "addtmp");
+            m_value = m_module.builder->CreateFAdd(L, R, "addtmp");
         case Operator::sub:
-            m_value = m_module.getBuilder().CreateFSub(L, R, "subtmp");
+            m_value = m_module.builder->CreateFSub(L, R, "subtmp");
         case Operator::mul:
-            m_value = m_module.getBuilder().CreateFMul(L, R, "multmp");
+            m_value = m_module.builder->CreateFMul(L, R, "multmp");
         case Operator::lt:
-            L = m_module.getBuilder().CreateFCmpULT(L, R, "cmptmp");
+            L = m_module.builder->CreateFCmpULT(L, R, "cmptmp");
             // Convert bool 0/1 to double 0.0 or 1.0
-            m_value = m_module.getBuilder().CreateUIToFP(L, llvm::Type::getDoubleTy(m_module.getContext()), "booltmp");
+            m_value = m_module.builder->CreateUIToFP(L, llvm::Type::getDoubleTy(m_module.context), "booltmp");
         default:
             std::cout << "invalid binary operator" << std::endl;
 
@@ -76,7 +76,7 @@ namespace ast {
     }
 
     void IRGeneratorVisitor::operator()(IntExpr& e) {
-        m_value = llvm::ConstantFP::get(m_module.getContext(), llvm::APFloat((float)(e.getValue())));
+        m_value = llvm::ConstantFP::get(m_module.context, llvm::APFloat((float)(e.getValue())));
     }
 
     void IRGeneratorVisitor::operator()(SourceFile& e) {

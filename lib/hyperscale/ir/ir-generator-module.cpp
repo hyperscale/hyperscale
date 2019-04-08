@@ -11,7 +11,7 @@
 
 namespace hyperscale {
 namespace ir {
-
+/*
     IRGeneratorModule::IRGeneratorModule(): m_builder(m_context) {
         m_module = llvm::make_unique<llvm::Module>("main", m_context);
     }
@@ -27,22 +27,22 @@ namespace ir {
     std::unique_ptr<llvm::Module> IRGeneratorModule::getModule() {
         return std::move(m_module);
     }
-
+*/
     void IRGeneratorModule::setVariable(const std::string &name, llvm::AllocaInst* value) {
-        m_variable[name] = value;
+        variables[name] = value;
     }
 
     bool IRGeneratorModule::hasVariable(const std::string &name) {
-        return m_variable.count(name) > 0;
+        return variables.count(name) > 0;
     }
 
     llvm::AllocaInst* IRGeneratorModule::getVariable(const std::string &name) {
         //@TODO: check if exists before get
-        return m_variable[name];
+        return variables[name];
     }
 
     void IRGeneratorModule::print() {
-        m_module->print(llvm::errs(), nullptr);
+        module->print(llvm::errs(), nullptr);
     }
 
 } // end of ir namespace

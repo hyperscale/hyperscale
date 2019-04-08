@@ -12,6 +12,7 @@
 #include <map>
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/Target/TargetMachine.h>
+#include <llvm/Support/TargetSelect.h>
 #include <llvm/IR/IRBuilder.h>
 #include <llvm/IR/Value.h>
 
@@ -19,21 +20,30 @@ namespace hyperscale {
 namespace ir {
 
     class IRGeneratorModule {
-    private:
-        llvm::LLVMContext m_context;
-        llvm::IRBuilder<> m_builder;
-        std::unique_ptr<llvm::Module> m_module;
-        std::unique_ptr<llvm::TargetMachine> m_target_machine;
-        std::map<std::string, llvm::AllocaInst *> m_variables;
+    public:
+        llvm::LLVMContext context;
+        std::unique_ptr<llvm::Module> module;
+        std::unique_ptr<llvm::IRBuilder<>> builder;
+        std::unique_ptr<llvm::TargetMachine> target_machine;
+        std::map<std::string, llvm::AllocaInst *> variables;
 
     public:
-        IRGeneratorModule();
+        IRGeneratorModule():
+            module(new llvm::Module("main", context)),
+            builder(new llvm::IRBuilder<>(context))
+        {
+            /*
+            llvm::InitializeNativeTarget();
+            llvm::InitializeNativeTargetAsmPrinter();
+            llvm::InitializeNativeTargetAsmParser();
+            */
+        }
 
-        llvm::LLVMContext getContext();
+        /*llvm::LLVMContext getContext();
 
         llvm::IRBuilder<> getBuilder();
 
-        std::unique_ptr<llvm::Module> getModule();
+        std::unique_ptr<llvm::Module> getModule();*/
 
         void setVariable(const std::string &name, llvm::AllocaInst* value);
 
