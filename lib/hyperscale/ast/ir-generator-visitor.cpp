@@ -60,23 +60,27 @@ namespace ast {
         switch (e.getOperator()) {
         case Operator::add:
             m_value = m_module.builder->CreateFAdd(L, R, "addtmp");
+            break;
         case Operator::sub:
             m_value = m_module.builder->CreateFSub(L, R, "subtmp");
+            break;
         case Operator::mul:
             m_value = m_module.builder->CreateFMul(L, R, "multmp");
+            break;
         case Operator::lt:
             L = m_module.builder->CreateFCmpULT(L, R, "cmptmp");
             // Convert bool 0/1 to double 0.0 or 1.0
             m_value = m_module.builder->CreateUIToFP(L, llvm::Type::getDoubleTy(m_module.context), "booltmp");
+            break;
         default:
-            std::cout << "invalid binary operator" << std::endl;
+            std::cout << "invalid binary operator: " << e.getOperator() << std::endl;
 
             m_value = nullptr;
         }
     }
 
     void IRGeneratorVisitor::operator()(IntExpr& e) {
-        m_value = llvm::ConstantFP::get(m_module.context, llvm::APFloat((float)(e.getValue())));
+        m_value = llvm::ConstantFP::get(m_module.context, llvm::APFloat((double)(e.getValue())));
     }
 
     void IRGeneratorVisitor::operator()(SourceFile& e) {

@@ -37,6 +37,14 @@ namespace ir {
             llvm::InitializeNativeTargetAsmPrinter();
             llvm::InitializeNativeTargetAsmParser();
             */
+
+            llvm::FunctionType *FuncType = llvm::FunctionType::get(llvm::Type::getInt32Ty(context), false);
+
+            llvm::Function *func = llvm::Function::Create(FuncType, llvm::Function::ExternalLinkage, "main", module.get());
+
+            llvm::BasicBlock *BB = llvm::BasicBlock::Create(context, "entry", func);
+
+            builder->SetInsertPoint(BB);
         }
 
         /*llvm::LLVMContext getContext();

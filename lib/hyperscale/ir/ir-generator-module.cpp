@@ -42,6 +42,9 @@ namespace ir {
     }
 
     void IRGeneratorModule::print() {
+        auto zero = llvm::ConstantInt::get(context, llvm::APInt(32, 0));
+        builder->CreateRet(zero);
+
         module->print(llvm::errs(), nullptr);
     }
 
