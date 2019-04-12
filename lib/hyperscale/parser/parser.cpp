@@ -13,6 +13,8 @@
 #include <hyperscale/ast/var-decl.hpp>
 #include <hyperscale/ast/op-expr.hpp>
 #include <hyperscale/ast/int-expr.hpp>
+#include <hyperscale/ast/decl-ref-expr.hpp>
+#include <hyperscale/ast/call-expr.hpp>
 #include <hyperscale/syntax/expected-token-exception.hpp>
 #include <hyperscale/syntax/invalid-token-exception.hpp>
 
@@ -46,6 +48,12 @@ namespace parser {
         m_index++;
 
         return token;
+    }
+
+    Token Parser::nextToken() {
+        m_index++;
+
+        return m_tokens[m_index];
     }
 
     /*
@@ -132,8 +140,8 @@ namespace parser {
             return node;
         }
 
-        return nullptr;
-        //return parsePrimaryExpression(mandatory);
+        //return nullptr;
+        return parsePrimaryExpression(mandatory);
     }
 
     /*
@@ -242,6 +250,8 @@ namespace parser {
         } else if (token.is(syntax::TokenKind::FloatingLiteral)) {
             //@TODO:
             return nullptr;
+        } else if (token.is(syntax::TokenKind::Identifier)) {
+            return parseIdentifierExpression(mandatory);
         }
 
         if (!mandatory) {
@@ -249,6 +259,70 @@ namespace parser {
         }
 
         throw syntax::InvalidTokenException(token);
+    }
+
+    ast::Expr* Parser::parseIdentifierExpression(bool mandatory) {
+        auto token = m_tokens[m_index];
+
+        // skip if not identifier token
+        if (token.isNot(syntax::TokenKind::Identifier)) {
+            return nullptr;
+        }
+
+        auto identifier = token;
+
+        token = nextToken();
+
+        if (token.isNot(syntax::TokenKind::OpenParen)) {
+            m_index--;
+
+            return new ast::DeclRefExpr(identifier);
+        }
+
+        std::cout << identifier.getText() << "(";
+
+        auto call = new ast::CallExpr(identifier);
+
+        token = nextToken();
+
+        if (token.isNot(syntax::TokenKind::CloseParen)) {
+            while (true) {
+                auto expr = parseExpression(true);
+                call->addArgument(expr);
+
+                //auto curTok = m_tokens[m_index];
+                //std::cout << std::endl << "curtok: " << curTok << std::endl;
+
+                token = nextToken();
+
+                std::cout << token;
+
+                if (token.is(syntax::TokenKind::Comma)) {
+                    m_index++;
+
+                    std::cout << ", ";
+
+                    continue;
+                } else if (token.is(syntax::TokenKind::CloseParen)) {
+                    std::cout << ")";
+
+                    if (m_tokens[m_index+1].is(syntax::TokenKind::Semi)) {
+                        std::cout << ");";
+                        m_index++;
+                    }
+
+                    return call;
+                } else {
+                    throw syntax::InvalidTokenException(token);
+                }
+            }
+        }
+
+        if (m_tokens[m_index+1].is(syntax::TokenKind::Semi)) {
+            m_index++;
+        }
+
+        return call;
     }
 
     ast::Node* Parser::parse() {
@@ -260,8 +334,19 @@ namespace parser {
                 sourceFile->addNode(decl);
 
                 //Hack for test
+                //return sourceFile;
+            }
+
+            auto expr = parseIdentifierExpression(false);
+            if (expr != nullptr) {
+                sourceFile->addNode(expr);
+
+                //Hack for test
                 return sourceFile;
             }
+
+            // Hack for test
+            m_index++;
         }
 
         return sourceFile;

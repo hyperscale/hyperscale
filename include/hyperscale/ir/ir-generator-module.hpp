@@ -25,7 +25,8 @@ namespace ir {
         std::unique_ptr<llvm::Module> module;
         std::unique_ptr<llvm::IRBuilder<>> builder;
         std::unique_ptr<llvm::TargetMachine> target_machine;
-        std::map<std::string, llvm::AllocaInst *> variables;
+        std::map<std::string, llvm::AllocaInst *> variablesAlloc;
+        std::map<std::string, llvm::Value *> variables;
 
     public:
         IRGeneratorModule():
@@ -37,6 +38,7 @@ namespace ir {
             llvm::InitializeNativeTargetAsmPrinter();
             llvm::InitializeNativeTargetAsmParser();
             */
+            module->setSourceFileName("main.hps");
 
             llvm::FunctionType *FuncType = llvm::FunctionType::get(llvm::Type::getInt32Ty(context), false);
 
@@ -53,11 +55,17 @@ namespace ir {
 
         std::unique_ptr<llvm::Module> getModule();*/
 
-        void setVariable(const std::string &name, llvm::AllocaInst* value);
+        void setVariableAlloc(const std::string &name, llvm::AllocaInst* value);
+
+        bool hasVariableAlloc(const std::string &name);
+
+        llvm::AllocaInst* getVariableAlloc(const std::string &name);
+
+        void setVariable(const std::string &name, llvm::Value* value);
 
         bool hasVariable(const std::string &name);
 
-        llvm::AllocaInst* getVariable(const std::string &name);
+        llvm::Value* getVariable(const std::string &name);
 
         void print();
     };

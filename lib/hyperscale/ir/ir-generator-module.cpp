@@ -28,7 +28,20 @@ namespace ir {
         return std::move(m_module);
     }
 */
-    void IRGeneratorModule::setVariable(const std::string &name, llvm::AllocaInst* value) {
+    void IRGeneratorModule::setVariableAlloc(const std::string &name, llvm::AllocaInst* value) {
+        variablesAlloc[name] = value;
+    }
+
+    bool IRGeneratorModule::hasVariableAlloc(const std::string &name) {
+        return variablesAlloc.count(name) > 0;
+    }
+
+    llvm::AllocaInst* IRGeneratorModule::getVariableAlloc(const std::string &name) {
+        //@TODO: check if exists before get
+        return variablesAlloc[name];
+    }
+
+    void IRGeneratorModule::setVariable(const std::string &name, llvm::Value* value) {
         variables[name] = value;
     }
 
@@ -36,7 +49,7 @@ namespace ir {
         return variables.count(name) > 0;
     }
 
-    llvm::AllocaInst* IRGeneratorModule::getVariable(const std::string &name) {
+    llvm::Value* IRGeneratorModule::getVariable(const std::string &name) {
         //@TODO: check if exists before get
         return variables[name];
     }

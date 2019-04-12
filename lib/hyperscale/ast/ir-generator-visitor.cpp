@@ -28,13 +28,17 @@ namespace ast {
             val
         );
 
-        m_module.setVariable(e.getType(), alloca);
+        m_module.setVariableAlloc(e.getType(), alloca);
 
         IRGeneratorVisitor visit(m_module);
 
         visit(*e.getValue());
 
-        m_module.builder->CreateStore(visit.getValue(), alloca);
+        auto value = visit.getValue();
+
+        m_module.setVariable(e.getType(), value);
+
+        m_module.builder->CreateStore(value, alloca);
     }
 
 
@@ -73,6 +77,7 @@ namespace ast {
             m_value = m_module.builder->CreateUIToFP(L, llvm::Type::getDoubleTy(m_module.context), "booltmp");
             break;
         default:
+            //@TODO: use error manager
             std::cout << "invalid binary operator: " << e.getOperator() << std::endl;
 
             m_value = nullptr;
@@ -92,6 +97,16 @@ namespace ast {
     }
 
     void IRGeneratorVisitor::operator()(CallExpr& e) {
+        //@TODO: for func declaration use method of m_module.getFunc(e.getRef())
+        auto *callee = m_module.module->getOrInsertFunction(
+            e.getRef(),
+            llvm::FunctionType::get(
+                llvm::IntegerType::getInt32Ty(m_module.context),
+                llvm::PointerType::get(llvm::Type::getInt8Ty(m_module.context), 0),
+                true /* this is var arg func type*/
+            )
+        );
+
         /*m_ostr << indent() <<  "CallExpr <line:" << e.getLine() << ", col:" << e.getColumn() << "> '" << e.getRef() << "'" << std::endl;
 
         IRGeneratorVisitor print(m_ostr, m_indent+1);
@@ -99,10 +114,33 @@ namespace ast {
         for (auto node = e.getArguments().begin(); node != e.getArguments().end(); ++node) {
             print(**node);
         }*/
+
+
+        std::vector<llvm::Value *> args;
+
+        for (auto node = e.getArguments().begin(); node != e.getArguments().end(); ++node) {
+            IRGeneratorVisitor visit(m_module);
+
+            visit(**node);
+
+            args.push_back(visit.getValue());
+        }
+
+        m_value = m_module.builder->CreateCall(callee, args, e.getRef() + "Call");
     }
 
     void IRGeneratorVisitor::operator()(DeclRefExpr& e) {
         //m_ostr << indent() <<  "DeclRefExpr <line:" << e.getLine() << ", col:" << e.getColumn() << "> '" << e.getRef() << "'" << std::endl;
+
+        auto value = m_module.getVariable(e.getRef());
+        if (value == nullptr) {
+            std::cout << "undefined variable " <<  e.getRef() << std::endl;
+
+            return;
+            // throw undefined variable e.getRef()
+        }
+
+        m_value = value;
     }
 
     void IRGeneratorVisitor::operator()(Node& e) {

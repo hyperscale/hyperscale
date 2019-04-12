@@ -58,6 +58,25 @@
         "bitset": "cpp",
         "set": "cpp",
         "*.ipp": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "__debug": "cpp",
+        "__functional_base": "cpp",
+        "__hash_table": "cpp",
+        "__mutex_base": "cpp",
+        "__string": "cpp",
+        "__threading_support": "cpp",
+        "__tuple": "cpp",
+        "deque": "cpp",
+        "fstream": "cpp",
+        "list": "cpp",
+        "locale": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "random": "cpp",
+        "string_view": "cpp",
+        "strstream": "cpp",
+        "typeindex": "cpp",
+        "unordered_map": "cpp",
+        "variant": "cpp"
     }
 }

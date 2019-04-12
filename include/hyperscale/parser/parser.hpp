@@ -27,6 +27,8 @@ namespace parser {
 
         Token eatToken(syntax::TokenKind kind);
 
+        Token nextToken();
+
         /*
         VariableDeclaration = ("var" | "const" | "let") Symbol option(":" TypeExpr) "=" Expression
         */
@@ -51,6 +53,13 @@ namespace parser {
         PrimaryExpression = Integer | Float
         */
         ast::Expr* parsePrimaryExpression(bool mandatory);
+
+        /*
+        IdentifierExpression =
+            ::= identifier
+            ::= identifier '(' Expression* ')'
+        */
+        ast::Expr* parseIdentifierExpression(bool mandatory);
 
     public:
         Parser(std::shared_ptr<Lexer>& lexer);

@@ -8,7 +8,9 @@
  */
 #pragma once
 
+#include <string>
 #include <memory>
+#include <sstream>
 #include <hyperscale/ast/visitor.hpp>
 #include <hyperscale/parser/token.hpp>
 
