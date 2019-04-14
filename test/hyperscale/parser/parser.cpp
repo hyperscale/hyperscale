@@ -32,7 +32,6 @@ BOOST_AUTO_TEST_CASE(test_parser_parse) {
     BOOST_CHECK_EQUAL(sourceFile->getDecls().size(), 1);
 }
 
-
 BOOST_AUTO_TEST_CASE(test_parser_parse_with_call_expr) {
     //std::string content = "var i = (1 + 22);";
     std::string content = "var i = 1 + 22;\nprint(i);";

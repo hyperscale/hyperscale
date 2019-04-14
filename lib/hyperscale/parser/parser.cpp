@@ -276,18 +276,21 @@ namespace parser {
         if (token.isNot(syntax::TokenKind::OpenParen)) {
             m_index--;
 
-            return new ast::DeclRefExpr(identifier);
+            ast::DeclRefExpr* expr = new ast::DeclRefExpr(identifier);
+
+            return expr;
         }
 
         std::cout << identifier.getText() << "(";
 
-        auto call = new ast::CallExpr(identifier);
+        ast::CallExpr* call = new ast::CallExpr(identifier);
 
         token = nextToken();
 
         if (token.isNot(syntax::TokenKind::CloseParen)) {
             while (true) {
-                auto expr = parseExpression(true);
+                ast::Expr* expr = parseExpression(true);
+                //std::cout << expr << std::endl;
                 call->addArgument(expr);
 
                 //auto curTok = m_tokens[m_index];
