@@ -15,7 +15,7 @@ namespace hyperscale {
 namespace ast {
 
     std::ostream& operator<<(std::ostream& os, Operator op) {
-        os << OperatorNames[static_cast<int>(op)];
+        os << OperatorToOperatorNameMap.at(op);
 
         return os;
     }

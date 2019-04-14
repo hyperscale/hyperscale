@@ -14,7 +14,7 @@ namespace ast {
 
     DeclRefExpr::DeclRefExpr(parser::Token& token):
         Expr(token),
-        m_ref(token.getText().str()) {}
+        m_ref(token.getText()) {}
 
     // DeclRefExpr::~DeclRefExpr() {}
 

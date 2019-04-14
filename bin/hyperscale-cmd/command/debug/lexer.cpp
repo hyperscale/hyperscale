@@ -70,7 +70,7 @@ namespace debug {
 
             t.add(std::to_string(i));
             t.add(hyperscale::syntax::TokenNames.at(token.getKind()));
-            t.add(token.getText().str());
+            t.add(token.getText());
             t.add(std::to_string(token.getStartOffset()));
             t.endOfRow();
 

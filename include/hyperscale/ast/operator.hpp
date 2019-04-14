@@ -31,11 +31,34 @@ namespace ast {
         /** \brief ">=" */ ge
     };
 
-    static const char* OperatorNames[] = {
+    static const std::map<std::string, Operator> OperatorNameToOperatorMap = {
         // Arithmetics.
-        "+", "-", "*", "/",
+        {"+", Operator::add},
+        {"-", Operator::sub},
+        {"*", Operator::mul},
+        {"/", Operator::div},
         // Comparison.
-        "=", "<>", "<", "<=", ">", ">="
+        {"=", Operator::eq},
+        {"<>", Operator::ne},
+        {"<", Operator::lt},
+        {"<=", Operator::le},
+        {">", Operator::gt},
+        {">=", Operator::ge},
+    };
+
+    static const std::map<Operator, std::string> OperatorToOperatorNameMap = {
+        // Arithmetics.
+        {Operator::add, "+"},
+        {Operator::sub, "-"},
+        {Operator::mul, "*"},
+        {Operator::div, "/"},
+        // Comparison.
+        {Operator::eq, "="},
+        {Operator::ne, "<>"},
+        {Operator::lt, "<"},
+        {Operator::le, "<="},
+        {Operator::gt, ">"},
+        {Operator::ge, ">="},
     };
 
     std::ostream& operator<<(std::ostream& os, Operator op);

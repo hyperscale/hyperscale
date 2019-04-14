@@ -23,6 +23,9 @@ namespace ast {
 
     public:
         /// Construct an VarDecl node.
+        VarDecl(parser::Token& token);
+
+        /// Construct an VarDecl node.
         VarDecl(parser::Token& token, std::string type, Expr* value);
 
         VarDecl(const VarDecl&) = delete;
@@ -31,7 +34,11 @@ namespace ast {
 
         ~VarDecl();
 
+        void setType(std::string type);
+
         std::string getType() const;
+
+        void setValue(Expr* value);
 
         Expr* getValue() const;
 

@@ -33,7 +33,7 @@ namespace syntax {
         #define KEYWORD(X) Keyword ## X,
         #define PUNCTUATOR(X, Y) X,
         #define POUND_KEYWORD(X) Pound ## X,
-        #include <hyperscale/syntax/token_kinds.def>
+        #include <hyperscale/syntax/token-kinds.def>
         #undef KEYWORD
         #undef PUNCTUATOR
         #undef POUND_KEYWORD
@@ -58,7 +58,7 @@ namespace syntax {
         #define KEYWORD(X) {TokenKind::Keyword ## X, "Keyword" # X},
         #define PUNCTUATOR(X, Y) {TokenKind::X, # X},
         #define POUND_KEYWORD(X) {TokenKind::Pound ## X, "Keyword" # X},
-        #include <hyperscale/syntax/token_kinds.def>
+        #include <hyperscale/syntax/token-kinds.def>
         #undef KEYWORD
         #undef PUNCTUATOR
         #undef POUND_KEYWORD

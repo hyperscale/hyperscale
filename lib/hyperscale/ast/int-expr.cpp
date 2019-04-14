@@ -14,7 +14,7 @@ namespace ast {
 
     IntExpr::IntExpr(parser::Token& token):
         Expr(token),
-        m_value(std::stoi(token.getText().str())) {}
+        m_value(std::stoi(token.getText())) {}
 
     // IntExpr::~IntExpr() {}
 

@@ -1,1 +1,1 @@
-configure_file(config.hpp.in ${CMAKE_CURRENT_BINARY_DIR}/config.hpp)
+configure_file(config.hpp.in ${CMAKE_SOURCE_DIR}/include/hyperscale/config.hpp)

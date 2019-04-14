@@ -5,6 +5,9 @@ demo/
 spec/
 scripts/
 
+# vscode dir
+.vscode/ipch
+
 .DS_Store
 
 # CMake files
@@ -53,3 +56,5 @@ __*__
 *.sketch
 *.dot
 astgraph.png
+
+include/hyperscale/config.hpp

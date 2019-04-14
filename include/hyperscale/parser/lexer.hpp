@@ -9,7 +9,7 @@
 #pragma once
 
 #include <hyperscale/parser/token.hpp>
-#include <hyperscale/syntax/token_kinds.hpp>
+#include <hyperscale/syntax/token-kinds.hpp>
 #include <istream>
 #include <string>
 #include <vector>

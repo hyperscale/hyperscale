@@ -13,11 +13,11 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <command/debug/parser.hpp>
+#include <command/debug/ir.hpp>
 #include <hyper/console/value.hpp>
-#include <hyperscale/ast/pretty-printer-visitor.hpp>
-#include <hyperscale/ast/graph-visitor.hpp>
+#include <hyperscale/ast/ir-generator-visitor.hpp>
 #include <hyperscale/ast/node.hpp>
+#include <hyperscale/ir/ir-generator-module.hpp>
 #include <hyperscale/parser/parser.hpp>
 #include <hyperscale/parser/lexer.hpp>
 
@@ -25,16 +25,13 @@ namespace hyperscale {
 namespace command {
 namespace debug {
 
-    void ParserCommand::configuration() {
-        setName("parser");
-        setDescription("Debug hyperscale parser");
-        addOption(new hyper::console::Value<std::string>("", "format", "The output format", "text"));
+    void IRCommand::configuration() {
+        setName("ir");
+        setDescription("Debug hyperscale IR");
     }
 
-
-    int ParserCommand::execute() {
+    int IRCommand::execute() {
         auto args = getArguments();
-        auto format = getLongOpt<std::string>("format")->getValue();
 
         if (args.empty()) {
             std::cout << "No file" << std::endl;
@@ -62,15 +59,13 @@ namespace debug {
 
         hyperscale::ast::Node* ast = parser->parse();
 
-        if (format == "dot") {
-            hyperscale::ast::GraphVisitor print(std::cout);
+        hyperscale::ir::IRGeneratorModule module;
 
-            print(*ast);
-        } else {
-            hyperscale::ast::PrettyPrinterVisitor print(std::cout);
+        hyperscale::ast::IRGeneratorVisitor visit(module);
 
-            print(*ast);
-        }
+        visit(*ast);
+
+        module.print();
 
         delete ast;
 

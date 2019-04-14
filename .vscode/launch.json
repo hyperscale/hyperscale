@@ -18,14 +18,14 @@
             "preLaunchTask": "make"
         },
         {
-            "name": "(lldb) Launch pretty print",
+            "name": "(lldb) Launch parser",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/bin/hyperscale",
             "args": [
                 "debug",
-                "pretty-print",
-                "${workspaceFolder}/dev/simple.hyper"
+                "parser",
+                "${workspaceFolder}/dev/test.hyper"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
