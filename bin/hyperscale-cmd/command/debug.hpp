@@ -8,11 +8,11 @@
  */
 #pragma once
 
-#include <hyper/console/command.hpp>
-#include <command/debug/lexer.hpp>
-#include <command/debug/parser.hpp>
-#include <command/debug/pretty-print.hpp>
-#include <command/debug/ir.hpp>
+#include "hyper/console/command.hpp"
+#include "debug/lexer.hpp"
+#include "debug/parser.hpp"
+#include "debug/pretty-print.hpp"
+#include "debug/ir.hpp"
 
 namespace hyperscale {
 namespace command {

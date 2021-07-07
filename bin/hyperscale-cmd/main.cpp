@@ -7,11 +7,13 @@
  * file that was distributed with this source code.
  */
 
-#include <hyper/console/application.hpp>
-#include <hyperscale/config.hpp>
-#include <command/debug.hpp>
-#include <command/build.hpp>
-#include <command/version.hpp>
+#include "hyper/console/application.hpp"
+
+#include "lib/hyperscale/config.hpp"
+
+#include "command/debug.hpp"
+#include "command/build.hpp"
+#include "command/version.hpp"
 
 int main(int argc, char **argv) {
     hyper::console::Application* app = new hyper::console::Application();

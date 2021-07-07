@@ -9,24 +9,27 @@
 
 #include <exception>
 #include <fstream>
-#include <hyper/console/value.hpp>
-//#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/parser/lexer.hpp>
-//#include <hyperscale/ast/node.hpp>
-#include <command/debug/pretty-print.hpp>
-#include <hyperscale/ast/call-expr.hpp>
-#include <hyperscale/ast/decl-ref-expr.hpp>
-#include <hyperscale/ast/graph-visitor.hpp>
-#include <hyperscale/ast/int-expr.hpp>
-#include <hyperscale/ast/op-expr.hpp>
-#include <hyperscale/ast/paren-expr.hpp>
-#include <hyperscale/ast/pretty-printer-visitor.hpp>
-#include <hyperscale/ast/source-file.hpp>
-#include <hyperscale/ast/var-decl.hpp>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
+#include "hyper/console/value.hpp"
+
+//#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+//#include "lib/hyperscale/ast/node.hpp"
+#include "lib/hyperscale/ast/call-expr.hpp"
+#include "lib/hyperscale/ast/decl-ref-expr.hpp"
+#include "lib/hyperscale/ast/graph-visitor.hpp"
+#include "lib/hyperscale/ast/int-expr.hpp"
+#include "lib/hyperscale/ast/op-expr.hpp"
+#include "lib/hyperscale/ast/paren-expr.hpp"
+#include "lib/hyperscale/ast/pretty-printer-visitor.hpp"
+#include "lib/hyperscale/ast/source-file.hpp"
+#include "lib/hyperscale/ast/var-decl.hpp"
+
+#include "pretty-print.hpp"
+
 
 namespace hyperscale {
 namespace command {

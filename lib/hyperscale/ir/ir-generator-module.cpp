@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ir/ir-generator-module.hpp>
+#include "lib/hyperscale/ir/ir-generator-module.hpp"
 
 namespace hyperscale {
 namespace ir {

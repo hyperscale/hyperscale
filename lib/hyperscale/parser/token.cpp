@@ -8,8 +8,8 @@
  */
 
 #include <cassert>
-#include <hyperscale/parser/token.hpp>
-#include <hyperscale/syntax/token-kinds.hpp>
+#include "lib/hyperscale/parser/token.hpp"
+#include "lib/hyperscale/syntax/token-kinds.hpp"
 
 namespace hyperscale {
 namespace parser {
@@ -219,7 +219,7 @@ namespace parser {
     bool Token::isKeyword() const {
         switch (m_kind) {
     #define KEYWORD(X) case syntax::TokenKind::Keyword##X: return true;
-    #include "hyperscale/syntax/token-kinds.def"
+    #include "lib/hyperscale/syntax/token-kinds.def"
         default: return false;
         }
     }
@@ -239,7 +239,7 @@ namespace parser {
     bool Token::isPunctuation() const {
         switch (m_kind) {
     #define PUNCTUATOR(Name, Str) case syntax::TokenKind::Name: return true;
-    #include "hyperscale/syntax/token-kinds.def"
+    #include "lib/hyperscale/syntax/token-kinds.def"
         default: return false;
         }
     }

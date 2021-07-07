@@ -5,6 +5,8 @@ demo/
 spec/
 scripts/
 
+/bazel-*
+
 # vscode dir
 .vscode/ipch
 

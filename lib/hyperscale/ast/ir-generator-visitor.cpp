@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/ir-generator-visitor.hpp>
+#include "lib/hyperscale/ast/ir-generator-visitor.hpp"
 
 namespace hyperscale {
 namespace ast {

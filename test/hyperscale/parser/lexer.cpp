@@ -10,8 +10,8 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/syntax/token-kinds.hpp>
+#include "lib/hyperscale/parser/lexer.hpp"
+#include "lib/hyperscale/syntax/token-kinds.hpp"
 
 BOOST_AUTO_TEST_SUITE(hyperscale_parser_lexer)
 

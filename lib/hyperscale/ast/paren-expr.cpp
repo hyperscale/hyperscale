@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/paren-expr.hpp>
+#include "lib/hyperscale/ast/paren-expr.hpp"
 
 namespace hyperscale {
 namespace ast {

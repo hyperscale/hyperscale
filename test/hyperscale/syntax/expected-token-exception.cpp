@@ -10,7 +10,7 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include <hyperscale/syntax/expected-token-exception.hpp>
+#include "lib/hyperscale/syntax/expected-token-exception.hpp"
 
 BOOST_AUTO_TEST_SUITE(hyperscale_syntax_expected_token_exception)
 

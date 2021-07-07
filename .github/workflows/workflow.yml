@@ -1,0 +1,22 @@
+on: push
+name: CI
+jobs:
+  checks:
+    name: run
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: bazelbuild/setup-bazelisk@v1
+
+    - name: Mount bazel cache
+      uses: actions/cache@v2
+      with:
+        path: "~/.cache/bazel"
+        key: bazel
+
+    - name: Building
+      run: bazel build --cxxopt=-std=c++20 --host_cxxopt=-std=c++20 //...
+
+    - name: Testing
+      run: bazel test --cxxopt=-std=c++20 --host_cxxopt=-std=c++20 //test:hyperscale-test

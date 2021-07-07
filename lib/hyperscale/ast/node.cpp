@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/node.hpp>
+#include "node.hpp"
 
 namespace hyperscale {
 namespace ast {

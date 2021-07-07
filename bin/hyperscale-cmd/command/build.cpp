@@ -6,9 +6,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+#include "lib/hyperscale/hyperscale.hpp"
 
-#include <command/build.hpp>
-#include <hyperscale/hyperscale.hpp>
+#include "build.hpp"
 
 namespace hyperscale {
 namespace command {
