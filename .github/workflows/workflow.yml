@@ -16,7 +16,7 @@ jobs:
         key: bazel
 
     - name: Building
-      run: bazel build //...
+      run: bazel build --cxxopt=-std=c++20 --host_cxxopt=-std=c++20 //...
 
     - name: Testing
-      run: bazel test //test:hyperscale-test
+      run: bazel test --cxxopt=-std=c++20 --host_cxxopt=-std=c++20 //test:hyperscale-test
