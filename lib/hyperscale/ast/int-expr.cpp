@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/int-expr.hpp>
+#include "lib/hyperscale/ast/int-expr.hpp"
 
 namespace hyperscale {
 namespace ast {

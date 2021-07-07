@@ -10,9 +10,10 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include <hyperscale/ast/decl-ref-expr.hpp>
-#include <hyperscale/ast/call-expr.hpp>
 #include <memory>
+
+#include "lib/hyperscale/ast/decl-ref-expr.hpp"
+#include "lib/hyperscale/ast/call-expr.hpp"
 
 BOOST_AUTO_TEST_SUITE(hyperscale_ast_call_expr)
 

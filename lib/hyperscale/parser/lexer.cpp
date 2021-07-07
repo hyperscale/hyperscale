@@ -7,13 +7,13 @@
  * file that was distributed with this source code.
  */
 
-// #include <hyperscale/ast/identifier.hpp>
-#include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/parser/token.hpp>
-#include <llvm/ADT/SmallString.h>
-#include <llvm/ADT/StringRef.h>
-#include <llvm/ADT/StringSwitch.h>
-#include <llvm/Support/MathExtras.h>
+// #include "lib/hyperscale/ast/identifier.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+#include "lib/hyperscale/parser/token.hpp"
+#include "llvm/ADT/SmallString.h"
+#include "llvm/ADT/StringRef.h"
+#include "llvm/ADT/StringSwitch.h"
+#include "llvm/Support/MathExtras.h"
 #include <string>
 // FIXME: Figure out if this can be migrated to LLVM.
 #include <clang/Basic/CharInfo.h>

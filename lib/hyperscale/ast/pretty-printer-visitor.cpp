@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/pretty-printer-visitor.hpp>
+#include "lib/hyperscale/ast/pretty-printer-visitor.hpp"
 
 namespace hyperscale {
 namespace ast {

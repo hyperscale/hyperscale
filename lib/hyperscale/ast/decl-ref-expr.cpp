@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/decl-ref-expr.hpp>
+#include "lib/hyperscale/ast/decl-ref-expr.hpp"
 
 namespace hyperscale {
 namespace ast {

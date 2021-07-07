@@ -1,0 +1,6 @@
+filegroup(
+  name = "commands",
+  srcs = [
+    "//bin/hyperscale-cmd:hyperscale"
+  ]
+)

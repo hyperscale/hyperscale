@@ -13,13 +13,15 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <command/debug/ir.hpp>
 #include <hyper/console/value.hpp>
-#include <hyperscale/ast/ir-generator-visitor.hpp>
-#include <hyperscale/ast/node.hpp>
-#include <hyperscale/ir/ir-generator-module.hpp>
-#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/parser/lexer.hpp>
+
+#include "command/debug/ir.hpp"
+
+#include "lib/hyperscale/ast/ir-generator-visitor.hpp"
+#include "lib/hyperscale/ast/node.hpp"
+#include "lib/hyperscale/ir/ir-generator-module.hpp"
+#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
 
 namespace hyperscale {
 namespace command {

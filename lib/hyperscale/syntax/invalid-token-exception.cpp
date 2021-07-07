@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/syntax/invalid-token-exception.hpp>
+#include "lib/hyperscale/syntax/invalid-token-exception.hpp"
 
 namespace hyperscale {
 namespace syntax {

@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "hyperscale",
+    srcs = glob(["**/*.cpp"]),
+    hdrs = glob(["**/*.hpp", "**/*.def"]),
+    deps = [
+        "@llvm-project//llvm:config",
+        "@llvm-project//llvm:ir_headers",
+        "@llvm-project//llvm:Support",
+        "@llvm-project//llvm:Core",
+        "@llvm-project//llvm:Target"
+    ],
+    visibility = ["//visibility:public"],
+)

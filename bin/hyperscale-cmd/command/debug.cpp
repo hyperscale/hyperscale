@@ -7,8 +7,9 @@
  * file that was distributed with this source code.
  */
 
-#include <command/debug.hpp>
-#include <hyperscale/hyperscale.hpp>
+#include "lib/hyperscale/hyperscale.hpp"
+
+#include "debug.hpp"
 
 namespace hyperscale {
 namespace command {

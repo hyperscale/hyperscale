@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/op-expr.hpp>
+#include "lib/hyperscale/ast/op-expr.hpp"
 
 namespace hyperscale {
 namespace ast {

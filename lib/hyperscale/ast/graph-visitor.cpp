@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/graph-visitor.hpp>
+#include "lib/hyperscale/ast/graph-visitor.hpp"
 
 namespace hyperscale {
 namespace ast {

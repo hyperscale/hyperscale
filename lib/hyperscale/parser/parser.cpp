@@ -8,15 +8,15 @@
  */
 
 #include <iostream>
-#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/ast/source-file.hpp>
-#include <hyperscale/ast/var-decl.hpp>
-#include <hyperscale/ast/op-expr.hpp>
-#include <hyperscale/ast/int-expr.hpp>
-#include <hyperscale/ast/decl-ref-expr.hpp>
-#include <hyperscale/ast/call-expr.hpp>
-#include <hyperscale/syntax/expected-token-exception.hpp>
-#include <hyperscale/syntax/invalid-token-exception.hpp>
+#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/ast/source-file.hpp"
+#include "lib/hyperscale/ast/var-decl.hpp"
+#include "lib/hyperscale/ast/op-expr.hpp"
+#include "lib/hyperscale/ast/int-expr.hpp"
+#include "lib/hyperscale/ast/decl-ref-expr.hpp"
+#include "lib/hyperscale/ast/call-expr.hpp"
+#include "lib/hyperscale/syntax/expected-token-exception.hpp"
+#include "lib/hyperscale/syntax/invalid-token-exception.hpp"
 
 namespace hyperscale {
 namespace parser {

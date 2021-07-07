@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/var-decl.hpp>
+#include "lib/hyperscale/ast/var-decl.hpp"
 
 namespace hyperscale {
 namespace ast {

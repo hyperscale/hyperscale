@@ -10,7 +10,7 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include <hyperscale/syntax/invalid-token-exception.hpp>
+#include "lib/hyperscale/syntax/invalid-token-exception.hpp"
 
 BOOST_AUTO_TEST_SUITE(hyperscale_syntax_invalid_token_exception)
 
