@@ -1,7 +1,7 @@
 /**
  * Hyperscale
  *
- * (c) 2015-@HYPERSCALE_CURRENT_YEAR@ Axel Etcheverry
+ * (c) 2015-{{.CurrentYear}} Axel Etcheverry
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -9,21 +9,13 @@
 #pragma once
 
 #define HYPERSCALE_NAME                 "Hyperscale"
-#define HYPERSCALE_VERSION_MAJOR        @HYPERSCALE_VERSION_MAJOR@
-#define HYPERSCALE_VERSION_MINOR        @HYPERSCALE_VERSION_MINOR@
-#define HYPERSCALE_VERSION_PATCH        @HYPERSCALE_VERSION_PATCH@
-#define HYPERSCALE_VERSION              "@HYPERSCALE_VERSION_MAJOR@.@HYPERSCALE_VERSION_MINOR@.@HYPERSCALE_VERSION_PATCH@"
+#define HYPERSCALE_VERSION_MAJOR        {{.Version.Major}}
+#define HYPERSCALE_VERSION_MINOR        {{.Version.Minor}}
+#define HYPERSCALE_VERSION_PATCH        {{.Version.Patch}}
+#define HYPERSCALE_VERSION              "{{.Version.Major}}.{{.Version.Minor}}.{{.Version.Patch}}"
+#define HYPERSCLAE_REVISION             "{{.Revision}}"
 #define HYPERSCALE_AUTHOR               "Axel Etcheverry"
 #define HYPERSCALE_COPYRIGHT_START_YEAR 2015
-#define HYPERSCALE_COPYRIGHT_END_YEAR   @HYPERSCALE_CURRENT_YEAR@
-#define HYPERSCALE_INCLUDE_PATH         "@HYPERSCALE_INCLUDE_PATH@"
-#define HYPERSCALE_LIBRARY_PATH         "@HYPERSCALE_LIBRARY_PATH@"
-#define HYPERSCALE_MODULE_PATH          "@HYPERSCALE_MODULE_PATH@"
-#define SYSTEM                          "@SYSTEM@"
-#define SYSTEM_NAME                     "@SYSTEM_NAME@"
-#define SYSTEM_PROCESSOR                "@SYSTEM_PROCESSOR@"
-#define SIZEOF_DATA_PTR                 "@SIZEOF_DATA_PTR@"
-#define LLVM_VERSION                    "@LLVM_VERSION@"
-#define D_LLVM_VERSION_MAJOR            @D_LLVM_VERSION_MAJOR@
-#define D_LLVM_VERSION_MINOR            @D_LLVM_VERSION_MINOR@
-#define LLVM_BIN_DIR                    "@LLVM_BIN_DIR@"
+#define HYPERSCALE_COPYRIGHT_END_YEAR   {{.CurrentYear}}
+#define SYSTEM                          "{{.OS}}"
+#define SYSTEM_ARCH                     "{{.Arch}}"

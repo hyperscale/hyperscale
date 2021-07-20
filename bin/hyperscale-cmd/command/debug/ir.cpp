@@ -13,9 +13,10 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <hyper/console/value.hpp>
 
-#include "command/debug/ir.hpp"
+#include "hyper/console/value.hpp"
+
+#include "ir.hpp"
 
 #include "lib/hyperscale/ast/ir-generator-visitor.hpp"
 #include "lib/hyperscale/ast/node.hpp"

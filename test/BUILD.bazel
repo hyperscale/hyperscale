@@ -4,7 +4,7 @@ cc_test(
     name = "hyperscale-test",
     srcs = glob(["**/*.cpp"]),
     deps = [
-        "//lib/hyperscale:hyperscale",
-        "@boost//:test"
+        "//lib/hyperscale",
+        "@boost//:test",
     ],
 )

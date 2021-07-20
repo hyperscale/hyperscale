@@ -4,12 +4,12 @@ cc_binary(
     name = "hyperscale",
     srcs = glob([
         "**/*.cpp",
-        "**/*.hpp"
+        "**/*.hpp",
     ]),
-    deps = [
-        "//lib/hyperscale:hyperscale",
-        "//lib/einfo:einfo",
-        "@hyperconsole//:hyperconsole"
-    ],
     visibility = ["//visibility:public"],
+    deps = [
+        "//lib/einfo",
+        "//lib/hyperscale",
+        "@hyperconsole",
+    ],
 )

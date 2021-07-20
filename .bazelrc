@@ -1,6 +1,8 @@
-# This file is licensed under the Apache License v2.0 with LLVM Exceptions.
-# See https://llvm.org/LICENSE.txt for license information.
-# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+build --cxxopt='-std=c++20'
+build --host_cxxopt='-std=c++20'
+build --cxxopt='-pedantic'
+build --cxxopt='-Wall'
+build --cxxopt='-Wextra'
 
 ###############################################################################
 # Common flags that apply to all configurations.
@@ -28,4 +30,4 @@ build:generic_clang --copt=-UNDEBUG
 # Always keep this at the end of the file so that user flags override.
 try-import %workspace%/user.bazelrc
 
-
+build --workspace_status_command "tools/workspace_status.sh"

@@ -16,7 +16,7 @@
 #include "llvm/Support/MathExtras.h"
 #include <string>
 // FIXME: Figure out if this can be migrated to LLVM.
-#include <clang/Basic/CharInfo.h>
+#include "clang/Basic/CharInfo.h"
 #include <iostream>
 
 // clang::isIdentifierHead and clang::isIdentifierBody are deliberately not in
@@ -155,7 +155,8 @@ namespace parser {
 
     void Lexer::endToken() {
         m_current_token.setEndOffset(m_pos);
-        m_current_token.setText(llvm::StringRef(m_token_text));
+        // m_current_token.setText(llvm::StringRef(m_token_text));
+        m_current_token.setText(m_token_text);
 
         if (m_current_token.is(syntax::TokenKind::Identifier)) {
             for (auto const& keyword: keywords) {

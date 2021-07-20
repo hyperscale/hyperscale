@@ -25,8 +25,8 @@ namespace hyperscale {
             HYPERSCALE_VERSION_MAJOR,
             HYPERSCALE_VERSION_MINOR,
             HYPERSCALE_VERSION_PATCH,
-            SYSTEM_NAME,
-            SYSTEM_PROCESSOR
+            SYSTEM,
+            SYSTEM_ARCH
         );
     }
 

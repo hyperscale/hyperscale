@@ -98,7 +98,7 @@ namespace ast {
 
     void IRGeneratorVisitor::operator()(CallExpr& e) {
         //@TODO: for func declaration use method of m_module.getFunc(e.getRef())
-        auto *callee = m_module.module->getOrInsertFunction(
+        llvm::FunctionCallee callee = m_module.module->getOrInsertFunction(
             e.getRef(),
             llvm::FunctionType::get(
                 llvm::IntegerType::getInt32Ty(m_module.context),

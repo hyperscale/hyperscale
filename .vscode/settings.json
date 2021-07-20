@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.tf": "terraform",
         "*.mod": "go",
         "iosfwd": "cpp",
         "__config": "cpp",
@@ -77,6 +78,7 @@
         "strstream": "cpp",
         "typeindex": "cpp",
         "unordered_map": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "*.in": "cpp"
     }
 }

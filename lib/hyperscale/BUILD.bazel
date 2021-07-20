@@ -3,13 +3,35 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 cc_library(
     name = "hyperscale",
     srcs = glob(["**/*.cpp"]),
-    hdrs = glob(["**/*.hpp", "**/*.def"]),
+    hdrs = glob([
+        "**/*.hpp",
+        "**/*.def",
+    ]),
+    data = [":config"],
+    visibility = ["//visibility:public"],
     deps = [
+        "@llvm-project//clang:basic",
+        "@llvm-project//llvm:Core",
+        "@llvm-project//llvm:Support",
+        "@llvm-project//llvm:Target",
         "@llvm-project//llvm:config",
         "@llvm-project//llvm:ir_headers",
-        "@llvm-project//llvm:Support",
-        "@llvm-project//llvm:Core",
-        "@llvm-project//llvm:Target"
+        ":include"
     ],
-    visibility = ["//visibility:public"],
+)
+
+genrule(
+    name = "config",
+    srcs = ["config.hpp.in"],
+    outs = ["config.hpp"],
+    cmd = "./$(locations //tools/bazel/generate-config:generate-config) bazel-out/stable-status.txt \"$<\" > \"$@\"",
+    tools = ["//tools/bazel/generate-config"],
+    stamp = True,
+)
+
+cc_library(
+    name = "include",
+    hdrs = ["config.hpp"],
+    data = [":config"],
+    visibility = ["//visibility:private"],
 )
