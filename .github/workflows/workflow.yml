@@ -15,8 +15,11 @@ jobs:
         path: "~/.cache/bazel"
         key: bazel
 
+    - name: Install packages
+      run: sudo apt-get install -yq git wget build-essential python3 clang
+
     - name: Building
-      run: bazel build --cxxopt=-std=c++20 --host_cxxopt=-std=c++20 //...
+      run: bazel build //...
 
     - name: Testing
-      run: bazel test --cxxopt=-std=c++20 --host_cxxopt=-std=c++20 //test:hyperscale-test
+      run: bazel test //test:hyperscale-test
