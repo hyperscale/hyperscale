@@ -1,8 +1,18 @@
+# Sets the default Apple platform to macOS.
+build:macos --apple_platform_type=macos
+
 build --cxxopt='-std=c++20'
 build --host_cxxopt='-std=c++20'
 build --cxxopt='-pedantic'
 build --cxxopt='-Wall'
 build --cxxopt='-Wextra'
+
+build:macos --cxxopt='-std=c++20'
+build:macos --host_cxxopt='-std=c++20'
+
+build:linux --cxxopt='-std=c++2a'
+build:linux --host_cxxopt='-std=c++2a'
+
 
 ###############################################################################
 # Common flags that apply to all configurations.
