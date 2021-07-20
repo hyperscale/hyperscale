@@ -4,6 +4,7 @@ jobs:
   checks:
     strategy:
       matrix:
+        fail-fast: false
         platform: [ubuntu-latest, macos-latest]
     name: run
     runs-on: ${{ matrix.platform }}
