@@ -3,8 +3,8 @@ name: CI
 jobs:
   checks:
     strategy:
+      fail-fast: false
       matrix:
-        fail-fast: false
         platform: [ubuntu-latest, macos-latest]
     name: run
     runs-on: ${{ matrix.platform }}
