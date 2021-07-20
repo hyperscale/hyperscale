@@ -2,8 +2,11 @@ on: push
 name: CI
 jobs:
   checks:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
     name: run
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.platform }}
     steps:
     - uses: actions/checkout@v2
 
@@ -16,6 +19,7 @@ jobs:
         key: bazel
 
     - name: Install packages
+      if: ${{ matrix.platform == 'ubuntu-latest' }}
       run: sudo apt-get install -yq git wget build-essential python3 clang
 
     - name: Building
