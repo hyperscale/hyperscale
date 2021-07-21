@@ -27,7 +27,7 @@ jobs:
         sudo apt install -yq git wget build-essential python3 clang
 
     - name: Building
-      run: bazel build //... --sandbox_debug
+      run: bazel build //...
 
     - name: Testing
-      run: bazel test //test:hyperscale-test
+      run: bazel test --test_output=errors //...
