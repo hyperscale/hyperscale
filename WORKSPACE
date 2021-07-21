@@ -30,11 +30,11 @@ LLVM_COMMIT = "f482497c381cf9beee513864123cf975bd72babf"
 LLVM_BAZEL_TAG = "llvm-project-%s" % (LLVM_COMMIT,)
 
 #LLVM_BAZEL_SHA256 = "a05a83300b6b4d8b45c9ba48296c06217f3ea27ed06b7e698896b5a3b2ed498d"
-LLVM_BAZEL_SHA256 = "359a9c4dc38799835255aaa5a331ef3ff1207362c87ba77ae65546b8dc09f09"
+LLVM_BAZEL_SHA256 = "359a9c4dc38799835255aaa5a331ef3ff1207362c87ba77ae65546b8dc09f09f"
 
 http_archive(
     name = "llvm-bazel",
-    #sha256 = LLVM_BAZEL_SHA256,
+    sha256 = LLVM_BAZEL_SHA256,
     strip_prefix = "llvm-bazel-{tag}/llvm-bazel".format(tag = LLVM_BAZEL_TAG),
     url = "https://github.com/google/llvm-bazel/archive/{tag}.tar.gz".format(tag = LLVM_BAZEL_TAG),
 )
@@ -44,7 +44,7 @@ http_archive(
 LLVM_SHA256 = "0b3b3d59abbc426e7d019ffa24f035821d2e50aa6efe79471f3c549ceb370411"
 
 LLVM_URLS = [
-    "https://storage.googleapis.com/mirror.tensorflow.org/github.com/llvm/llvm-project/archive/{commit}.tar.gz".format(commit = LLVM_COMMIT),
+    #"https://storage.googleapis.com/mirror.tensorflow.org/github.com/llvm/llvm-project/archive/{commit}.tar.gz".format(commit = LLVM_COMMIT),
     "https://github.com/llvm/llvm-project/archive/{commit}.tar.gz".format(commit = LLVM_COMMIT),
 ]
 

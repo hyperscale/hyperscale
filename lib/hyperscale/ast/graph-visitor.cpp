@@ -62,10 +62,12 @@ namespace ast {
     void GraphVisitor::operator()(SourceFile& e) {
         m_ostr << "  node" << static_cast<void*>(&e) << " [label=\"file\"];" << std::endl;
 
-        for (auto decl = e.getDecls().begin(); decl != e.getDecls().end(); ++decl) {
-            (*decl)->accept(*this);
+        std::vector<Node*> decl = e.getDecls();
 
-            m_ostr << "  node" << static_cast<void*>(&e) << " -> node" << static_cast<void*>((*decl)) << ";" << std::endl;
+        for (auto i = decl.begin(); i != decl.end(); ++i) {
+            (*i)->accept(*this);
+
+            m_ostr << "  node" << static_cast<void*>(&e) << " -> node" << static_cast<void*>((*i)) << ";" << std::endl;
         }
     }
 
@@ -76,10 +78,12 @@ namespace ast {
     void GraphVisitor::operator()(CallExpr& e) {
         m_ostr << "  node" << static_cast<void*>(&e) << " [label=\"" << e.getRef() << "\"];" << std::endl;
 
-        for (auto node = e.getArguments().begin(); node != e.getArguments().end(); ++node) {
-            (*node)->accept(*this);
+        std::vector<Node*> node = e.getArguments();
 
-            m_ostr << "  node" << static_cast<void*>(&e) << " -> node" << static_cast<void*>((*node)) << ";" << std::endl;
+        for (auto i = node.begin(); i != node.end(); ++i) {
+            (*i)->accept(*this);
+
+            m_ostr << "  node" << static_cast<void*>(&e) << " -> node" << static_cast<void*>((*i)) << ";" << std::endl;
         }
     }
 

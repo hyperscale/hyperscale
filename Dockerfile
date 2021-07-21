@@ -1,4 +1,4 @@
-FROM ubuntu:hirsute
+FROM ubuntu:hirsute as build
 
 WORKDIR /workspace
 
@@ -13,4 +13,12 @@ RUN chmod +x /usr/local/bin/bazelisk
 
 ADD . /workspace
 
-RUN bazelisk build //...
+RUN bazelisk build //... --sandbox_debug
+
+
+
+FROM gcr.io/distroless/base
+
+COPY --from=build /workspace/bazel-bin/bin/hyperscale-cmd/hyperscale ./
+
+ENTRYPOINT [ "./hyperscale" ]

@@ -79,6 +79,23 @@
         "typeindex": "cpp",
         "unordered_map": "cpp",
         "variant": "cpp",
-        "*.in": "cpp"
+        "*.in": "cpp",
+        "__errc": "cpp",
+        "__node_handle": "cpp",
+        "bit": "cpp",
+        "compare": "cpp",
+        "complex": "cpp",
+        "concepts": "cpp",
+        "iomanip": "cpp",
+        "numbers": "cpp",
+        "queue": "cpp",
+        "semaphore": "cpp",
+        "shared_mutex": "cpp",
+        "stack": "cpp",
+        "unordered_set": "cpp",
+        "memory_resource": "cpp",
+        "stop_token": "cpp",
+        "cfenv": "cpp",
+        "filesystem": "cpp"
     }
 }

@@ -17,7 +17,7 @@ namespace syntax {
           m_expected(expected) {
         std::stringstream msg;
 
-        msg << "expected token '" << expected << "'";
+        msg << "expected token '" << m_expected << "'";
 
         m_msg = msg.str();
     }
