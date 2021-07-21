@@ -31,13 +31,3 @@ jobs:
 
     - name: Testing
       run: bazel test --test_output=errors //...
-
-  cpp-linter:
-    continue-on-error: true
-    name: cpp-linter
-    runs-on: ubuntu-latest
-    steps:
-      - name: cpp-linter
-        uses: shenxianpeng/cpp-linter-action@v1.0.0
-    env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
