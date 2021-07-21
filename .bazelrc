@@ -42,3 +42,7 @@ build:generic_clang --copt=-UNDEBUG
 try-import %workspace%/user.bazelrc
 
 build --workspace_status_command "tools/workspace_status.sh"
+
+
+coverage --collect_code_coverage
+coverage --combined_report=lcov
