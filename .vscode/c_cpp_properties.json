@@ -5,9 +5,9 @@
             "includePath": [
                 "${workspaceRoot}",
                 "${workspaceRoot}/bin/hyperscale-cmd",
-                "${workspaceRoot}/include",
+                "${workspaceRoot}/bazel-hyperscale/external/llvm-project/llvm/include",
+                "${workspaceRoot}/bazel-hyperscale/external/llvm-project/clang/include",
                 "/usr/local/include",
-                "/usr/local/opt/llvm/include",
                 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"
             ],
             "intelliSenseMode": "clang-x64",

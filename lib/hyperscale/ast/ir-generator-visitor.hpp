@@ -9,10 +9,12 @@
 #pragma once
 
 #include <iostream>
+
+#include "llvm/Support/Error.h"
+#include "llvm/ADT/APFloat.h"
+
 #include "lib/hyperscale/ast/default-visitor.hpp"
 #include "lib/hyperscale/ir/ir-generator-module.hpp"
-#include <llvm/Support/Error.h>
-#include <llvm/ADT/APFloat.h>
 
 namespace hyperscale {
 namespace ast {
