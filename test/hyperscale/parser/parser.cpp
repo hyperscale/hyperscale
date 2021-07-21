@@ -10,10 +10,10 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/syntax/token-kinds.hpp>
-#include <hyperscale/ast/source-file.hpp>
+#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+#include "lib/hyperscale/syntax/token-kinds.hpp"
+#include "lib/hyperscale/ast/source-file.hpp"
 
 BOOST_AUTO_TEST_SUITE(hyperscale_parser_parser)
 

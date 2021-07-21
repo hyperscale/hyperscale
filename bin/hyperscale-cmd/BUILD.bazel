@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "hyperscale",
+    srcs = glob([
+        "**/*.cpp",
+        "**/*.hpp",
+    ]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//lib/einfo",
+        "//lib/hyperscale",
+        "@hyperconsole",
+    ],
+)

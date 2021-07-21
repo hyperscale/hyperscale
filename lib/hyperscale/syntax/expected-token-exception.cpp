@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/syntax/expected-token-exception.hpp>
+#include "lib/hyperscale/syntax/expected-token-exception.hpp"
 
 namespace hyperscale {
 namespace syntax {
@@ -17,7 +17,7 @@ namespace syntax {
           m_expected(expected) {
         std::stringstream msg;
 
-        msg << "expected token '" << expected << "'";
+        msg << "expected token '" << m_expected << "'";
 
         m_msg = msg.str();
     }

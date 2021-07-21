@@ -9,12 +9,14 @@
 
 #include <exception>
 #include <fstream>
-#include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/parser/token.hpp>
 #include <iostream>
 #include <string>
-#include <command/debug/lexer.hpp>
-#include <console/table.hpp>
+
+#include "lib/hyperscale/parser/lexer.hpp"
+#include "lib/hyperscale/parser/token.hpp"
+
+#include "lexer.hpp"
+#include "../../console/table.hpp"
 
 //#include "lexer.hpp"
 

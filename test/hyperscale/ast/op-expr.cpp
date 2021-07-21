@@ -10,8 +10,8 @@
  */
 
 #include <boost/test/unit_test.hpp>
-#include <hyperscale/ast/int-expr.hpp>
-#include <hyperscale/ast/op-expr.hpp>
+#include "lib/hyperscale/ast/int-expr.hpp"
+#include "lib/hyperscale/ast/op-expr.hpp"
 #include <memory>
 
 BOOST_AUTO_TEST_SUITE(hyperscale_ast_op_expr)

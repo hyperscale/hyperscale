@@ -1,0 +1,33 @@
+on: push
+name: CI
+jobs:
+  checks:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+    name: run
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: bazelbuild/setup-bazelisk@v1
+
+    - name: Mount bazel cache
+      uses: actions/cache@v2
+      with:
+        path: "~/.cache/bazel"
+        key: bazel
+
+    - name: Install packages
+      if: ${{ matrix.platform == 'ubuntu-latest' }}
+      run: |
+        sudo apt update
+        sudo apt dist-upgrade
+        sudo apt install -yq git wget build-essential python3 clang
+
+    - name: Building
+      run: bazel build //...
+
+    - name: Testing
+      run: bazel test --test_output=errors //...

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/ir-generator-visitor.hpp>
+#include "lib/hyperscale/ast/ir-generator-visitor.hpp"
 
 namespace hyperscale {
 namespace ast {
@@ -20,7 +20,9 @@ namespace ast {
     }
 
     void IRGeneratorVisitor::operator()(VarDecl& e) {
-        auto val = e.getType().c_str();
+        const std::string t = e.getType();
+
+        const char* val = t.c_str();
 
         auto alloca = m_module.builder->CreateAlloca(
             m_module.builder->getDoubleTy(),
@@ -91,14 +93,16 @@ namespace ast {
     void IRGeneratorVisitor::operator()(SourceFile& e) {
         IRGeneratorVisitor visit(m_module);
 
-        for (auto decl = e.getDecls().begin(); decl != e.getDecls().end(); ++decl) {
-            visit(**decl);
+        std::vector<Node*> decl = e.getDecls();
+
+        for (auto i = decl.begin(); i != decl.end(); ++i) {
+            visit(**i);
         }
     }
 
     void IRGeneratorVisitor::operator()(CallExpr& e) {
         //@TODO: for func declaration use method of m_module.getFunc(e.getRef())
-        auto *callee = m_module.module->getOrInsertFunction(
+        llvm::FunctionCallee callee = m_module.module->getOrInsertFunction(
             e.getRef(),
             llvm::FunctionType::get(
                 llvm::IntegerType::getInt32Ty(m_module.context),
@@ -118,10 +122,12 @@ namespace ast {
 
         std::vector<llvm::Value *> args;
 
-        for (auto node = e.getArguments().begin(); node != e.getArguments().end(); ++node) {
+        std::vector<Node*> node = e.getArguments();
+
+        for (auto i = node.begin(); i != node.end(); ++i) {
             IRGeneratorVisitor visit(m_module);
 
-            visit(**node);
+            visit(**i);
 
             args.push_back(visit.getValue());
         }

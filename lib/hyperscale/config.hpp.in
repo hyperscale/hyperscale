@@ -1,0 +1,21 @@
+/**
+ * Hyperscale
+ *
+ * (c) 2015-{{.CurrentYear}} Axel Etcheverry
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+#pragma once
+
+#define HYPERSCALE_NAME                 "Hyperscale"
+#define HYPERSCALE_VERSION_MAJOR        {{.Version.Major}}
+#define HYPERSCALE_VERSION_MINOR        {{.Version.Minor}}
+#define HYPERSCALE_VERSION_PATCH        {{.Version.Patch}}
+#define HYPERSCALE_VERSION              "{{.Version.Major}}.{{.Version.Minor}}.{{.Version.Patch}}"
+#define HYPERSCLAE_REVISION             "{{.Revision}}"
+#define HYPERSCALE_AUTHOR               "Axel Etcheverry"
+#define HYPERSCALE_COPYRIGHT_START_YEAR 2015
+#define HYPERSCALE_COPYRIGHT_END_YEAR   {{.CurrentYear}}
+#define SYSTEM                          "{{.OS}}"
+#define SYSTEM_ARCH                     "{{.Arch}}"

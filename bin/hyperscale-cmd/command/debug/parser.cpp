@@ -13,13 +13,15 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <command/debug/parser.hpp>
-#include <hyper/console/value.hpp>
-#include <hyperscale/ast/pretty-printer-visitor.hpp>
-#include <hyperscale/ast/graph-visitor.hpp>
-#include <hyperscale/ast/node.hpp>
-#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/parser/lexer.hpp>
+
+#include "lib/hyperscale/ast/pretty-printer-visitor.hpp"
+#include "lib/hyperscale/ast/graph-visitor.hpp"
+#include "lib/hyperscale/ast/node.hpp"
+#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+
+#include "parser.hpp"
+#include "hyper/console/value.hpp"
 
 namespace hyperscale {
 namespace command {
