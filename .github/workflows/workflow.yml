@@ -21,7 +21,10 @@ jobs:
 
     - name: Install packages
       if: ${{ matrix.platform == 'ubuntu-latest' }}
-      run: sudo apt-get install -yq git wget build-essential python3 clang
+      run: |
+        sudo apt update
+        sudo apt dist-upgrade
+        sudo apt install -yq git wget build-essential python3 clang
 
     - name: Building
       run: bazel build //...
