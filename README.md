@@ -1,4 +1,4 @@
-The Hyperscale Programming Language [![Build Status](https://img.shields.io/travis/hyperscale/hyperscale/master.svg)](https://travis-ci.org/hyperscale/hyperscale)
+The Hyperscale Programming Language [![CI](https://github.com/hyperscale/hyperscale/actions/workflows/workflow.yml/badge.svg)](https://github.com/hyperscale/hyperscale/actions/workflows/workflow.yml)
 ===================================
 
 ![Hyperscale logo](https://cdn.rawgit.com/hyperscale/hyperscale/master/_resources/logo/hyperscale-logo-color.svg "Hyperscale logo")
@@ -14,11 +14,8 @@ Building from Source
 
 1. Make sure you have installed the dependencies:
 
-   * `g++` 4.7 or later or `clang++` 5.x or later
-   * GNU `make` 3.81 or later
-   * `cmake` 3.8.2 or later
-   * `boost` 1.66.0 or later
-   * `llvm` 5.0.1 or later
+   * `g++` 8.0 or later or `clang++` 12.x or later
+   * `bazel` 4.1.0 or later
    * `curl`
    * `git`
    * `lcov`
@@ -32,13 +29,10 @@ Building from Source
 
 [source]: https://github.com/hyperscale/hyperscale
 
-3. Build and install:
+3. Build:
 
     ```sh
-    $ mkdir build
-    $ cd build/
-    $ cmake ../
-    $ make
+    $ bazel build //...
     ```
 
 Example
@@ -55,7 +49,7 @@ print(i);
 ```
 
 ```sh
-$ ./build/bin/hyperscale debug pretty-print ./dev/simple.hyper
+$ ./bazel-bin/bin/hyperscale-cmd/hyperscale debug pretty-print ./dev/simple.hyper
 ```
 
 ```
@@ -82,7 +76,7 @@ print(i);
 ```
 
 ```sh
-$ ./build/bin/hyperscale debug pretty-print --format dot ./dev/simple.hyper
+$ ./bazel-bin/bin/hyperscale-cmd/hyperscale debug pretty-print --format dot ./dev/simple.hyper
 ```
 
 ```dot
