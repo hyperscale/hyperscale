@@ -7,8 +7,9 @@
  * file that was distributed with this source code.
  */
 
-#include <command/debug.hpp>
-#include <hyperscale/hyperscale.hpp>
+#include "lib/hyperscale/hyperscale.hpp"
+
+#include "debug.hpp"
 
 namespace hyperscale {
 namespace command {
@@ -19,6 +20,7 @@ namespace command {
         addCommand(new debug::LexerCommand());
         addCommand(new debug::ParserCommand());
         addCommand(new debug::PrettyPrintCommand());
+        addCommand(new debug::IRCommand());
     }
 
 } // end of command namespace

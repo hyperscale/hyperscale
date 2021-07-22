@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/int-expr.hpp>
+#include "lib/hyperscale/ast/int-expr.hpp"
 
 namespace hyperscale {
 namespace ast {
 
     IntExpr::IntExpr(parser::Token& token):
         Expr(token),
-        m_value(std::stoi(token.getText().str())) {}
+        m_value(std::stoi(token.getText())) {}
 
     // IntExpr::~IntExpr() {}
 

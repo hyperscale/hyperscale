@@ -7,16 +7,16 @@
  * file that was distributed with this source code.
  */
 
-// #include <hyperscale/ast/identifier.hpp>
-#include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/parser/token.hpp>
-#include <llvm/ADT/SmallString.h>
-#include <llvm/ADT/StringRef.h>
-#include <llvm/ADT/StringSwitch.h>
-#include <llvm/Support/MathExtras.h>
+// #include "lib/hyperscale/ast/identifier.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+#include "lib/hyperscale/parser/token.hpp"
+#include "llvm/ADT/SmallString.h"
+#include "llvm/ADT/StringRef.h"
+#include "llvm/ADT/StringSwitch.h"
+#include "llvm/Support/MathExtras.h"
 #include <string>
 // FIXME: Figure out if this can be migrated to LLVM.
-#include <clang/Basic/CharInfo.h>
+#include "clang/Basic/CharInfo.h"
 #include <iostream>
 
 // clang::isIdentifierHead and clang::isIdentifierBody are deliberately not in
@@ -116,6 +116,8 @@ namespace parser {
 
     std::vector<Keyword> keywords = {
         {"var", syntax::TokenKind::KeywordVar},
+        {"func", syntax::TokenKind::KeywordFunc},
+        {"return", syntax::TokenKind::KeywordReturn}
     };
 /*
     static bool is_exponent_signifier(const char c, int radix) {
@@ -153,11 +155,12 @@ namespace parser {
 
     void Lexer::endToken() {
         m_current_token.setEndOffset(m_pos);
-        m_current_token.setText(llvm::StringRef(m_token_text));
+        // m_current_token.setText(llvm::StringRef(m_token_text));
+        m_current_token.setText(m_token_text);
 
         if (m_current_token.is(syntax::TokenKind::Identifier)) {
             for (auto const& keyword: keywords) {
-                if (m_current_token.getText().str().compare(keyword.name) == 0) {
+                if (m_current_token.getText().compare(keyword.name) == 0) {
                     m_current_token.setKind(keyword.kind);
                 }
             }
@@ -196,7 +199,7 @@ namespace parser {
                             appendCharToken(c);
 
                             break;
-                        case DIGIT_NON_ZERO:
+                        case DIGIT:
                             m_state = LexerStateNumber;
                             beginToken(syntax::TokenKind::IntegerLiteral);
                             appendCharToken(c);
@@ -226,6 +229,14 @@ namespace parser {
                             endToken();
 
                             return m_current_token;
+                        case ':':
+                            m_state = LexerStateStart;
+                            beginToken(syntax::TokenKind::Colon);
+                            appendCharToken(c);
+                            m_pos += 1;
+                            endToken();
+
+                            return m_current_token;
                         case '(':
                             m_state = LexerStateStart;
                             beginToken(syntax::TokenKind::OpenParen);
@@ -237,6 +248,22 @@ namespace parser {
                         case ')':
                             m_state = LexerStateStart;
                             beginToken(syntax::TokenKind::CloseParen);
+                            appendCharToken(c);
+                            m_pos += 1;
+                            endToken();
+
+                            return m_current_token;
+                        case '{':
+                            m_state = LexerStateStart;
+                            beginToken(syntax::TokenKind::OpenBrace);
+                            appendCharToken(c);
+                            m_pos += 1;
+                            endToken();
+
+                            return m_current_token;
+                        case '}':
+                            m_state = LexerStateStart;
+                            beginToken(syntax::TokenKind::CloseBrace);
                             appendCharToken(c);
                             m_pos += 1;
                             endToken();

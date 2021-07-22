@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/pretty-printer-visitor.hpp>
+#include "lib/hyperscale/ast/pretty-printer-visitor.hpp"
 
 namespace hyperscale {
 namespace ast {
@@ -73,8 +73,10 @@ namespace ast {
 
         PrettyPrinterVisitor print(m_ostr, m_indent+1);
 
-        for (auto decl = e.getDecls().begin(); decl != e.getDecls().end(); ++decl) {
-            print(**decl);
+        std::vector<Node*> decl = e.getDecls();
+
+        for (auto i = decl.begin(); i != decl.end(); ++i) {
+            print(**i);
         }
     }
 
@@ -83,8 +85,10 @@ namespace ast {
 
         PrettyPrinterVisitor print(m_ostr, m_indent+1);
 
-        for (auto node = e.getArguments().begin(); node != e.getArguments().end(); ++node) {
-            print(**node);
+        std::vector<Node*> node = e.getArguments();
+
+        for (auto i = node.begin(); i != node.end(); ++i) {
+            print(**i);
         }
     }
 

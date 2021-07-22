@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/default-visitor.hpp>
+#include "lib/hyperscale/ast/default-visitor.hpp"
 
 namespace hyperscale {
 namespace ast {

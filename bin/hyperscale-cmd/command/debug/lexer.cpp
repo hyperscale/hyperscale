@@ -9,12 +9,14 @@
 
 #include <exception>
 #include <fstream>
-#include <hyperscale/parser/lexer.hpp>
-#include <hyperscale/parser/token.hpp>
 #include <iostream>
 #include <string>
-#include <command/debug/lexer.hpp>
-#include <console/table.hpp>
+
+#include "lib/hyperscale/parser/lexer.hpp"
+#include "lib/hyperscale/parser/token.hpp"
+
+#include "lexer.hpp"
+#include "../../console/table.hpp"
 
 //#include "lexer.hpp"
 
@@ -70,7 +72,7 @@ namespace debug {
 
             t.add(std::to_string(i));
             t.add(hyperscale::syntax::TokenNames.at(token.getKind()));
-            t.add(token.getText().str());
+            t.add(token.getText());
             t.add(std::to_string(token.getStartOffset()));
             t.endOfRow();
 

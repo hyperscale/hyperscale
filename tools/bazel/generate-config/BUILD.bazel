@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_binary(
+    name = "generate-config",
+    embed = [":generate-config_lib"],
+    visibility = ["//lib/hyperscale:__pkg__"],
+)
+
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+# gazelle:prefix github.com/hyperscale/hyperscale/tools/bazel/generate-config
+gazelle(name = "gazelle")
+
+go_library(
+    name = "generate-config_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/hyperscale/hyperscale/tools/bazel/generate-config",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_coreos_go_semver//semver"],
+)

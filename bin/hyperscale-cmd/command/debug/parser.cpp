@@ -9,14 +9,19 @@
 
 #include <exception>
 #include <fstream>
-//#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/parser/lexer.hpp>
-//#include <hyperscale/ast/node.hpp>
 #include <iostream>
 #include <string>
 #include <memory>
 #include <vector>
-#include <command/debug/parser.hpp>
+
+#include "lib/hyperscale/ast/pretty-printer-visitor.hpp"
+#include "lib/hyperscale/ast/graph-visitor.hpp"
+#include "lib/hyperscale/ast/node.hpp"
+#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+
+#include "parser.hpp"
+#include "hyper/console/value.hpp"
 
 namespace hyperscale {
 namespace command {
@@ -25,11 +30,13 @@ namespace debug {
     void ParserCommand::configuration() {
         setName("parser");
         setDescription("Debug hyperscale parser");
+        addOption(new hyper::console::Value<std::string>("", "format", "The output format", "text"));
     }
 
 
     int ParserCommand::execute() {
         auto args = getArguments();
+        auto format = getLongOpt<std::string>("format")->getValue();
 
         if (args.empty()) {
             std::cout << "No file" << std::endl;
@@ -51,16 +58,24 @@ namespace debug {
         );
         file.close();
 
-        auto lexer = std::make_unique<hyperscale::parser::Lexer>(content);
-/*
-        auto parser = std::make_shared<hyperscale::parser::Parser>(lexer);
+        auto lexer = std::make_shared<hyperscale::parser::Lexer>(content);
 
-        std::shared_ptr<hyperscale::ast::Node> ast = parser->parse();
+        auto parser = std::make_unique<hyperscale::parser::Parser>(lexer);
 
-        std::cout << "Type: " << ast->getType() << std::endl;
-        std::cout << "Line: " << ast->getLine() << std::endl;
-        std::cout << "Column: " << ast->getColumn() << std::endl;
-*/
+        hyperscale::ast::Node* ast = parser->parse();
+
+        if (format == "dot") {
+            hyperscale::ast::GraphVisitor print(std::cout);
+
+            print(*ast);
+        } else {
+            hyperscale::ast::PrettyPrinterVisitor print(std::cout);
+
+            print(*ast);
+        }
+
+        delete ast;
+
         return EXIT_SUCCESS;
     }
 

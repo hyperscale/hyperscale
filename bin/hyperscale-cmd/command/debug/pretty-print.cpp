@@ -9,24 +9,27 @@
 
 #include <exception>
 #include <fstream>
-#include <hyper/console/value.hpp>
-//#include <hyperscale/parser/parser.hpp>
-#include <hyperscale/parser/lexer.hpp>
-//#include <hyperscale/ast/node.hpp>
-#include <hyperscale/ast/pretty-printer-visitor.hpp>
-#include <hyperscale/ast/graph-visitor.hpp>
-#include <hyperscale/ast/int-expr.hpp>
-#include <hyperscale/ast/source-file.hpp>
-#include <hyperscale/ast/var-decl.hpp>
-#include <hyperscale/ast/op-expr.hpp>
-#include <hyperscale/ast/paren-expr.hpp>
-#include <hyperscale/ast/call-expr.hpp>
-#include <hyperscale/ast/decl-ref-expr.hpp>
 #include <iostream>
-#include <string>
 #include <memory>
+#include <string>
 #include <vector>
-#include <command/debug/pretty-print.hpp>
+#include "hyper/console/value.hpp"
+
+//#include "lib/hyperscale/parser/parser.hpp"
+#include "lib/hyperscale/parser/lexer.hpp"
+//#include "lib/hyperscale/ast/node.hpp"
+#include "lib/hyperscale/ast/call-expr.hpp"
+#include "lib/hyperscale/ast/decl-ref-expr.hpp"
+#include "lib/hyperscale/ast/graph-visitor.hpp"
+#include "lib/hyperscale/ast/int-expr.hpp"
+#include "lib/hyperscale/ast/op-expr.hpp"
+#include "lib/hyperscale/ast/paren-expr.hpp"
+#include "lib/hyperscale/ast/pretty-printer-visitor.hpp"
+#include "lib/hyperscale/ast/source-file.hpp"
+#include "lib/hyperscale/ast/var-decl.hpp"
+
+#include "pretty-print.hpp"
+
 
 namespace hyperscale {
 namespace command {
@@ -77,31 +80,31 @@ namespace debug {
         left.setStartOffset(0);
         left.setLine(1);
         left.setColumn(1);
-        left.setText(llvm::StringRef("12"));
+        left.setText("12");
 
         auto right = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
         right.setStartOffset(5);
         right.setLine(1);
         right.setColumn(6);
-        right.setText(llvm::StringRef("45"));
+        right.setText("45");
 
         auto left1 = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
         left1.setStartOffset(0);
         left1.setLine(1);
         left1.setColumn(1);
-        left1.setText(llvm::StringRef("8"));
+        left1.setText("8");
 
         auto right2 = hyperscale::parser::Token(hyperscale::syntax::TokenKind::IntegerLiteral);
         right2.setStartOffset(5);
         right2.setLine(1);
         right2.setColumn(6);
-        right2.setText(llvm::StringRef("5"));
+        right2.setText("5");
 
         auto var = hyperscale::parser::Token(hyperscale::syntax::TokenKind::KeywordVar);
         var.setStartOffset(0);
         var.setLine(1);
         var.setColumn(1);
-        var.setText(llvm::StringRef("i"));
+        var.setText("i");
 
         auto sourceFile = new hyperscale::ast::SourceFile();
 
@@ -127,13 +130,13 @@ namespace debug {
         call.setStartOffset(10);
         call.setLine(3);
         call.setColumn(1);
-        call.setText(llvm::StringRef("print"));
+        call.setText("print");
 
         auto argRef = hyperscale::parser::Token(hyperscale::syntax::TokenKind::Identifier);
         argRef.setAtStartOfLine(17);
         argRef.setLine(3);
         argRef.setColumn(9);
-        argRef.setText(llvm::StringRef("i"));
+        argRef.setText("i");
 
         auto callExpr = new hyperscale::ast::CallExpr(call);
         callExpr->addArgument(new hyperscale::ast::DeclRefExpr(argRef));

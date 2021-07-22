@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/source-file.hpp>
+#include "source-file.hpp"
 
 namespace hyperscale {
 namespace ast {

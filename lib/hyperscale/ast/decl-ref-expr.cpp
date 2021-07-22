@@ -7,14 +7,14 @@
  * file that was distributed with this source code.
  */
 
-#include <hyperscale/ast/decl-ref-expr.hpp>
+#include "lib/hyperscale/ast/decl-ref-expr.hpp"
 
 namespace hyperscale {
 namespace ast {
 
     DeclRefExpr::DeclRefExpr(parser::Token& token):
         Expr(token),
-        m_ref(token.getText().str()) {}
+        m_ref(token.getText()) {}
 
     // DeclRefExpr::~DeclRefExpr() {}
 
